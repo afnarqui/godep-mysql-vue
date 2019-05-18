@@ -64,7 +64,7 @@ func main() {
 	feed := New()
 	feed.Add(Item{
 		Title:"Hello",
-		Post:"World"
+		Post:"World",
 	})
 	r := chi.NewRouter()
 
