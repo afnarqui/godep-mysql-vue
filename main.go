@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
+	"net/http"	
 	"github.com/go-chi/chi"
 )
 
@@ -69,9 +69,9 @@ func main() {
 	r.Post("/newsfeed", NewsfeedPost(feed))
 
 	fmt.Println("Serving on " + port)
-	http.ListenAndServe(port, r	r := chi.NewRouter()
+	http.ListenAndServe(port,r := chi.NewRouter()
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome with go and afn"))
+		w.Write([]byte("welcome with go and afn and api"))
 	})
 	http.ListenAndServe(":8082", r)
 }
