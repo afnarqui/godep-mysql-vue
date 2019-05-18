@@ -1,8 +1,8 @@
 package main
 
 import (
-	"chi-example/httpd/handler"
-	"chi-example/platform/newsfeed"
+	"httpd/handler"
+	"platform/newsfeed"
 	"fmt"
 	"net/http"
 
