@@ -7,69 +7,9 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func NewsfeedGet(feed Getter) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		items := feed.GetAll()
-		json.NewEncoder(w).Encode(items)
-	}
-}
-
-func NewsfeedPost(feed Adder) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		request := map[string]string{}
-		json.NewDecoder(r.Body).Decode(&request)
-
-		feed.Add(Item{
-			Title: request["title"],
-			Post:  request["post"],
-		})
-
-		w.Write([]byte("Good job!"))
-	}
-}
-
-type Getter interface {
-	GetAll() []Item
-}
-
-type Adder interface {
-	Add(item Item)
-}
-
-type Item struct {
-	Title string `json:"title"`
-	Post  string `json:"post"`
-}
-
-type Repo struct {
-	Items []Item
-}
-
-func New() *Repo {
-	return &Repo{
-		Items: []Item{},
-	}
-}
-
-func (r *Repo) Add(item Item) {
-	r.Items = append(r.Items, item)
-}
-
-func (r *Repo) GetAll() []Item {
-	return r.Items
-}
-
 func main() {
 	port := ":8082"
-	feed := New()
-	feed.Add(Item{
-		Title:"Hello",
-		Post:"World",
-	})
 	r := chi.NewRouter()
-
-	r.Get("/newsfeed", NewsfeedGet(feed))
-	r.Post("/newsfeed", NewsfeedPost(feed))
 
 	fmt.Println("Serving on " + port)
 	http.ListenAndServe(port, r)
