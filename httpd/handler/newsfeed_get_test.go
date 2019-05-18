@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"chi-example/platform/mock_http"
-	"chi-example/platform/newsfeed"
+	"platform/mock_http"
+	"platform/newsfeed"
 	"net/http"
 	"testing"
 )
