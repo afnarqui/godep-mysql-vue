@@ -19,7 +19,7 @@ type Repo struct {
 
 func New() *Repo {
 	return &Repo{
-		Items []Item{}
+		Items: []Item{},
 	}
 }
 
