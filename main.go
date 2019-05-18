@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"net/http"	
+	"net/http"
 	"github.com/go-chi/chi"
 )
 
 func main() {
-	port := ":8082"
 	r := chi.NewRouter()
-
-	fmt.Println("Serving on " + port)
-	http.ListenAndServe(port, r)
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("welcome afn port 8082"))
+	})
+	http.ListenAndServe(":8082", r)
 }
