@@ -1,4 +1,4 @@
-package app
+package newsfeed
 
 type Getter interface {
 	GetAll() []Item
