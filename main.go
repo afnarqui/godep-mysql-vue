@@ -3,8 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-
-	"./src/system/app"
+    "./src/system/app/newsfeed"
 
 	"github.com/go-chi/chi"
 )
