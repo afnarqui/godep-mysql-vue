@@ -61,17 +61,13 @@ func (r *Repo) GetAll() []Item {
 
 func main() {
 	port := ":8082"
-	feed := New()
+	feed := newsfeed.New()
 
 	r := chi.NewRouter()
 
-	r.Get("/newsfeed", NewsfeedGet(feed))
-	r.Post("/newsfeed", NewsfeedPost(feed))
+	r.Get("/newsfeed", handler.NewsfeedGet(feed))
+	r.Post("/newsfeed", handler.NewsfeedPost(feed))
 
 	fmt.Println("Serving on " + port)
-	http.ListenAndServe(port,r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome with go and afn and api"))
-	})
-	http.ListenAndServe(":8082", r)
+	http.ListenAndServe(port, r)
 }
