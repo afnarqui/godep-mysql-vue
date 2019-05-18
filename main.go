@@ -2,7 +2,7 @@ package main
 
 import (
 	"./src/system/app"
-	DB "learning-golang/api.example.com/src/system/db"
+	DB "./src/system/db"
 	"flag"
 	"os"
 	"github.com/joho/godotenv"
