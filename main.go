@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"net/http"
 	"fmt"
 	"net/http"
 	"github.com/go-chi/chi"
