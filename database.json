@@ -1,0 +1,11 @@
+{
+	"dev": {
+		"host": "locahost",
+		"user": "test" ,
+		"password": "test",
+		"database" : "test",
+		"driver": "mysql",
+		"multipleStatements": true
+
+	}
+}
