@@ -1,40 +1,25 @@
 package main
 
 import (
-	"./src/system/app"
-	DB "./src/system/db"
-	"flag"
-	"os"
-	"github.com/joho/godotenv"
-	
+	"encoding/json"
+	"net/http"
+
+	"./platform/newsfeed.go"
+
+	"github.com/go-chi/chi"
 )
 
-var port string
-
-func init() {
-	flag.StringVar(&port, "port", "8000", "Assigning the port that thel server should listen on.")
-
-	flag.Parse()
-	err := godotenv.Load("config.ini")
-
-	if err != nil {
-		panic(err)
-	}
-
-	envPort := os.Getenv("PORT")
-	if len(envPort) > 0 {
-		port = envPort
-	}
-}
-
 func main() {
-	db, err := DB.Connect()
-	if err != nil {
-		panic(err)
-	}
-	s := app.NewServer()
-
-	s.Init(port, db)
-	s.Start()
+	port := ":8082"
+	feed := newsfeed.New()
+	feed.Add(newsfeed.Item{
+		Title: "Hello",
+		Post:  "World",
+	})
+	r := chi.NewRouter()
+	r.Get("/newsfeed", func(w http.ResponseWriter, r *http.Request) {
+		items := feed.GetAll()
+		json.NewEncoder(w).Encode(items)
+	})
+	http.ListenAndServe(":8083", r)
 }
-
