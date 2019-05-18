@@ -62,7 +62,10 @@ func (r *Repo) GetAll() []Item {
 func main() {
 	port := ":8082"
 	feed := New()
-
+	feed.Add(Item{
+		Title:"Hello",
+		Post:"World"
+	})
 	r := chi.NewRouter()
 
 	r.Get("/newsfeed", NewsfeedGet(feed))
