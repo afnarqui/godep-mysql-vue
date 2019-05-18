@@ -1,29 +1,32 @@
 package app
 
-import (
-	"github.com/go-xorm/xorm"
-	"log"
-	"net/http"
-)
-
-type Server struct {
-	port string
-	Db *xorm.Engine
+type Getter interface {
+	GetAll() []Item
 }
 
-func NewServer() Server {
-	return Server{}
+type Adder interface {
+	Add(item Item)
 }
 
-func (s *Server) Init(port string, db *xorm.Engine) {
-	log.Println("Initializing server...")
-	s.port = ":" + port
-	s.Db = db
+type Item struct {
+	Title string `json:"title"`
+	Post  string `json:post`
 }
 
-func (s *Server) Start() {
-	log.Println("Starting server on port " + s.port)
-	http.ListenAndServe(s.port, nil)
+type Repo struct {
+	Items []Item
 }
 
+func New() *Repo {
+	return &Repo{
+		Items: []Item{},
+	}
+}
 
+func (r *Repo) Add(item Item) {
+	r.Items = append(r.Items, item)
+}
+
+func (r *Repo) GetAll() []Item {
+	return r.Items
+}
