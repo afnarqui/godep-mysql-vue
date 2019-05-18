@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"./platform/newsfeed.go"
+	"./src/system/app"
 
 	"github.com/go-chi/chi"
 )
