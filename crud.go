@@ -27,18 +27,11 @@ func getConnection() *sql.DB {
 	}
 	
 	// Create the "Student"
-
-
 	if _, err := db.Exec(
-		`CREATE TABLE IF NOT EXISTS estudiantes (
-			id SERIAL NOT NULL,
-			NAME VARCHAR(50) NOT NULL,
-			age SMALLINT NOT NULL,
-			active BOOLEAN NOT NULL,
-			create_at TIMESTAMP NOT NULL DEFAULT NOW(),
-			update_at TIMESTAMP
-	   )`
+		"CREATE TABLE IF NOT EXISTS estudiantes (id SERIAL NOT NULL,NAME VARCHAR(50) NOT NULL,age SMALLINT NOT NULL,active BOOLEAN NOT NULL,create_at TIMESTAMP NOT NULL DEFAULT NOW(),update_at TIMESTAMP)"
 	)
+
+
     if _, err := db.Exec(
         "INSERT INTO estudiantes (name, age, active) VALUES ('Andres Naranjo',32,true)"); err != nil {
         log.Fatal(err)
