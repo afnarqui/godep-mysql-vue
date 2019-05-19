@@ -25,15 +25,16 @@ func getConnection() *sql.DB {
         "CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT)"); err != nil {
         log.Fatal(err)
 	}
-	
+)
 
 
 
 	// Create the "Student"
 	if _, err := db.Exec(
-		"CREATE TABLE IF NOT EXISTS estudiantes (id INT PRIMARY KEY,NAME VARCHAR(50) NOT NULL,age INT NOT NULL,active BOOLEAN NOT NULL)"
+		"CREATE TABLE IF NOT EXISTS estudiantes (id INT PRIMARY KEY,NAME VARCHAR(50) NOT NULL,age INT NOT NULL,active BOOLEAN NOT NULL)"); err != nil {
+			log.Fatal(err)
+		}
 	)
-
 
 
     // Print out the balances.
