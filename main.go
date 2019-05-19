@@ -15,14 +15,14 @@ func main() {
 	server.OnConnect("/", func(s socketio.Conn) error {
 		s.SetContext("")
 		fmt.Println("New user connected:", s.ID())
-
+		server.On("chatmessage", func (message string) {
+			log.PrintLn(msg)
+		})
 
 		return nil
 	})
 
-	 server.OnEvent("chatmessage", func (message string) {
-			log.PrintLn(msg)
-		})
+
 	server.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
 		fmt.Println("notice:", msg)
 		s.Emit("reply", "have "+msg)
