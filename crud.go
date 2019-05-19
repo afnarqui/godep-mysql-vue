@@ -72,7 +72,7 @@ func main() {
 		Active: true,
 	}
 
-	err := Create(e)
+	err := create(e)
 
 	if err != nil {
 		log.Fatal(err)
