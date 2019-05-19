@@ -24,7 +24,20 @@ func getConnection() *sql.DB {
     if _, err := db.Exec(
         "CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT)"); err != nil {
         log.Fatal(err)
-    }
+	}
+	
+	// Create the "Student"
+
+	if _, err := db.Exec(
+		`CREATE TABLE estudiantes (
+			id SERIAL NOT NULL,
+			NAME VARCHAR(50) NOT NULL,
+			age SMALLINT NOT NULL,
+			active BOOLEAN NOT NULL,
+			create_at TIMESTAMP NOT NULL DEFAULT NOW(),
+			update_at TIMESTAMP
+	   )`
+	)
 
     // Insert two rows into the "accounts" table.
     if _, err := db.Exec(
