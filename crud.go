@@ -37,8 +37,8 @@ type Estudiante struct {
 func create (e Estudiante) error {
 	q := `INSERT INTO 
 				estudiantes(Name, Age, Active)
-				VALUES ($1,$2,$3)
-			`
+				VALUES ($1,$2,$3)`
+			
 
 	db := getConnection()
 	defer db.Close()
