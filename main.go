@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-
 	"github.com/googollee/go-socket.io"
 )
 
@@ -24,7 +23,7 @@ func main() {
 	// http
 	http.Handle("/socket.io/", server)
 	http.Handle("/", http.FileServer(http.Dir("./public")))
-	log.Println("Server on port 8081")
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Println("Serving at localhost:8000...")
+	log.Fatal(http.ListenAndServe(":8000", nil))
 
 }
