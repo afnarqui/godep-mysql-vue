@@ -67,9 +67,9 @@ func create (e Estudiante) error {
 
 func main() {
 	e := Estudiante {
-		Name: "Alejandro",
-		Age: 30,
-		Active: true,
+		name: "Alejandro",
+		age: 30,
+		active: true,
 	}
 
 	err := create(e)
