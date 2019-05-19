@@ -14,8 +14,9 @@ new Vue({
         }]
     },
     methods: {
-        sendMessage(e) {
-            console.log('clic', e)
+        sendMessage() {
+            socket.emit('chatmessage', this.message)
+            this.message = ''
         }
     }
 })
