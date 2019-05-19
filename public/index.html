@@ -36,8 +36,8 @@
                     </div>
                     <div class="card-footer">
                         <form>
-                            <input type="text" class="form-control">
-                            <button type="submit" class="btn btn-dark btn-block">Send</button>
+                            <input type="text" class="form-control" v-model="message">
+                            <button @click="sendMessage" type="submit" class="btn btn-dark btn-block">Send</button>
                         </form>
 
                     </div>

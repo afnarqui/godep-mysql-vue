@@ -14,6 +14,8 @@ new Vue({
         }]
     },
     methods: {
-
+        sendMessage(e) {
+            console.log('clic', e)
+        }
     }
 })
