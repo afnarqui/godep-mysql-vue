@@ -23,6 +23,31 @@
     <nav class="navbar navbar-dark bg-dark">
         <a href="/" class="navbar-brand">Chat go vue</a>
     </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div id="chat-app" class="card">
+                    <div class="card-body">
+                        <ul>
+                            <li>
+                                Message 1
+                            </li>
+                            <li>
+                                Message 2
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <form>
+                            <input type="text" class="form-control">
+                            <button type="submit" class="btn btn-dark">Send</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
 </body>
