@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/googollee/go-socket-io"
+	"github.com/googollee/go-socket.io"
 )
 
 func main() {
@@ -26,5 +26,5 @@ func main() {
 	http.Handle("/", http.FileServer(http.Dir("./public")))
 	log.Println("Server on port 8081")
 	log.Fatal(http.ListenAndServe(":8081", nil))
-		
+
 }
