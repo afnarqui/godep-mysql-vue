@@ -1,7 +1,6 @@
 package main
 
 import (
-	"githbu.com/afnarqui/estudiante"
 	"log"
 	"fmt"
 	"time"
