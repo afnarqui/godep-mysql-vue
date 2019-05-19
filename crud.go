@@ -28,8 +28,9 @@ func getConnection() *sql.DB {
 	
 	// Create the "Student"
 
+
 	if _, err := db.Exec(
-		`CREATE TABLE estudiantes (
+		`CREATE TABLE IF NOT EXISTS estudiantes (
 			id SERIAL NOT NULL,
 			NAME VARCHAR(50) NOT NULL,
 			age SMALLINT NOT NULL,
@@ -38,12 +39,11 @@ func getConnection() *sql.DB {
 			update_at TIMESTAMP
 	   )`
 	)
-
-    // Insert two rows into the "accounts" table.
     if _, err := db.Exec(
-        "INSERT INTO accounts (id, balance) VALUES (1, 1000), (2, 250)"); err != nil {
+        "INSERT INTO estudiantes (name, age, active) VALUES ('Andres Naranjo',32,true)"); err != nil {
         log.Fatal(err)
     }
+
 
     // Print out the balances.
     rows, err := db.Query("SELECT id, balance FROM accounts")
