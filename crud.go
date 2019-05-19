@@ -13,7 +13,7 @@ type Estudiante struct {
 	Name string
 	Age int16
 	Active bool
-	CreatedAt time.time
+	CreatedAt time.Time
 	UpdatedAd time.Time
 }
 
