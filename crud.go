@@ -26,16 +26,14 @@ func getConnection() *sql.DB {
         log.Fatal(err)
 	}
 	
+
+
+
 	// Create the "Student"
 	if _, err := db.Exec(
-		"CREATE TABLE IF NOT EXISTS estudiantes (id SERIAL NOT NULL,NAME VARCHAR(50) NOT NULL,age SMALLINT NOT NULL,active BOOLEAN NOT NULL,create_at TIMESTAMP NOT NULL DEFAULT NOW(),update_at TIMESTAMP)"
+		"CREATE TABLE IF NOT EXISTS estudiantes (id INT PRIMARY KEY,NAME VARCHAR(50) NOT NULL,age INT NOT NULL,active BOOLEAN NOT NULL)"
 	)
 
-
-    if _, err := db.Exec(
-        "INSERT INTO estudiantes (name, age, active) VALUES ('Andres Naranjo',32,true)"); err != nil {
-        log.Fatal(err)
-    }
 
 
     // Print out the balances.
@@ -67,15 +65,14 @@ type Estudiante struct {
 	name string
 	age int16
 	active bool
-	CreatedAt time.Time
-	UpdatedAd time.Time
+
 }
 
 // create or add student
 
 func create (e Estudiante) error {
 	q := `INSERT INTO 
-				estudiantes(Name, Age, Active)
+				estudiantes(NAME, age, active)
 				VALUES ($1,$2,$3)`
 			
 
