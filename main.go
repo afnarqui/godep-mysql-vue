@@ -15,7 +15,7 @@ func main() {
 	server.OnConnect("/", func(s socketio.Conn) error {
 		s.SetContext("")
 		fmt.Println("New user connected:", s.ID())
-		s.On("chatmessage", func (message string) {
+		s.BroadcasTo("chatmessage", func (message string) {
 			log.PrintLn(msg)
 		})
 
