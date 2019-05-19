@@ -1,7 +1,7 @@
 package main
 
 import (
-	"estudiante"
+	"githbu.com/afnarqui/estudiante"
 	"log"
 	"fmt"
 )
