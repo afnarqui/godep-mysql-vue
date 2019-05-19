@@ -15,7 +15,7 @@ new Vue({
     },
     methods: {
         sendMessage() {
-            socket.emit('chat', this.message)
+            socket.emit('msg', this.message)
             this.message = ''
         }
     }
