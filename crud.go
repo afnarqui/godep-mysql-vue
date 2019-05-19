@@ -54,7 +54,7 @@ func main() {
 	e := Estudiante {
 		Name: "Alejandro",
 		Age: 30,
-		Active: true
+		Active: true,
 	}
 
 	err := Create(e)
