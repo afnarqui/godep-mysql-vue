@@ -11,7 +11,7 @@ import (
 
 //connection should conect with bd
 func getConnection() *sql.DB {
-	dsn := "postgres://golang:golang@localhost:5432/gocrud?sslmode=disable"
+	dsn := "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
 	db, err := sql.Open("postgres", dsn)
 
 	if err != nil {
