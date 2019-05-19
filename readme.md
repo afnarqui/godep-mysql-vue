@@ -121,3 +121,15 @@ cp -i cockroach-v19.1.0.linux-amd64/cockroach /usr/local/bin
 
 cockroach help
 cockroach start --insecure
+
+docker run --name gocockroa -p 8080:8080 -p 8081:8081 --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local -it afnarqui/godep:v6 bash
+
+cd $GOPATH/src/github.com/afnarqui
+
+cockroach start --insecure
+docker exec -it gocockroa bash
+cd $GOPATH/src/github.com/afnarqui
+cd godep-mysql-vue
+go run crud.go
+
+go get github.com/googollee/go-socket.io

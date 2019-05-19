@@ -1,14 +1,30 @@
 package main
 
 import (
+	"log"
 	"net/http"
-	"github.com/go-chi/chi"
+
+	"github.com/googollee/go-socket-io"
 )
 
 func main() {
-	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome afn port 8082"))
+	server, err := socketio.NewServer(nil)
+
+	if err != nil {
+		log.Fatal(err)		
+	}
+
+	// sockets 
+	server.On("connection", func (so socketio.Socket) {
+		log.Println("A new user connected")
+
+		// other events
 	})
-	http.ListenAndServe(":8082", r)
+
+	// http
+	http.Handle("/socket.io/", server)
+	http.Handle("/", http.FileServer(http.Dir("./public")))
+	log.Println("Server on port 8081")
+	log.Fatal(http.ListenAndServe(":8081", nil))
+		
 }
