@@ -25,7 +25,7 @@ func main() {
 		s.Emit("reply", "have "+msg)
 	})
 	server.OnEvent("/msg", "msg", func(s socketio.Conn, msg string) string {
-		//s.SetContext(msg)
+		s.SetContext(msg)
 		//return "recv " + msg
 		return msg
 	})
