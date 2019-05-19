@@ -2,7 +2,7 @@
 const socket = io();
 
 new Vue({
-    el: '$chat-app',
+    el: '#chat-app',
     created() {
 
     },
