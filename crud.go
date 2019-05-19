@@ -11,7 +11,7 @@ import (
 
 //connection should conect with bd
 func getConnection() *sql.DB {
-	dsn := "postgres://postgres:postgres@127.0.0.1:5432/gocrud?sslmode=disable"
+	dsn := "postgres://golang:golang@127.0.0.1:5432/gocrud?sslmode=disable"
 	db, err := sql.Open("postgres", dsn)
 
 	if err != nil {
@@ -25,9 +25,9 @@ func getConnection() *sql.DB {
 
 type Estudiante struct {
 	ID int
-	Name string
-	Age int16
-	Active bool
+	name string
+	age int16
+	active bool
 	CreatedAt time.Time
 	UpdatedAd time.Time
 }
@@ -50,7 +50,7 @@ func create (e Estudiante) error {
 	}
 	defer stmt.Close()
 
-	r, err := stmt.Exec(e.Name, e.Age, e.Active)
+	r, err := stmt.Exec(e.name, e.age, e.active)
 
 	if err != nil {
 		return err
