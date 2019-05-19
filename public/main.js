@@ -8,7 +8,10 @@ new Vue({
     },
     data: {
         message: '',
-        messages: ['mensaje1','mensaje2','mensaje3']
+        messages: [{
+            text: 'hello',
+            date: new Date()
+        }]
     },
     methods: {
 
