@@ -12,7 +12,7 @@ import (
 //connection should conect with bd
 func getConnection() *sql.DB {
 	//dsn := "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
-	db, err := sql.Open("postgres", "postgresql://maxroach@localhost:26257/test?sslmode=disable")
+	db, err := sql.Open("postgres", "postgresql://maxroach@localhost:26257/defaultdb?sslmode=disable")
 	//db, err := sql.Open("postgres", dsn)
 
 	    if err != nil {
