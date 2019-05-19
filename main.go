@@ -15,13 +15,6 @@ func main() {
 	server.OnConnect("/", func(s socketio.Conn) error {
 		s.SetContext("")
 		fmt.Println("New user connected:", s.ID())
-		
-		s.Join("aja")
-		s.On("chatmessage", func(msg string){
-			s.BroadcasTo("chat","chatmessage",msg)
-		})
-		
-		
 
 		return nil
 	})
