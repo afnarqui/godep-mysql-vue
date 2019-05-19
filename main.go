@@ -27,6 +27,7 @@ func main() {
 	server.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
 		s.SetContext(msg)
 		//return "recv " + msg
+		s.Close()
 		return msg
 	})
 	server.OnEvent("/", "bye", func(s socketio.Conn) string {
