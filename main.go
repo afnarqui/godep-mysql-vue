@@ -16,11 +16,13 @@ func main() {
 		s.SetContext("")
 		fmt.Println("New user connected:", s.ID())
 
-		s.on("chatmessage", func (message string) {
-			log.PrintLn(msg)
-		})
+
 		return nil
 	})
+
+	 server.OnEvent("chatmessage", func (message string) {
+			log.PrintLn(msg)
+		})
 	server.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
 		fmt.Println("notice:", msg)
 		s.Emit("reply", "have "+msg)
