@@ -4,3 +4,120 @@ dep init
 docker run --name godep -P --volumes-from volumen -v c:/Users/anaranjo/proyectos:/local -it afnarqui/godep bash
 docker inspect godep | grep -i tcp
 dep ensure --add github.com/joho/godotenv
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && sudo apt-get install --yes nodejs
+sudo npm install db-migrate db-migrate-mysql -g
+
+https://www.youtube.com/watch?v=Bv60lebPu24&list=PLTxFJWe_410yjXmAE90-eUWs9xxIyWNU8&index=29
+
+https://github.com/go-chi/chi
+go get -u github.com/go-chi/chi
+
+docker run --name gochi -p 8082:8082 -p 8083:8083 --volumes-from volumen -v c:/Users/afnarqui/proyectos;/local -it afnarqui/gochi bash
+cd $GOPATH/src/github.com/afnarqui
+
+chi go run main.go
+
+
+https://www.youtube.com/watch?v=VAGodyl84OY
+
+docker network create afn
+
+docker exec -it 6aab ./cockroach sql --insecure
+
+CREATE DATABASE account;
+CREATE DATABASE image;
+
+CREATE USER account_user WITH PASSWORD 'account_user';
+CREATE USER image_user WITH PASSWORD 'quintero1.';
+
+GRANT ALL ON DATABASE account TO account_user;
+GRANT ALL ON DATABASE image TO image_user;
+
+
+> git clone https://github.com/callistaenterprise/goblog.git
+> git checkout P13
+
+
+docker run --name postgressafn -e POSTGRES_PASSWORD=test -d postgres
+
+docker exec -it postgressafn psql -U postgres
+
+CREATE USER golang PASSWORD 'golang';
+
+CREATE DATABASE gocrud OWNER golang
+
+CREATE TABLE estudiantes (
+     id SERIAL NOT NULL,
+     NAME VARCHAR(50) NOT NULL,
+     age SMALLINT NOT NULL,
+     active BOOLEAN NOT NULL,
+     create_at TIMESTAMP NOT NULL DEFAULT NOW(),
+     update_at TIMESTAMP
+);
+
+dt
+d estudiantes
+
+go get github.com/lib/pq
+
+
+docker network create -d bridge roachnet
+
+docker run -d --name=roach1 --hostname=roach1 --net=roachnet -p 26257:26257 -p 8080:8080  -v c:/Users/afnarqui/proyectos:/local  coc
+kroachdb/cockroach:v19.1.0 start --insecure
+
+docker run -d \
+--name=roach1 \
+--hostname=roach1 \
+--net=roachnet \
+-p 26257:26257 -p 8080:8080  \
+-v "c:/Users/afnarqui/proyectos:/cockroach/cockroach-data"  \
+cockroachdb/cockroach:v19.1.0 start --insecure
+
+docker run -d --name=roach1 --hostname=roach1 --net=roachnet -p 26257:26257 -p 8080:8080  -v c:/Users/afnarqui/proyectos:/local  cockroachdb/cockroach:v19.1.0 start --insecure
+
+docker exec -it roach1 ./cockroach sql --insecure
+
+CREATE DATABASE test;
+
+CREATE TABLE test.cantidad (id INT PRIMARY KEY, balance DECIMAL);
+
+INSERT INTO test.cantidad VALUES (1, 1000.50);
+
+SELECT * FROM test.cantidad;
+
+\q
+
+
+docker run --name gochiv1 --link=roach1 --net=roachnet --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local -it afnarqui/godep:v5 bash
+
+
+https://github.com/afnarqui/godep-mysql-vue.git
+
+go get github.com/lib/pq
+
+
+wget -qO- https://binaries.cockroachdb.com/cockroach-v19.1.0.linux-amd64.tgz | tar  xvz
+
+cp -i cockroach-v19.1.0.linux-amd64/cockroach /usr/local/bin
+
+cockroach help
+cockroach start --insecure
+
+docker run --name godepv1 -p 8080:8080 --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local -it afnarqui/godep:v5 bash
+
+cd $GOPATH/src/github.com/afnarqui
+
+git clone https://github.com/afnarqui/godep-mysql-vue.git
+
+cd godep-mysql-vue
+go get github.com/lib/pq
+
+go run crud.go
+
+wget -qO- https://binaries.cockroachdb.com/cockroach-v19.1.0.linux-amd64.tgz | tar  xvz
+
+cp -i cockroach-v19.1.0.linux-amd64/cockroach /usr/local/bin
+
+cockroach help
+cockroach start --insecure
