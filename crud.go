@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./estudiante.go"
+	"./estudiante"
 	"log"
 	"fmt"
 )
