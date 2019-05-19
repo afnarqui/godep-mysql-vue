@@ -27,7 +27,7 @@ func main() {
 	server.OnEvent("/msg", "msg", func(s socketio.Conn, msg string) string {
 		//s.SetContext(msg)
 		//return "recv " + msg
-		fmt.Println(msg)
+		return fmt.Println(msg)
 	})
 	server.OnEvent("/", "bye", func(s socketio.Conn) string {
 		last := s.Context().(string)
