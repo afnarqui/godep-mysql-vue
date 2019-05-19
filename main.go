@@ -16,7 +16,7 @@ func main() {
 		s.SetContext("")
 		fmt.Println("New user connected:", s.ID())
 
-		s.OnEvent("chatmessage", func (message string) {
+		s.on("chatmessage", func (message string) {
 			log.PrintLn(msg)
 		})
 		return nil
