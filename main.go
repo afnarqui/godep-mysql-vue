@@ -14,12 +14,12 @@ import (
 
 	"database/sql"
 	_ "github.com/lib/pq"
-	/*"net/http"
+	/*"net/http"*/
 	"os"
 	"path/filepath"
 	"strings"
 	"github.com/go-chi/chi"
-	*/
+	
 )
 
 var db *sql.DB
@@ -175,7 +175,7 @@ func (n *Note) GetByID(id int) (Note, error) {
 	db := GetConnection()
 	q := `SELECT
 		id, title, description
-		FROM notes WHERE id=?`
+		FROM notes WHERE id=$1`
 
 	err := db.QueryRow(q, id).Scan(
 		&n.ID, &n.Title, &n.Description,
@@ -189,8 +189,8 @@ func (n *Note) GetByID(id int) (Note, error) {
 
 func (n Note) Update() error {
 	db := GetConnection()
-	q := `UPDATE notes set title=?, description=?
-		WHERE id=?`
+	q := `UPDATE notes set title=$1, description=$2
+		WHERE id=$3`
 	stmt, err := db.Prepare(q)
 	if err != nil {
 		return err
@@ -211,7 +211,7 @@ func (n Note) Delete(id int) error {
 	db := GetConnection()
 
 	q := `DELETE FROM notes
-		WHERE id=?`
+		WHERE id=$1`
 	stmt, err := db.Prepare(q)
 	if err != nil {
 		return err
@@ -297,7 +297,17 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 // IndexHandler nos permite manejar la petición a la ruta '/' y retornar "hola mundo"
 // como respuesta al cliente.
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	r := chi.NewRouter()
+	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
+		
+	})
+
+	workDir, _ := os.Getwd()
+	filesDir := filepath.Join(workDir, "public")
+	FileServer(r, "/", http.Dir(filesDir))
 	fmt.Fprint(w, "hola mundo")
+	http.ListenAndServe(":8081", r)
+	
 }
 
 
