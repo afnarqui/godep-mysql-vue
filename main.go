@@ -297,14 +297,14 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 // IndexHandler nos permite manejar la petición a la ruta '/' y retornar "hola mundo"
 // como respuesta al cliente.
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	r := chi.NewRouter()
-	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
+	rr := chi.NewRouter()
+	rr.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
 	})
 
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
-	FileServer(r, "/", http.Dir(filesDir))
+	FileServer(rr, "/", http.Dir(filesDir))
 	fmt.Fprint(w, "hola mundo")
 	http.ListenAndServe(":8081", r)
 	
