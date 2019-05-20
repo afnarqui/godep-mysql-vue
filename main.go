@@ -248,7 +248,7 @@ func main() {
 	log.Println("Corriendo en http://localhost:8081")
 
 	http.ListenAndServe(":8081", mux)
-	
+
 
 	/*
 	r := chi.NewRouter()
@@ -313,6 +313,9 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	
 	fmt.Fprint(w, "hola mundo")
+	direccion := ":8081" // Como cadena, no como entero; porque representa una dirección
+	fmt.Println("Servidor listo escuchando en " + direccion)
+	log.Fatal(http.ListenAndServe(direccion+"/public/index.html", nil))
 	
 }
 
