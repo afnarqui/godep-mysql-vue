@@ -154,7 +154,7 @@ go get -u -v github.com/mattn/go-sqlite3
 go build
 ./main -migrate
 
-curl -X POST http://localhost:8081/notes -H 'Content-Type: application/json' -d '{"title": "Primera nota", "description": "Esta es una nota de prueba"}'
+curl -X POST http://localhost:8081/notes -H 'Content-Type: application/json' -d '{"title": "Primera nota", "description": "Esta es una nota de prueba"}'   
 
 
 curl -X GET http://localhost:8081/notes
