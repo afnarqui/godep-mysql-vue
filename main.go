@@ -1,35 +1,44 @@
 package main
 
 import (
-	"errors"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/go-chi/chi"
 )
 
-type Handler func(w http.ResponseWriter, r *http.Request) error
-
-func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if err := h(w, r); err != nil {
-		// handle returned error here.
-		w.WriteHeader(503)
-		w.Write([]byte("bad"))
-	}
-}
-
 func main() {
 	r := chi.NewRouter()
-	r.Method("GET", "/", Handler(customHandler))
+
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hi"))
+	})
+
+	workDir, _ := os.Getwd()
+	filesDir := filepath.Join(workDir, "public")
+	FileServer(r, "/public", http.Dir(filesDir))
+
 	http.ListenAndServe(":8081", r)
 }
 
-func customHandler(w http.ResponseWriter, r *http.Request) error {
-	q := r.URL.Query().Get("err")
-
-	if q != "" {
-		return errors.New(q)
+// FileServer conveniently sets up a http.FileServer handler to serve
+// static files from a http.FileSystem.
+func FileServer(r chi.Router, path string, root http.FileSystem) {
+	if strings.ContainsAny(path, "{}*") {
+		panic("FileServer does not permit URL parameters.")
 	}
 
-	w.Write([]byte("foo"))
-	return nil
+	fs := http.StripPrefix(path, http.FileServer(root))
+
+	if path != "/" && path[len(path)-1] != '/' {
+		r.Get(path, http.RedirectHandler(path+"/", 301).ServeHTTP)
+		path += "/"
+	}
+	path += "*"
+
+	r.Get(path, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fs.ServeHTTP(w, r)
+	}))
 }
