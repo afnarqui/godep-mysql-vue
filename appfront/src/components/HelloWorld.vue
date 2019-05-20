@@ -1,13 +1,27 @@
 <template>
 
 <div id="id">
-  <ul v-if="posts && posts.length">
-  <li v-for="post of posts" v-bind:key="post.id">
-    <p><strong>{{post.title}}</strong></p>
+  <form id="main" v-cloak>
+
+    <div class="bar">
+        <!-- Create a binding between the searchString model and the text field -->
+
+        <input type="text" v-model="searchString" placeholder="Enter your search" />
+    </div>
+
+    <ul v-if="posts && posts.length" >
+        <!-- Render a li element for every entry in the computed filteredArticles array. -->
+        <!--https://api.ssllabs.com/api/v3/analyze?host=google.com-->
+        <li v-for="post of posts" v-bind:key="post.id">
+           <p><strong>{{post.title}}</strong></p>
     <p>{{post.description}}</p>
-  </li>
-</ul>
- <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
+        </li>
+    </ul>
+<input @click="buscar" type="button" value="Añadir" class="btn btn-success">
+</form>
+
+
+
 </div>
 </template>
 
