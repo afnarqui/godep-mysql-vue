@@ -19,7 +19,7 @@ var note Note
 
 // Punto de ejecución del ejecutable.
 func main() {
-
+	// Instancia de http.DefaultServeMux
 	mux := http.NewServeMux()
 
 	// flag para realizar la creación de las tablas en la base de datos.
@@ -40,17 +40,7 @@ func main() {
 	log.Println("Corriendo en http://localhost:8081")
 
 	// Servidor escuchando en el puerto 8080
-	http.ListenAndServe(":8081", mux)	    // flag para realizar la creación de las tablas en la base
-    // de datos.
-    migrate := flag.Bool(
-        "migrate", false, "Crea las tablas en la base de datos",
-    )
-    // Parseando todas las flags
-    flag.Parse()
-    if *migrate {
-        if err := MakeMigrations(); err != nil {
-        log.Fatal(err)
-	}
+	http.ListenAndServe(":8081", mux)
 	
 /*
 	r := chi.NewRouter()
