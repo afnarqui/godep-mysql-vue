@@ -254,6 +254,10 @@ func main() {
 		
 	})
 
+	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
+		NotesHandler()
+	})
+
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
 	FileServer(r, "/", http.Dir(filesDir))
