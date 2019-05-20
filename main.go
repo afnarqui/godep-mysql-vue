@@ -22,7 +22,7 @@ func main() {
 
 	r.Route("/", func(r chi.Router) {
 	
-		r.Get("/buscar", SearchArticles) // GET /articles/search
+		r.Get("/buscar", buscar) // GET /articles/search
 
 	
 	})
