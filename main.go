@@ -48,7 +48,9 @@ func GetConnection() *sql.DB {
     // Create the "accounts" table.
     if _, err := db.Exec(
         "CREATE TABLE IF NOT EXISTS accountsafn (id INT PRIMARY KEY, balance INT)"); err != nil {
-        log.Fatal(err)
+		log.Fatal(err)
+		
+		MakeMigrations()
 	
 
  }
