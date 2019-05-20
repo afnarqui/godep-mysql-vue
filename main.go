@@ -235,7 +235,7 @@ func (n Note) Delete(id int) error {
 
 // Punto de ejecución del ejecutable.
 func main() {
-	/*
+	
 	// Instancia de http.DefaultServeMux
 	mux := http.NewServeMux()
 
@@ -248,7 +248,7 @@ func main() {
 	log.Println("Corriendo en http://localhost:8081")
 
 	http.ListenAndServe(":8081", mux)
-	*/
+	
 
 	/*
 	r := chi.NewRouter()
@@ -262,8 +262,9 @@ func main() {
 
 	http.ListenAndServe(":8081", r)
 */
+/*
 	router = chi.NewRouter() 
-	http.ListenAndServe(":8081", Logger())
+	http.ListenAndServe(":8081", Logger())*/
 }
 
 func Logger() http.Handler {
