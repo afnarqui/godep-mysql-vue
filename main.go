@@ -62,6 +62,34 @@ func MakeMigrations() error {
 	if err != nil {
 		return err
 	}
+
+	q2 := `INSERT INTO 
+				notes(title, description)
+				VALUES ('aja','aja desc')`
+			
+
+	db2 := getConnection()
+	defer db2.Close()
+
+	stmt2, err := db2.Prepare(q2)
+
+	if err != nil {
+		return err
+	}
+	defer stmt2.Close()
+
+	r2, err := stmt2.Exec('ajaa', 'descc')
+
+	if err != nil {
+		return err
+	}
+
+	i2, _ := r2.RowsAffected()
+
+	if i2 != 1 {
+		return errors.New("Should error rows i2")
+	}
+
 	return nil
 }
 
