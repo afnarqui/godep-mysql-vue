@@ -234,30 +234,21 @@ func (n Note) Delete(id int) error {
 
 // Punto de ejecución del ejecutable.
 func main() {
+	/*
 	// Instancia de http.DefaultServeMux
 	mux := http.NewServeMux()
 
 	// flag para realizar la creación de las tablas en la base de datos.
-	/*migrate := flag.Bool("migrate", false, "Crea las tablas en la base de datos")
-	flag.Parse()
+	
 
-	if *migrate {
-		if err := MakeMigrations(); err != nil {
-			log.Fatal(err)
-		}
-	}*/
-
-	// Rutas a manejar
 	mux.HandleFunc("/", IndexHandler)
 	mux.HandleFunc("/notes", NotesHandler)
 
-	// Log informativo
 	log.Println("Corriendo en http://localhost:8081")
 
-	// Servidor escuchando en el puerto 8080
 	http.ListenAndServe(":8081", mux)
-	
-/*
+	*/
+
 	r := chi.NewRouter()
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
@@ -268,7 +259,7 @@ func main() {
 	FileServer(r, "/", http.Dir(filesDir))
 
 	http.ListenAndServe(":8081", r)
-*/
+
 }
 
 
@@ -297,16 +288,8 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 // IndexHandler nos permite manejar la petición a la ruta '/' y retornar "hola mundo"
 // como respuesta al cliente.
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	rr := chi.NewRouter()
-	rr.Get("/public", func(w http.ResponseWriter, r *http.Request) {
-		
-	})
-
-	workDir, _ := os.Getwd()
-	filesDir := filepath.Join(workDir, "public")
-	FileServer(rr, "/", http.Dir(filesDir))
+	
 	fmt.Fprint(w, "hola mundo")
-	http.ListenAndServe(":8081", r)
 	
 }
 
