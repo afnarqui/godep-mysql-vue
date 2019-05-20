@@ -18,7 +18,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://localhost/notes').then((response) => {
+    axios.get('http://localhost:8081/notes').then((response) => {
       this.posts = response
     })
     .catch((e) => {
