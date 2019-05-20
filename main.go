@@ -147,7 +147,7 @@ func (n Note) Create() error {
 func (n *Note) GetAll() ([]Note, error) {
 	db := GetConnection()
 	q := `SELECT
-			id, title, description, created_at, updated_at
+			id, title, description
 			FROM notes`
 	// Ejecutamos la query
 	rows, err := db.Query(q)
@@ -165,7 +165,7 @@ func (n *Note) GetAll() ([]Note, error) {
 	for rows.Next() {
 		// Escaneamos el valor actual de la fila e insertamos el retorno
 		// en los correspondientes campos de la nota.
-		rows.Scan(&n.ID, &n.Title, &n.Description, &n.CreatedAt, &n.UpdatedAt)
+		rows.Scan(&n.ID, &n.Title, &n.Description)
 		// Añadimos cada nueva nota al slice de notas que declaramos antes.
 		notes = append(notes, *n)
 	}
@@ -175,11 +175,11 @@ func (n *Note) GetAll() ([]Note, error) {
 func (n *Note) GetByID(id int) (Note, error) {
 	db := GetConnection()
 	q := `SELECT
-		id, title, description, created_at, updated_at
+		id, title, description
 		FROM notes WHERE id=?`
 
 	err := db.QueryRow(q, id).Scan(
-		&n.ID, &n.Title, &n.Description, &n.CreatedAt, &n.UpdatedAt,
+		&n.ID, &n.Title, &n.Description
 	)
 	if err != nil {
 		return Note{}, err
@@ -190,7 +190,7 @@ func (n *Note) GetByID(id int) (Note, error) {
 
 func (n Note) Update() error {
 	db := GetConnection()
-	q := `UPDATE notes set title=?, description=?, updated_at=?
+	q := `UPDATE notes set title=?, description=?
 		WHERE id=?`
 	stmt, err := db.Prepare(q)
 	if err != nil {
@@ -198,7 +198,7 @@ func (n Note) Update() error {
 	}
 	defer stmt.Close()
 
-	r, err := stmt.Exec(n.Title, n.Description, time.Now(), n.ID)
+	r, err := stmt.Exec(n.Title, n.Description, n.ID)
 	if err != nil {
 		return err
 	}
