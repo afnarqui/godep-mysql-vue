@@ -164,3 +164,19 @@ curl -X PUT http://localhost:8080/notes -H 'Content-Type: application/json' -d '
 
 curl -X DELETE http://localhost:8080/notes?id=1
 
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+
+sudo apt-get install -y nodejs
+
+npm install -g @vue/cli
+
+vue --version
+
+npm install --global vue-cli
+
+vue init webpack
+front
+
+npm run dev
+
+npm run build
