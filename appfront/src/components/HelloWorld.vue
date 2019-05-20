@@ -1,11 +1,12 @@
 <template>
-<ul v-if="posts && posts.length">
+<!--<ul v-if="posts && posts.length">
   <li v-for="post of posts" v-bind:key="post.id">
     <p><strong>{{post.title}}</strong></p>
     <p>{{post.description}}</p>
   </li>
 </ul>
-
+-->
+ <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
 
 </template>
 
