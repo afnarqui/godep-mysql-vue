@@ -259,14 +259,7 @@ func main() {
 		case http.MethodGet:
 			fmt.Println("entropor get", w)
             GetNotesHandler(w, r)
-		case http.MethodPost:
-			fmt.Println("entropor pos", w)
-            CreateNotesHandler(w, r)
-        case http.MethodPut:
-            UpdateNotesHandler(w, r)
-        case http.MethodDelete:
-            DeleteNotesHandler(w, r)
-        default:
+	      default:
             http.Error(w, "Metodo no permitido",
                 http.StatusBadRequest)
             return
@@ -278,30 +271,21 @@ func main() {
             CreateNotesHandler(w, r)
 	})
 
-	
-
-
-	workDir, _ := os.Getwd()
-	filesDir := filepath.Join(workDir, "public")
-	FileServer(r, "/", http.Dir(filesDir))
-
-	http.ListenAndServe(":8081", r)
-
-	/*
-	r := chi.NewRouter()
-	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
-		
+	r.Put("/notes", func(w http.ResponseWriter, r *http.Request) {
+		UpdateNotesHandler(w, r)
 	})
 
+	r.Delete("/notes", func(w http.ResponseWriter, r *http.Request) {
+		DeleteNotesHandler(w, r)
+	})
+
+
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
 	FileServer(r, "/", http.Dir(filesDir))
 
 	http.ListenAndServe(":8081", r)
-*/
-/*
-	router = chi.NewRouter() 
-	http.ListenAndServe(":8081", Logger())*/
+
 }
 
 func Logger() http.Handler {
@@ -315,11 +299,9 @@ var router *chi.Mux
 func routers() *chi.Mux {
 	router.Get("/notes", GetNotesHandler)
 	router.Post("/notes", CreateNotesHandler)
- /*   router.Get("/posts/{id}", DetailPost)
-    
-    router.Put("/posts/{id}", UpdatePost)
-    router.Delete("/posts/{id}", DeletePost)
-   */ 
+	router.Put("/notes/{id}",UpdateNotesHandler)
+	router.Delete("/notes/{id}",DeleteNotesHandler)
+
     return router
 }
 
