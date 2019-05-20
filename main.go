@@ -50,8 +50,9 @@ func GetConnection() *sql.DB {
         "CREATE TABLE IF NOT EXISTS accountsafn (id INT PRIMARY KEY, balance INT)"); err != nil {
         log.Fatal(err)
 	
-	return db
+
  }
+ return db
 }
 
 func MakeMigrations() error {
