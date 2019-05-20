@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-	"note"
+	"./note.go"
 	/*"net/http"
 	"os"
 	"path/filepath"
