@@ -23,14 +23,14 @@ func main() {
 	mux := http.NewServeMux()
 
 	// flag para realizar la creación de las tablas en la base de datos.
-	migrate := flag.Bool("migrate", false, "Crea las tablas en la base de datos")
+	/*migrate := flag.Bool("migrate", false, "Crea las tablas en la base de datos")
 	flag.Parse()
 
 	if *migrate {
 		if err := MakeMigrations(); err != nil {
 			log.Fatal(err)
 		}
-	}
+	}*/
 
 	// Rutas a manejar
 	mux.HandleFunc("/", IndexHandler)
