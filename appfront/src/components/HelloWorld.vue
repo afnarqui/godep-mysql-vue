@@ -1,12 +1,12 @@
 <template>
-<!--<ul v-if="posts && posts.length">
+
+<div id="id">
+  <ul v-if="posts && posts.length">
   <li v-for="post of posts" v-bind:key="post.id">
     <p><strong>{{post.title}}</strong></p>
     <p>{{post.description}}</p>
   </li>
 </ul>
--->
-<div id="id">
  <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
 </div>
 </template>
@@ -34,8 +34,8 @@ export default {
     buscar: function () {
       console.log('entro a buscar')
           axios.get('http://localhost:8081/notes').then((response) => {
-      console.log(response)
-      this.posts = response
+      console.log(response.data)
+      this.posts = response.data
     })
     .catch((e) => {
       console.error(e)
