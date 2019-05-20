@@ -257,10 +257,10 @@ func main() {
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
-			ftm.Println("entropor get", w)
+			fmt.Println("entropor get", w)
             GetNotesHandler(w, r)
 		case http.MethodPost:
-			ftm.Println("entropor pos", w)
+			fmt.Println("entropor pos", w)
             CreateNotesHandler(w, r)
         case http.MethodPut:
             UpdateNotesHandler(w, r)
