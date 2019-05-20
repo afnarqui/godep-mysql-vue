@@ -182,3 +182,7 @@ npm run dev
 npm run build
 
 npm install axios --save
+
+npm i bootstrap-vue
+
+npm i vue bootstrap-vue bootstrap
