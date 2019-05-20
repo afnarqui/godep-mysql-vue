@@ -256,9 +256,11 @@ func main() {
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
-        case http.MethodGet:
+		case http.MethodGet:
+			ftm.Println("entropor get", w)
             GetNotesHandler(w, r)
-        case http.MethodPost:
+		case http.MethodPost:
+			ftm.Println("entropor pos", w)
             CreateNotesHandler(w, r)
         case http.MethodPut:
             UpdateNotesHandler(w, r)
@@ -306,7 +308,7 @@ func Logger() http.Handler {
 
 var router *chi.Mux
 func routers() *chi.Mux {
-	router.Get("/note", GetNotesHandler)
+	router.Get("/notes", GetNotesHandler)
 	router.Post("/notes", CreateNotesHandler)
  /*   router.Get("/posts/{id}", DetailPost)
     
