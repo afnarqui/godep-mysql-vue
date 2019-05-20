@@ -11,9 +11,10 @@ import (
 	"errors"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
+	/*_ "github.com/mattn/go-sqlite3"*/
 
 	"database/sql"
+	_ "github.com/lib/pq"
 	/*"net/http"
 	"os"
 	"path/filepath"
@@ -30,10 +31,20 @@ func GetConnection() *sql.DB {
 	}
 
 	var err error
+	/*
 	db, err = sql.Open("sqlite3", "data.sqlite")
 	if err != nil {
 		panic(err)
 	}
+	return db*/
+
+	dsn := "postgress://golang:golang@127.0.0.1:5432/gocrud?sslmode=disable"
+	db, err := sql.Open("postgres", dsn)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	
 	return db
 }
 
