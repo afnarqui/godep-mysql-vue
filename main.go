@@ -14,8 +14,9 @@ import (
 
 	"database/sql"
 	_ "github.com/lib/pq"
-	/*"net/http" "os"
-	"path/filepath"*/
+	/*"net/http"*/
+	 "os"
+	"path/filepath"
 	"strings"
 	
 	
@@ -248,7 +249,16 @@ func main() {
 	log.Println("Corriendo en http://localhost:8081")
 
 	//http.ListenAndServe(":8081", mux)
+	r := chi.NewRouter()
+	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
+		
+	})
 
+	workDir, _ := os.Getwd()
+	filesDir := filepath.Join(workDir, "public")
+	FileServer(r, "/", http.Dir(filesDir))
+
+	http.ListenAndServe(":8081", r)
 
 	/*
 	r := chi.NewRouter()
