@@ -12,17 +12,13 @@ import (
 func main() {
 	r := chi.NewRouter()
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hi"))
-	})
-
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
 	})
 
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
-	FileServer(r, "/public", http.Dir(filesDir))
+	FileServer(r, "/", http.Dir(filesDir))
 
 	http.ListenAndServe(":8081", r)
 }
