@@ -169,7 +169,7 @@ func DeleteNotesHandler(w http.ResponseWriter, r *http.Request) {
     // posible.
     id, err := strconv.Atoi(idStr)
     if err != nil {
-         http.Error(w, “Query id debe ser un número”,
+         http.Error(w, "Query id debe ser un número",
              http.StatusBadRequest)
          return
     }
