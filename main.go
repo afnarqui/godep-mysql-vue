@@ -52,7 +52,7 @@ func GetConnection() *sql.DB {
 	
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS notes (
-				id INTEGER PRIMARY KEY,
+				id INT PRIMARY KEY,
 				   title VARCHAR(64) NULL,
 				   description VARCHAR(200) NULL
 			  )`); err != nil {
