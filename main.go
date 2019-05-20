@@ -24,10 +24,10 @@ func main() {
 		fmt.Println("notice:", msg)
 		s.Emit("reply", "have "+msg)
 	})
-	server.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
+	server.OnEvent("chat", "msg", func(s socketio.Conn, msg string) string {
 		s.SetContext(msg)
 		//return "recv " + msg
-		s.Close()
+	
 		return msg
 	})
 	server.OnEvent("/", "bye", func(s socketio.Conn) string {
