@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-
+	"note"
 	/*"net/http"
 	"os"
 	"path/filepath"
@@ -25,7 +25,7 @@ type Note struct {
 }
 
 
-var note Note
+/*var note Note*/
 
 // Punto de ejecución del ejecutable.
 func main() {
