@@ -255,7 +255,7 @@ func main() {
 	})
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
-		mux.HandleFunc("/notes", NotesHandler)
+		NotesHandler()
 	})	
 
 
