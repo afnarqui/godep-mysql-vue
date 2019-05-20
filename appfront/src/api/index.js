@@ -1,8 +1,6 @@
-import { ruta } from './config';
 
-const { api } = 'https://api.ssllabs.com/api/v3/analyze?host=www.google.com'
+const URL = 'https://api.ssllabs.com/api/v3/analyze?host=www.google.com'
 
-const URL = `${api}`
 
 export default function getDominios (name) {
   const url = URL.replace(':afn', name)
