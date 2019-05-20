@@ -14,10 +14,10 @@ import (
 
 	"database/sql"
 	_ "github.com/lib/pq"
-	/*"net/http" */
+	/*"net/http" "os"
+	"path/filepath"*/
 	"strings"
-	"os"
-	"path/filepath"
+	
 	
 	"github.com/go-chi/chi"
 	
@@ -264,7 +264,7 @@ func main() {
 */
 	router = chi.NewRouter() 
 }
-
+var router *chi.Mux
 func routers() *chi.Mux {
     router.Get("/notes", GetNotesHandler)
  /*   router.Get("/posts/{id}", DetailPost)
