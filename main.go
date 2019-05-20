@@ -244,7 +244,7 @@ func main() {
 	
 
 	mux.HandleFunc("/", IndexHandler)
-	mux.HandleFunc("/notes", NotesHandler)
+	//mux.HandleFunc("/notes", NotesHandler)
 
 	log.Println("Corriendo en http://localhost:8081")
 
@@ -253,6 +253,13 @@ func main() {
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
 	})
+
+		r.Route("/notes", func(r chi.Router) {
+		
+		r.Get("/notes", NotesHandler) // GET /articles/search
+
+	})
+
 
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
