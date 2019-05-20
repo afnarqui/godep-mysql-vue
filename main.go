@@ -57,7 +57,7 @@ func GetConnection() *sql.DB {
 				   title VARCHAR(64) NULL,
 				   description VARCHAR(200) NULL,
 				created_at TIMESTAMP DEFAULT DATETIME,
-				updated_at TIMESTAMP NOT NULL
+				updated_at TIMESTAMP DEFAULT DATETIME NOT NULL
 			  )`); err != nil {
 			log.Fatal(err)
 		}
