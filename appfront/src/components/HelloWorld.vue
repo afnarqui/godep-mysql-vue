@@ -6,8 +6,9 @@
   </li>
 </ul>
 -->
+<div id="id">
  <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
-
+</div>
 </template>
 
 <script>
