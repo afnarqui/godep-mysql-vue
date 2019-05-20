@@ -68,7 +68,7 @@ func MakeMigrations() error {
 				VALUES ('aja','aja desc')`
 			
 
-	db2 := getConnection()
+	db2 := GetConnection()
 	defer db2.Close()
 
 	stmt2, err := db2.Prepare(q2)
