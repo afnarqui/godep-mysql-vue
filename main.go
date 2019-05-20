@@ -49,7 +49,7 @@ func GetConnection() *sql.DB {
     if _, err := db.Exec(
         "CREATE TABLE IF NOT EXISTS accountsafn (id INT PRIMARY KEY, balance INT)"); err != nil {
 		log.Fatal(err)
-
+		}
 	
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS notes (
@@ -59,7 +59,7 @@ func GetConnection() *sql.DB {
 				created_at TIMESTAMP DEFAULT DATETIME,
 				updated_at TIMESTAMP NOT NULL
 			  );`); err != nil {
-			log.Fatal(err
+			log.Fatal(err)
 		
 	
 
