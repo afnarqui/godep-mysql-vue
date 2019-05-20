@@ -257,7 +257,7 @@ func main() {
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
 	FileServer(r, "/", http.Dir(filesDir))
-	FileServer(r, "/notes", NotesHandler)
+
 	http.ListenAndServe(":8081", r)
 
 	/*
