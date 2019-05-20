@@ -18,7 +18,7 @@ func main() {
 
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
-	}
+	})
 
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
