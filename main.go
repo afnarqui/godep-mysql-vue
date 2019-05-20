@@ -255,7 +255,7 @@ func main() {
 	})
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
-		NotesHandler()
+		mux.HandleFunc("/notes", NotesHandler)
 	})
 
 	workDir, _ := os.Getwd()
