@@ -385,7 +385,8 @@ func CreateNotesHandler(w http.ResponseWriter, r *http.Request) {
     var note Note
 // Tomando el cuerpo de la petición, en formato JSON, y
     // decodificándola e la variable note que acabamos de
-    // declarar.
+	// declarar.
+	
     err := json.NewDecoder(r.Body).Decode(&note)
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
