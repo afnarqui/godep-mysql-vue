@@ -180,3 +180,5 @@ front
 npm run dev
 
 npm run build
+
+npm install axios --save
