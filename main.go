@@ -117,8 +117,8 @@ func (n Note) Create() error {
 	db := GetConnection()
 
 	// Query para insertar los datos en la tabla notes
-	q := `INSERT INTO notes (title, description)
-			VALUES($1, $2)`
+	q := `INSERT INTO notes (id,title, description)
+			VALUES($1, $2, $3)`
 
 	// Preparamos la petición para insertar los datos de manera segura
 	// y evitar código malicioso.
@@ -129,7 +129,7 @@ func (n Note) Create() error {
 	defer stmt.Close()
 	// Ejecutamos la petición pasando los datos correspondientes. El orden
 	// es importante, corresponde con los "?" delstring q.
-	r, err := stmt.Exec(n.Title, n.Description)
+	r, err := stmt.Exec(n.ID,n.Title, n.Description)
 	if err != nil {
 		return err
 	}
