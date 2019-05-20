@@ -78,7 +78,7 @@ func MakeMigrations() error {
 	}
 	defer stmt2.Close()
 
-	r2, err := stmt2.Exec('ajaa', 'descc')
+	r2, err := stmt2.Exec("ajaa", "descc")
 
 	if err != nil {
 		return err
