@@ -49,8 +49,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 
     <script>
-        import axios from "axios";
-
+        var url = "http://localhost:/8081/notes"
         new Vue({
             el: '#App',
             created() {
@@ -64,15 +63,11 @@
                 }]
             },
             mounted() {
-                axios({
-                    method: "GET",
-                    "url": "http://localhost:8081/notes"
-                }).then(result => {
-                    console.log(result.data.origin)
-                    this.messages = result.data.origin;
-                }, error => {
-                    console.error(error);
-                });
+
+                this.$http.get(url).then(function(response) {
+                    this.messages = response.data.results
+                    console.log(response.data.results)
+                })
             },
             methods: {
                 sendMessage() {
