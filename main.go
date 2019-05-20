@@ -15,7 +15,9 @@ import (
 	"github.com/go-chi/chi"
 	*/
 )
+var note Note
 
+// Punto de ejecución del ejecutable.
 func main() {
 
 	mux := http.NewServeMux()
