@@ -30,7 +30,8 @@ export default {
     })
   },
   methods: {
-    buscar() {
+    buscar: function () {
+      console.log('entro a buscar')
           axios.get('http://localhost:8081/notes').then((response) => {
       console.log(response)
       this.posts = response
