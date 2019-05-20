@@ -115,7 +115,7 @@ func (n Note) Create() error {
 
 	// Query para insertar los datos en la tabla notes
 	q := `INSERT INTO notes (title, description, updated_at)
-			VALUES(?, ?, ?)`
+			VALUES($1, $2, $3)`
 
 	// Preparamos la petición para insertar los datos de manera segura
 	// y evitar código malicioso.
