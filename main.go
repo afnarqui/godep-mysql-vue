@@ -267,13 +267,18 @@ func main() {
         case http.MethodDelete:
             DeleteNotesHandler(w, r)
         default:
-            // Caso por defecto en caso de que se realice una
-            // petición con un método diferente a los esperados.
             http.Error(w, "Metodo no permitido",
                 http.StatusBadRequest)
             return
     }
-	})	
+	})
+	
+	r.Post("/notes", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("entropor pos", w)
+            CreateNotesHandler(w, r)
+	})
+
+	
 
 
 	workDir, _ := os.Getwd()
