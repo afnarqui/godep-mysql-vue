@@ -1,21 +1,44 @@
 package main
 
 import (
+	"encoding/json"
+	"flag"
+	"fmt"
+	"log"
 	"net/http"
+	"strconv"
+
+	/*"net/http"
 	"os"
 	"path/filepath"
 	"strings"
-
 	"github.com/go-chi/chi"
-	// Driver para SQLite3
-	_ "github.com/mattn/go-sqlite3"
-	"encoding/json"
-	"flag"
+	*/
 )
 
 func main() {
 
-	    // flag para realizar la creación de las tablas en la base
+	mux := http.NewServeMux()
+
+	// flag para realizar la creación de las tablas en la base de datos.
+	migrate := flag.Bool("migrate", false, "Crea las tablas en la base de datos")
+	flag.Parse()
+
+	if *migrate {
+		if err := MakeMigrations(); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	// Rutas a manejar
+	mux.HandleFunc("/", IndexHandler)
+	mux.HandleFunc("/notes", NotesHandler)
+
+	// Log informativo
+	log.Println("Corriendo en http://localhost:8081")
+
+	// Servidor escuchando en el puerto 8080
+	http.ListenAndServe(":8081", mux)	    // flag para realizar la creación de las tablas en la base
     // de datos.
     migrate := flag.Bool(
         "migrate", false, "Crea las tablas en la base de datos",
@@ -27,7 +50,7 @@ func main() {
         log.Fatal(err)
 	}
 	
-
+/*
 	r := chi.NewRouter()
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
@@ -38,11 +61,13 @@ func main() {
 	FileServer(r, "/", http.Dir(filesDir))
 
 	http.ListenAndServe(":8081", r)
+*/
 }
 
 
 // FileServer conveniently sets up a http.FileServer handler to serve
 // static files from a http.FileSystem.
+/*
 func FileServer(r chi.Router, path string, root http.FileSystem) {
 	if strings.ContainsAny(path, "{}*") {
 		panic("FileServer does not permit URL parameters.")
@@ -60,6 +85,14 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 		fs.ServeHTTP(w, r)
 	}))
 }
+*/
+
+// IndexHandler nos permite manejar la petición a la ruta '/' y retornar "hola mundo"
+// como respuesta al cliente.
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "hola mundo")
+}
+
 
 // GetNotesHandler nos permite manejar las peticiones a la ruta
 // ‘/notes’ con el método GET.

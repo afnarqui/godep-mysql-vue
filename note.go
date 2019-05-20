@@ -1,6 +1,11 @@
 // note.go
 package main
-import "time"
+import (
+    "errors"
+	"time"
+
+	_ "github.com/mattn/go-sqlite3"
+)
 type Note struct {
     ID          int       `json:"id,omitempty"`
     Title       string    `json:"title"`
