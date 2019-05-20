@@ -51,6 +51,7 @@ func GetConnection() *sql.DB {
         log.Fatal(err)
 	
 	return db
+ }
 }
 
 func MakeMigrations() error {
