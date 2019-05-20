@@ -254,14 +254,10 @@ func main() {
 		
 	})
 
-	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
-		mux.HandleFunc("/notes", NotesHandler)
-	})
-
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
 	FileServer(r, "/", http.Dir(filesDir))
-
+	FileServer(r, "/notes", NotesHandler)
 	http.ListenAndServe(":8081", r)
 
 	/*
