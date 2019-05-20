@@ -179,7 +179,7 @@ func (n *Note) GetByID(id int) (Note, error) {
 		FROM notes WHERE id=?`
 
 	err := db.QueryRow(q, id).Scan(
-		&n.ID, &n.Title, &n.Description
+		&n.ID, &n.Title, &n.Description,
 	)
 	if err != nil {
 		return Note{}, err
