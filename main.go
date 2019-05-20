@@ -23,11 +23,11 @@ import (
 	*/
 )
 
-var dbOld *sql.DB
+var db *sql.DB
 
 func GetConnection() *sql.DB {
-	if dbOld != nil {
-		return dbOld
+	if db != nil {
+		return db
 	}
 
 	var err error
