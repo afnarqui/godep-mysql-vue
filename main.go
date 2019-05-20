@@ -263,7 +263,16 @@ func main() {
 	http.ListenAndServe(":8081", r)
 */
 	router = chi.NewRouter() 
+	http.ListenAndServe(":8005", Logger())
 }
+
+func Logger() http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        fmt.Println(time.Now(), r.Method, r.URL)
+        router.ServeHTTP(w, r) // dispatch the request
+    })
+}
+
 var router *chi.Mux
 func routers() *chi.Mux {
     router.Get("/notes", GetNotesHandler)
