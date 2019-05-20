@@ -7,6 +7,9 @@ const URL = `${api}`
 export default function getDominios (name) {
   const url = URL.replace(':afn', name)
   return fetch(url)
-     .then(json => json.endpoints)
+     .then(json => {
+      console.log(json)
+      return json.endpoints
+     } )
 }
 
