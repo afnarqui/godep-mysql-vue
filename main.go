@@ -30,6 +30,13 @@ func main() {
 	http.ListenAndServe(":8081", r)
 }
 
+type Article struct {
+	ID     string `json:"id"`
+	UserID int64  `json:"user_id"` // the author
+	Title  string `json:"title"`
+	Slug   string `json:"slug"`
+}
+
 // Article fixture data
 var articles = []*Article{
 	{ID: "1", UserID: 100, Title: "Hi", Slug: "hi"},
