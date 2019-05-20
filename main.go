@@ -23,11 +23,11 @@ import (
 	*/
 )
 
-var db *sql.DB
+var dbOld *sql.DB
 
 func GetConnection() *sql.DB {
-	if db != nil {
-		return db
+	if dbOld != nil {
+		return dbOld
 	}
 
 	var err error
@@ -38,12 +38,17 @@ func GetConnection() *sql.DB {
 	}
 	return db*/
 
-	dsn := "postgress://golang:golang@127.0.0.1:5432/gocrud?sslmode=disable"
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", "postgresql://root@localhost:26257/defaultdb?sslmode=disable")
+	//db, err := sql.Open("postgres", dsn)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	    if err != nil {
+        log.Fatal("error connecting to the database: ", err)
+    }
+
+    // Create the "accounts" table.
+    if _, err := db.Exec(
+        "CREATE TABLE IF NOT EXISTS accountsafn (id INT PRIMARY KEY, balance INT)"); err != nil {
+        log.Fatal(err)
 	
 	return db
 }
