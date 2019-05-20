@@ -47,7 +47,40 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-    <script src="main.js"></script>
+
+    <script>
+        import axios from "axios";
+
+        new Vue({
+            el: '#App',
+            created() {
+
+            },
+            data: {
+                message: '',
+                messages: [{
+                    text: 'hello',
+                    date: new Date()
+                }]
+            },
+            mounted() {
+                axios({
+                    method: "GET",
+                    "url": "http://localhost:8081/notes"
+                }).then(result => {
+                    console.log(result.data.origin)
+                    this.messages = result.data.origin;
+                }, error => {
+                    console.error(error);
+                });
+            },
+            methods: {
+                sendMessage() {
+                    this.message = ''
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
