@@ -50,16 +50,10 @@ var articles = []*Article{
 // SearchArticles searches the Articles data for a matching article.
 // It's just a stub, but you get the idea.
 func buscar(w http.ResponseWriter, r *http.Request) {
-	render.RenderList(w, r, NewArticleListResponse(articles))
+	return articles
 }
 
-func NewArticleListResponse(articles []*Article) []render.Renderer {
-	list := []render.Renderer{}
-	for _, article := range articles {
-		list = article
-	}
-	return list
-}
+
 
 // FileServer conveniently sets up a http.FileServer handler to serve
 // static files from a http.FileSystem.
