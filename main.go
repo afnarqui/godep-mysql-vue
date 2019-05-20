@@ -306,9 +306,10 @@ func Logger() http.Handler {
 
 var router *chi.Mux
 func routers() *chi.Mux {
-    router.Get("/notes", GetNotesHandler)
+	router.Get("/notes", GetNotesHandler)
+	router.Post("/notes"), CreateNotesHandler)
  /*   router.Get("/posts/{id}", DetailPost)
-    router.Post("/posts", CreatePost)
+    
     router.Put("/posts/{id}", UpdatePost)
     router.Delete("/posts/{id}", DeletePost)
    */ 
