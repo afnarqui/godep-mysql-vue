@@ -250,6 +250,7 @@ func main() {
 	http.ListenAndServe(":8081", mux)
 	*/
 
+	/*
 	r := chi.NewRouter()
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
@@ -260,7 +261,18 @@ func main() {
 	FileServer(r, "/", http.Dir(filesDir))
 
 	http.ListenAndServe(":8081", r)
+*/
+	router = chi.NewRouter() 
+}
 
+func routers() *chi.Mux {
+    router.Get("/notes", GetNotesHandler)
+ /*   router.Get("/posts/{id}", DetailPost)
+    router.Post("/posts", CreatePost)
+    router.Put("/posts/{id}", UpdatePost)
+    router.Delete("/posts/{id}", DeletePost)
+   */ 
+    return router
 }
 
 
