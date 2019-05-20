@@ -17,7 +17,7 @@ export default {
       posts: []
     }
   },
-  created() {
+  mounted() {
     axios.get('http://localhost:8081/notes').then((response) => {
       console.log(response)
       this.posts = response
