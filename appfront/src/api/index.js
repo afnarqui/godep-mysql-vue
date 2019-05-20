@@ -1,6 +1,6 @@
 import { ruta } from './config';
 
-const { api } = ruta
+const { api } = 'https://api.ssllabs.com/api/v3/analyze?host=www.google.com'
 
 const URL = `${api}`
 
