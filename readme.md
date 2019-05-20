@@ -145,3 +145,6 @@ go get github.com/googollee/go-socket.io
 <!-- Load Vue followed by BootstrapVue -->
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+
+github.com/go-chi/chi/middleware

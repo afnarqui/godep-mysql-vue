@@ -1,17 +1,35 @@
 package main
 
 import (
+	"errors"
 	"net/http"
+
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 )
+
+type Handler func(w http.ResponseWriter, r *http.Request) error
+
+func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if err := h(w, r); err != nil {
+		// handle returned error here.
+		w.WriteHeader(503)
+		w.Write([]byte("bad"))
+	}
+}
 
 func main() {
 	r := chi.NewRouter()
-	r.Use(middleware.RequestID)
-	r.Use(middleware.Logger)
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hello world"))
-	})
+	r.Method("GET", "/", Handler(customHandler))
 	http.ListenAndServe(":8081", r)
+}
+
+func customHandler(w http.ResponseWriter, r *http.Request) error {
+	q := r.URL.Query().Get("err")
+
+	if q != "" {
+		return errors.New(q)
+	}
+
+	w.Write([]byte("foo"))
+	return nil
 }
