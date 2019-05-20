@@ -50,7 +50,7 @@ var articles = []*Article{
 // SearchArticles searches the Articles data for a matching article.
 // It's just a stub, but you get the idea.
 func buscar(w http.ResponseWriter, r *http.Request) {
-	return articles
+	
 }
 
 
