@@ -11,7 +11,6 @@ import (
 
 func main() {
 	r := chi.NewRouter()
-    r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 		
 	})
