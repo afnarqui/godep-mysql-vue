@@ -55,9 +55,7 @@ func GetConnection() *sql.DB {
 			`CREATE TABLE IF NOT EXISTS notes (
 				id INTEGER PRIMARY KEY,
 				   title VARCHAR(64) NULL,
-				   description VARCHAR(200) NULL,
-				created_at TIMESTAMP DEFAULT DATETIME,
-				updated_at TIMESTAMP DEFAULT DATETIME NOT NULL
+				   description VARCHAR(200) NULL
 			  )`); err != nil {
 			log.Fatal(err)
 		}
@@ -70,9 +68,7 @@ func MakeMigrations() error {
 	q := `CREATE TABLE IF NOT EXISTS notes (
 	        id INTEGER PRIMARY KEY AUTOINCREMENT,
        		title VARCHAR(64) NULL,
-       		description VARCHAR(200) NULL,
-	        created_at TIMESTAMP DEFAULT DATETIME,
-	        updated_at TIMESTAMP NOT NULL
+       		description VARCHAR(200) NULL
 	      );`
 
 	_, err := db.Exec(q)
@@ -115,8 +111,6 @@ type Note struct {
 	ID          int       `json:"id,omitempty"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	CreatedAt   time.Time `json:"created_at,omitempty"`
-	UpdatedAt   time.Time `json:"updated_at,omitempty"`
 }
 
 func (n Note) Create() error {
@@ -124,8 +118,8 @@ func (n Note) Create() error {
 	db := GetConnection()
 
 	// Query para insertar los datos en la tabla notes
-	q := `INSERT INTO notes (title, description, updated_at)
-			VALUES($1, $2, $3)`
+	q := `INSERT INTO notes (title, description)
+			VALUES($1, $2)`
 
 	// Preparamos la petición para insertar los datos de manera segura
 	// y evitar código malicioso.
@@ -136,7 +130,7 @@ func (n Note) Create() error {
 	defer stmt.Close()
 	// Ejecutamos la petición pasando los datos correspondientes. El orden
 	// es importante, corresponde con los "?" delstring q.
-	r, err := stmt.Exec(n.Title, n.Description, time.Now())
+	r, err := stmt.Exec(n.Title, n.Description)
 	if err != nil {
 		return err
 	}
