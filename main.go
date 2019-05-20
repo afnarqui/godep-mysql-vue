@@ -263,7 +263,7 @@ func main() {
 	http.ListenAndServe(":8081", r)
 */
 	router = chi.NewRouter() 
-	http.ListenAndServe(":8005", Logger())
+	http.ListenAndServe(":8081", Logger())
 }
 
 func Logger() http.Handler {
