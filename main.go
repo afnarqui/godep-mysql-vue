@@ -53,17 +53,14 @@ func GetConnection() *sql.DB {
 	
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS notes (
-				id INTEGER PRIMARY KEY AUTOINCREMENT,
+				id INTEGER PRIMARY KEY,
 				   title VARCHAR(64) NULL,
 				   description VARCHAR(200) NULL,
 				created_at TIMESTAMP DEFAULT DATETIME,
 				updated_at TIMESTAMP NOT NULL
-			  );`); err != nil {
+			  )`); err != nil {
 			log.Fatal(err)
-		
-	
-
- }
+		}
  
  return db
 }
