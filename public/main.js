@@ -1,8 +1,7 @@
 
-const socket = io();
 
 new Vue({
-    el: '#chat-app',
+    el: '#App',
     created() {
 
     },
@@ -15,7 +14,6 @@ new Vue({
     },
     methods: {
         sendMessage() {
-            socket.emit('msg', this.message)
             this.message = ''
         }
     }
