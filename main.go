@@ -56,7 +56,7 @@ func buscar(w http.ResponseWriter, r *http.Request) {
 func NewArticleListResponse(articles []*Article) []render.Renderer {
 	list := []render.Renderer{}
 	for _, article := range articles {
-		list = append(list, NewArticleResponse(article))
+		list = article
 	}
 	return list
 }
