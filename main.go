@@ -16,6 +16,10 @@ func main() {
 		w.Write([]byte("hi"))
 	})
 
+	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
+		
+	}
+
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "public")
 	FileServer(r, "/public", http.Dir(filesDir))
