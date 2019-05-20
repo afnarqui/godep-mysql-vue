@@ -254,11 +254,9 @@ func main() {
 		
 	})
 
-		r.Route("/notes", func(r chi.Router) {
-		
-		r.Get("/notes", NotesHandler) // GET /articles/search
-
-	})
+	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
+		mux.HandleFunc("/notes", NotesHandler)
+	})	
 
 
 	workDir, _ := os.Getwd()
