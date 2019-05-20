@@ -148,3 +148,19 @@ go get github.com/googollee/go-socket.io
 
 
 github.com/go-chi/chi/middleware
+
+go get -u -v github.com/mattn/go-sqlite3
+
+go build
+./main -migrate
+
+curl -X POST http://localhost:8080/notes -H 'Content-Type: application/json' -d '{"title": "Primera nota", "description": "Esta es una nota de prueba"}'
+
+
+curl -X GET http://localhost:8080/notes
+
+curl -X PUT http://localhost:8080/notes -H 'Content-Type: application/json' -d '{"id": 1, "title": "Primera nota editada", "description": "Esta es una nota de prueba editada"}'
+
+
+curl -X DELETE http://localhost:8080/notes?id=1
+
