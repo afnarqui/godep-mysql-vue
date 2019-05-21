@@ -352,16 +352,16 @@ func main() {
 				for b, k := range v.Endpoints {
 					fmt.Println("segundo recorrido")
 					fmt.Println(b, k)
-					fmt.Println("\t","IPAddress: " + k.IPAddress)
-					fmt.Println("\t","ServerName: " + k.ServerName)
-					fmt.Println("\t","StatusMessage: " + k.StatusMessage)
-					fmt.Println("\t","Grade: " + k.Grade)
-					fmt.Println("\t","GradeTrustIgnored: " + k.GradeTrustIgnored)
-					fmt.Println("\t","HasWarnings: " + k.HasWarnings)
-					fmt.Println("\t","IsExceptional: " + k.IsExceptional)
-					fmt.Println("\t","Progress: " + k.Progress)
-					fmt.Println("\t","Duration: " + k.Duration)
-					fmt.Println("\t","Delegation: " + k.Delegation)
+					fmt.Println("\t","IPAddress: " + string(k.IPAddress))
+					fmt.Println("\t","ServerName: " + string(k.ServerName))
+					fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+					fmt.Println("\t","Grade: " + string(k.Grade))
+					fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+					fmt.Println("\t","HasWarnings: " + string(k.HasWarnings))
+					fmt.Println("\t","IsExceptional: " + string(k.IsExceptional))
+					fmt.Println("\t","Progress: " + string(k.Progress))
+					fmt.Println("\t","Duration: " + string(k.Duration))
+					fmt.Println("\t","Delegation: " + string(k.Delegation))
 				}
 			}
 			// for key, result := range results {
