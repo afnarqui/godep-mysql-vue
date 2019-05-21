@@ -357,11 +357,11 @@ func main() {
 					fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
 					fmt.Println("\t","Grade: " + string(k.Grade))
 					fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
-					fmt.Println("\t","HasWarnings: " + string(k.HasWarnings))
-					fmt.Println("\t","IsExceptional: " + string(k.IsExceptional))
-					fmt.Println("\t","Progress: " + string(k.Progress))
-					fmt.Println("\t","Duration: " + string(k.Duration))
-					fmt.Println("\t","Delegation: " + string(k.Delegation))
+					fmt.Println("HasWarnings:\t",k.HasWarnings))
+					fmt.Println("IsExceptional:\t",  k.IsExceptional)
+					fmt.Println("Progress:\t", k.Progress)
+					fmt.Println("Duration:\t",k.Duration)
+					fmt.Println("Delegation:\t", + k.Delegation)
 				}
 			}
 			// for key, result := range results {
