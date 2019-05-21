@@ -352,6 +352,16 @@ func main() {
 				for b, k := range v.Endpoints {
 					fmt.Println("segundo recorrido")
 					fmt.Println(b, k)
+					fmt.Println("\t",k.IPAddress)
+					fmt.Println("\t",k.ServerName)
+					fmt.Println("\t",k.StatusMessage)
+					fmt.Println("\t",k.Grade)
+					fmt.Println("\t",k.GradeTrustIgnored)
+					fmt.Println("\t",k.HasWarnings)
+					fmt.Println("\t",k.IsExceptional)
+					fmt.Println("\t",k.Progress)
+					fmt.Println("\t",k.Duration)
+					fmt.Println("\t",k.Delegation)
 				}
 			}
 			// for key, result := range results {
