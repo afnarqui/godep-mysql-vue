@@ -294,7 +294,10 @@ func main() {
 				log.Fatal(err)
 			}
 			fmt.Println(string(responseData))	
-			fmt.Println("paso por aca y funciona buscando")
+			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
+			for indice, valor := range responseData {
+				fmt.Printf("Estamos en el índice %d, y su valor es %d\n", indice, valor)
+			}
 			w.Write(responseData)
 	})
 	
