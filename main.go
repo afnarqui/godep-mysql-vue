@@ -295,18 +295,16 @@ func main() {
 			}
 			fmt.Println(string(responseData))	
 			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
-			// for indice, valor := range responseData {
-			// 	fmt.Printf("Estamos en el índice %d, y su valor es %d\n", indice, valor)
-			// }
+			birdJson := `{"birds":{"pigeon":"likes to perch on rocks","eagle":"bird of prey"},"animals":"none"}`
 			var result map[string]interface{}
-			json.Unmarshal([]byte(responseData), &result)
+			json.Unmarshal([]byte(birdJson), &result)
 
 			// The object stored in the "birds" key is also stored as 
 			// a map[string]interface{} type, and its type is asserted from
 			// the interface{} type
-			valores := result["endpoints"].(map[string]interface{})
+			birds := result["birds"].(map[string]interface{})
 
-			for key, value := range valores {
+			for key, value := range birds {
 			// Each value is an interface{} type, that is type asserted as a string
 			fmt.Println(key, value.(string))
 			}
