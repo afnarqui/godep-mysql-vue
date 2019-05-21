@@ -235,6 +235,31 @@ func (n Note) Delete(id int) error {
 
 /*var note Note*/
 
+type Domain struct {
+	Host            string      `json:"host"`
+	Port            int         `json:"port"`
+	Protocol        string      `json:"protocol"`
+	IsPublic        bool        `json:"isPublic"`
+	Status          string      `json:"status"`
+	StartTime       int64       `json:"startTime"`
+	TestTime        int64       `json:"testTime"`
+	EngineVersion   string      `json:"engineVersion"`
+	CriteriaVersion string      `json:"criteriaVersion"`
+	Endpoints       []Endpoints `json:"endpoints"`
+}
+type Endpoints struct {
+	IPAddress         string `json:"ipAddress"`
+	ServerName        string `json:"serverName"`
+	StatusMessage     string `json:"statusMessage"`
+	Grade             string `json:"grade"`
+	GradeTrustIgnored string `json:"gradeTrustIgnored"`
+	HasWarnings       bool   `json:"hasWarnings"`
+	IsExceptional     bool   `json:"isExceptional"`
+	Progress          int    `json:"progress"`
+	Duration          int    `json:"duration"`
+	Delegation        int    `json:"delegation"`
+}
+
 // Punto de ejecución del ejecutable.
 func main() {
 	
@@ -296,9 +321,9 @@ func main() {
 			fmt.Println(string(responseData))	
 			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
 		
-			for key, value := range responseData {
-			// Each value is an interface{} type, that is type asserted as a string
-			fmt.Println(key, value)
+		
+			for i := range responseData {
+				fmt.Println(responseData[i]) 
 			}
 			w.Write(responseData)
 	})
