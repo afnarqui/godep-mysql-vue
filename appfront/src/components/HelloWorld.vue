@@ -9,6 +9,15 @@
         <input type="text" v-model="searchString" placeholder="Enter your search" />
     </div>
 <!--
+  "host": "www.google.com",
+  "port": 443,
+  "protocol": "http",
+  "isPublic": false,
+  "status": "READY",
+  "startTime": 1558411159030,
+  "testTime": 1558411584928,
+  "engineVersion": "1.34.2",
+  "criteriaVersion": "2009p",
 "endpoints": [
     {
       "ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
@@ -29,6 +38,21 @@
     <p>{{post.grade}}</p>
         </li>
     </ul>
+
+<b-card-group deck v-for="post of posts" v-bind:key="post.id">
+  <b-card header="Data">
+    <b-list-group>
+      <b-list-group-item href="#">{{post.address}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
+
+    </b-list-group>
+      <p class="card-text mt-2">
+         {{post.serverName}}
+      </p>
+
+  </b-card>
+</b-card-group>
 -->
 <b-card-group deck v-for="post of posts" v-bind:key="post.id">
   <b-card header="Data">
@@ -43,6 +67,13 @@
       </p>
 
   </b-card>
+   <ul >
+        <li v-for="po of post" v-bind:key="po.id">
+           <h2></h2>
+           <p><strong>{{po.host}}</strong></p>
+    <p>{{po.port}}</p>
+        </li>
+    </ul>
 </b-card-group>
 
 <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
@@ -66,7 +97,8 @@ export default {
   mounted() {
     axios.get('http://localhost:8081/public').then((response) => {
       console.log(response)
-      this.posts = response.data.endpoints
+      //this.posts = response.data.endpoints
+      this.posts = response.data
     })
     .catch((e) => {
       console.error(e)
@@ -77,7 +109,7 @@ export default {
       console.log('entro a buscar')
           axios.get('http://localhost:8081/public').then((response) => {
       console.log(response.data.endpoints)
-      this.posts = response.data.endpoints
+      this.posts = response.data
     })
     .catch((e) => {
       console.error(e)
