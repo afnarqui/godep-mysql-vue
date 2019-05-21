@@ -8,15 +8,42 @@
 
         <input type="text" v-model="searchString" placeholder="Enter your search" />
     </div>
-
-    <ul v-if="posts && posts.length" >
-        <!-- Render a li element for every entry in the computed filteredArticles array. -->
-        <!--https://api.ssllabs.com/api/v3/analyze?host=google.com-->
+<!--
+"endpoints": [
+    {
+      "ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+      "serverName": "sfo03s08-in-x04.1e100.net",
+      "statusMessage": "Ready",
+      "grade": "A+",
+      "gradeTrustIgnored": "A+",
+      "hasWarnings": false,
+      "isExceptional": true,
+      "progress": 100,
+      "duration": 331020,
+      "delegation": 2
+    },
+     <ul v-if="posts && posts.length" >
         <li v-for="post of posts" v-bind:key="post.id">
+           <h2></h2>
            <p><strong>{{post.address}}</strong></p>
     <p>{{post.grade}}</p>
         </li>
     </ul>
+-->
+<b-card-group deck>
+  <b-card header="<b>Card with list group</b>">
+    <b-list-group v-for="post of posts" v-bind:key="post.id">
+      <b-list-group-item href="#">{{post.address}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
+    </b-list-group>
+
+    <p class="card-text mt-2">
+     {{post.serverName}}
+    </p>
+  </b-card>
+</b-card-group>
+
 <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
 </form>
 
