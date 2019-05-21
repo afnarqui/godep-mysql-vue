@@ -323,7 +323,7 @@ func main() {
 		
 		
 			for i := range responseData {
-				fmt.Println(responseData[i]["port"]) 
+				fmt.Println(i) 
 			}
 			w.Write(responseData)
 	})
