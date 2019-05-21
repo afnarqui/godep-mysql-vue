@@ -340,7 +340,7 @@ func main() {
 			
 			xp := []domain{}
 		
-			errr := json.Unmarshal([]byte(responseData), &xp)
+			errr := json.Unmarshal([]byte(j), &xp)
 			
 			if errr != nil {
 				fmt.Println(errr)
