@@ -68,7 +68,7 @@
 
   </b-card>
    <ul >
-        <li v-for="po of post" v-bind:key="po.id">
+        <li v-for="po of post.endpoints" v-bind:key="po.id">
            <h2></h2>
            <p><strong>{{po.host}}</strong></p>
     <p>{{po.port}}</p>
