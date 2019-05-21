@@ -7,7 +7,7 @@
         <!-- Create a binding between the searchString model and the text field -->
 
         <input type="text" v-model="busc" placeholder="Enter your Search" />
-        <br>
+       <br/><br/>
         <input @click="buscar"  type="button" value="Search" class="btn btn-success">
     </div>
 <!--
@@ -68,7 +68,7 @@
         </li>
     </ul>
 </b-card-group>
--->
+--><br/>
 <b-card-group deck v-for="post of posts" v-bind:key="post.id">
   <b-card header="Data">
     <b-list-group>
