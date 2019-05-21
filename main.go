@@ -340,10 +340,10 @@ func main() {
 			
 			xp := []person{}
 		
-			err := json.Unmarshal([]byte(j), &xp)
+			errr := json.Unmarshal([]byte(j), &xp)
 			
-			if err != nil {
-				fmt.Println(err)
+			if errr != nil {
+				fmt.Println(errr)
 			}
 			fmt.Printf("go data: %+v\n", xp)
 		
