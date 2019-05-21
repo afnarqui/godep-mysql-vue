@@ -280,8 +280,8 @@ func main() {
 			nombre := r.URL.Query().Get("nombre")
 			fmt.Println(nombre)
 			(w).Header().Set("Access-Control-Allow-Origin", "*")
-		    (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		    url := `https://api.ssllabs.com/api/v3/analyze?host=${nombre}`
+			(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
 			response, err := http.Get(url)
 
 			if err != nil {
