@@ -274,6 +274,31 @@ func main() {
 			w.Write(responseData)
 	})
 
+
+		r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
+
+			nombre := r.URL.Query().Get("nombre")
+			fmt.Println(nombre)
+			(w).Header().Set("Access-Control-Allow-Origin", "*")
+		    (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		    url := `https://api.ssllabs.com/api/v3/analyze?host=${nombre}`
+			response, err := http.Get(url)
+
+			if err != nil {
+				fmt.Print(err.Error())
+				os.Exit(1)
+			}
+
+			responseData, err := ioutil.ReadAll(response.Body)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println(string(responseData))	
+			fmt.Println("paso por aca y funciona buscando")
+			w.Write(responseData)
+	})
+	
+
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:

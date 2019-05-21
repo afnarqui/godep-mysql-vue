@@ -6,7 +6,9 @@
     <div class="bar">
         <!-- Create a binding between the searchString model and the text field -->
 
-        <input type="text" v-model="searchString" placeholder="Enter your search" />
+        <input type="text" v-model="searchString" placeholder="Enter your Search" />
+        <br>
+        <input @click="buscar" v-model="busc" type="button" value="Search" class="btn btn-success">
     </div>
 <!--
   "host": "www.google.com",
@@ -81,7 +83,7 @@
 
   </b-card>
 </b-card-group>
-<input @click="buscar" type="button" value="Añadir" class="btn btn-success">
+
 </form>
 
 
@@ -112,7 +114,9 @@ export default {
   methods: {
     buscar: function () {
       console.log('entro a buscar')
-          axios.get('http://localhost:8081/public').then((response) => {
+          const self = this
+          url = `http://localhost:8081/buscar?${self.busc}`
+          axios.get(url).then((response) => {
       console.log(response.data.endpoints)
       this.posts = response.data.endpoints
     })
