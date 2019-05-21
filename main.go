@@ -22,6 +22,7 @@ import (
 	
 	
 	"github.com/go-chi/chi"
+	"github.com/google/uuid"
 	
 )
 
@@ -337,8 +338,9 @@ func main() {
 			fmt.Printf("go data: %+v\n", xp)
 		
 			for i, v := range xp {
+				uuid := UUID
 				fmt.Println(i, v)
-
+				fmt.Println("\t", uuid)
 				fmt.Println("\t", v.Host)
 				fmt.Println("\t", v.Port)
 				fmt.Println("\t",v.Protocol)
@@ -350,6 +352,7 @@ func main() {
 				fmt.Println("\t",v.CriteriaVersion)
 				fmt.Println("\t",v.Endpoints)
 				for b, k := range v.Endpoints {
+					fmt.Println("\t", uuid)
 					fmt.Println("segundo recorrido")
 					fmt.Println(b, k)
 					fmt.Println("\t","IPAddress: " + string(k.IPAddress))
