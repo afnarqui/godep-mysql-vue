@@ -323,7 +323,7 @@ func main() {
 		
 		
 			for i := range responseData {
-				fmt.Println(responseData[i]) 
+				fmt.Println(responseData[i][i]) 
 			}
 			w.Write(responseData)
 	})
