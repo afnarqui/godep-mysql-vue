@@ -13,8 +13,8 @@
         <!-- Render a li element for every entry in the computed filteredArticles array. -->
         <!--https://api.ssllabs.com/api/v3/analyze?host=google.com-->
         <li v-for="post of posts" v-bind:key="post.id">
-           <p><strong>{{post.title}}</strong></p>
-    <p>{{post.description}}</p>
+           <p><strong>{{post.endpoints.address}}</strong></p>
+    <p>{{post.endpoints.grade}}</p>
         </li>
     </ul>
 <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
