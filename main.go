@@ -349,7 +349,9 @@ func main() {
 		
 			for i, v := range xp {
 				fmt.Println(i, v)
-				//fmt.Println("\t", v.First)
+				
+				fmt.Println("\t", v.Host)
+				fmt.Println("\t", v.Port)
 			}
 			// for key, result := range results {
 
