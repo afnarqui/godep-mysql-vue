@@ -13,8 +13,8 @@
         <!-- Render a li element for every entry in the computed filteredArticles array. -->
         <!--https://api.ssllabs.com/api/v3/analyze?host=google.com-->
         <li v-for="post of posts" v-bind:key="post.id">
-           <p><strong>{{post.endpoints.address}}</strong></p>
-    <p>{{post.endpoints.grade}}</p>
+           <p><strong>{{post.address}}</strong></p>
+    <p>{{post.grade}}</p>
         </li>
     </ul>
 <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
@@ -38,7 +38,7 @@ export default {
   mounted() {
     axios.get('http://localhost:8081/public').then((response) => {
       console.log(response)
-      this.posts = response
+      this.posts = response.data.endpoints
     })
     .catch((e) => {
       console.error(e)
@@ -48,8 +48,8 @@ export default {
     buscar: function () {
       console.log('entro a buscar')
           axios.get('http://localhost:8081/public').then((response) => {
-      console.log(response.data)
-      this.posts = response.data
+      console.log(response.data.endpoints)
+      this.posts = response.data.endpoints
     })
     .catch((e) => {
       console.error(e)
