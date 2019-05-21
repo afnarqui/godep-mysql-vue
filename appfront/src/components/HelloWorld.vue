@@ -39,21 +39,8 @@
         </li>
     </ul>
 
-<b-card-group deck v-for="post of posts" v-bind:key="post.id">
-  <b-card header="Data">
-    <b-list-group>
-      <b-list-group-item href="#">{{post.address}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
 
-    </b-list-group>
-      <p class="card-text mt-2">
-         {{post.serverName}}
-      </p>
 
-  </b-card>
-</b-card-group>
--->
 <b-card-group deck v-for="post of posts" v-bind:key="post.id">
   <b-card header="Data">
     <b-list-group>
@@ -79,7 +66,21 @@
         </li>
     </ul>
 </b-card-group>
+-->
+<b-card-group deck v-for="post of posts" v-bind:key="post.id">
+  <b-card header="Data">
+    <b-list-group>
+      <b-list-group-item href="#">{{post.address}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
 
+    </b-list-group>
+      <p class="card-text mt-2">
+         {{post.serverName}}
+      </p>
+
+  </b-card>
+</b-card-group>
 <input @click="buscar" type="button" value="Añadir" class="btn btn-success">
 </form>
 
