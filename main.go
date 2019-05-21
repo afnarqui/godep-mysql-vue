@@ -21,7 +21,7 @@ import (
 	"strings"
 	
 	
-	"github.com/go-chi/chi"
+	"os/exec"
 	
 )
 
@@ -337,9 +337,14 @@ func main() {
 			fmt.Printf("go data: %+v\n", xp)
 		
 			for i, v := range xp {
-				var uuid UUID
+				
+				uuid, err := exec.Command("uuidgen").Output()
+				if err != nil {
+					log.Fatal(err)
+				}
+				
 				fmt.Println(i, v)
-				fmt.Println("\t", uuid)
+				fmt.Printf("%s", uuid)
 				fmt.Println("\t", v.Host)
 				fmt.Println("\t", v.Port)
 				fmt.Println("\t",v.Protocol)
