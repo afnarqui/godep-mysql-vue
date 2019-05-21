@@ -349,6 +349,10 @@ func main() {
 				fmt.Println("\t",v.EngineVersion)
 				fmt.Println("\t",v.CriteriaVersion)
 				fmt.Println("\t",v.Endpoints)
+				for b, k := range v.Endpoints {
+					fmt.Println("segundo recorrido")
+					fmt.Println(b, k)
+				}
 			}
 			// for key, result := range results {
 
