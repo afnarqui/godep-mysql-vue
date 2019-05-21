@@ -338,9 +338,9 @@ func main() {
 			j := `[{"First":"James","Last":"Bond"},{"First":"Miss","Last":"Moneypenny"}]`
 			fmt.Println("json:",j)
 			
-			xp := []person{}
+			xp := []Domain{}
 		
-			errr := json.Unmarshal([]byte(j), &xp)
+			errr := json.Unmarshal([]byte(responseData), &xp)
 			
 			if errr != nil {
 				fmt.Println(errr)
@@ -349,7 +349,7 @@ func main() {
 		
 			for i, v := range xp {
 				fmt.Println(i, v)
-				fmt.Println("\t", v.First)
+				//fmt.Println("\t", v.First)
 			}
 			// for key, result := range results {
 
