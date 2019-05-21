@@ -235,7 +235,7 @@ func (n Note) Delete(id int) error {
 
 /*var note Note*/
 
-type Domain struct {
+type domain struct {
 	Host            string      `json:"host"`
 	Port            int         `json:"port"`
 	Protocol        string      `json:"protocol"`
@@ -338,7 +338,7 @@ func main() {
 			j := `[{"First":"James","Last":"Bond"},{"First":"Miss","Last":"Moneypenny"}]`
 			fmt.Println("json:",j)
 			
-			xp := []Domain{}
+			xp := []domain{}
 		
 			errr := json.Unmarshal([]byte(responseData), &xp)
 			
