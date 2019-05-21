@@ -335,7 +335,7 @@ func main() {
 			
 			fmt.Println("aja")
 			fmt.Println("aja",results)
-			j := `[{"First":"James","Last":"Bond"},{"First":"Miss","Last":"Moneypenny"}]`
+			j := `[${responseData}]`
 			fmt.Println("json:",j)
 			
 			xp := []domain{}
