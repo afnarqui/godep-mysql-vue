@@ -115,7 +115,7 @@ export default {
     buscar: function () {
       console.log('entro a buscar')
           const self = this
-          const url = `http://localhost:8081/buscar?${self.busc}`
+          const url = `http://localhost:8081/buscar?nombre=${self.busc}`
           axios.get(url).then((response) => {
       console.log(response.data.endpoints)
       this.posts = response.data.endpoints
