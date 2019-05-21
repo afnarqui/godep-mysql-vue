@@ -259,10 +259,7 @@ type Endpoints struct {
 	Duration          int    `json:"duration"`
 	Delegation        int    `json:"delegation"`
 }
-type person struct {
-	First string
-	Last string
-}
+
 // Punto de ejecución del ejecutable.
 func main() {
 	
@@ -325,18 +322,10 @@ func main() {
 			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
 		
 		
-			// for i := range responseData {
-			// 	fmt.Println(responseData[i]["port"]) 
-			// }
-			var results []map[string]interface{}
-
-			// Unmarshal or Decode the JSON to the interface.
-			json.Unmarshal([]byte(responseData), &results)
 			
-			fmt.Println("aja")
-			fmt.Println("aja",results)
+		
 			j := "["+string(responseData)+"]"
-			fmt.Println("json:",j)
+			//fmt.Println("json:",j)
 			
 			xp := []domain{}
 		
@@ -349,9 +338,17 @@ func main() {
 		
 			for i, v := range xp {
 				fmt.Println(i, v)
-				
+
 				fmt.Println("\t", v.Host)
 				fmt.Println("\t", v.Port)
+				fmt.Println("\t",v.Protocol)
+				fmt.Println("\t",v.IsPublic)
+				fmt.Println("\t",v.Status)
+				fmt.Println("\t",v.StartTime)
+				fmt.Println("\t",v.TestTime)
+				fmt.Println("\t",v.EngineVersion)
+				fmt.Println("\t",v.CriteriaVersion)
+				fmt.Println("\t",v.Endpoints)
 			}
 			// for key, result := range results {
 
