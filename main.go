@@ -329,7 +329,8 @@ func main() {
 
 			// Unmarshal or Decode the JSON to the interface.
 			json.Unmarshal([]byte(responseData), &results)
-
+			fmt.Println("aja")
+			fmt.Println("aja",results)
 			for key, result := range results {
 
 				fmt.Println("Reading Value for Key :", key)
