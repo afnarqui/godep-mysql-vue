@@ -22,7 +22,7 @@ import (
 	
 	
 	"github.com/go-chi/chi"
-	"os/exec"
+	"github.com/satori/go.uuid"
 )
 
 var db *sql.DB
@@ -337,11 +337,14 @@ func main() {
 			fmt.Printf("go data: %+v\n", xp)
 		
 			for i, v := range xp {
-				
-				uuid, err := exec.Command("uuidgen").Output()
+						
+				// or error handling
+				uuid, err := uuid.NewV4()
 				if err != nil {
-					log.Fatal(err)
+				fmt.Printf("Something went wrong: %s", err)
+				return
 				}
+				
 				
 				fmt.Println(i, v)
 				fmt.Printf("%s", uuid)
