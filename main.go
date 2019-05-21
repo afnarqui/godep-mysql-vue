@@ -275,7 +275,7 @@ func main() {
 	//mux.HandleFunc("/notes", NotesHandler)
 
 	log.Println("Corriendo en http://localhost:8081")
-
+	MakeMigrations()
 	//http.ListenAndServe(":8081", mux)
 	r := chi.NewRouter()
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
