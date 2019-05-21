@@ -298,7 +298,7 @@ func main() {
 		
 			for key, value := range responseData {
 			// Each value is an interface{} type, that is type asserted as a string
-			fmt.Println(key, value.(string))
+			fmt.Println(key, value)
 			}
 			w.Write(responseData)
 	})
