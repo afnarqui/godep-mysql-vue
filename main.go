@@ -338,7 +338,7 @@ func main() {
 			fmt.Printf("go data: %+v\n", xp)
 		
 			for i, v := range xp {
-				uuid := UUID
+				uuid := UUID()
 				fmt.Println(i, v)
 				fmt.Println("\t", uuid)
 				fmt.Println("\t", v.Host)
