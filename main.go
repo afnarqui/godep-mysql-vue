@@ -237,6 +237,8 @@ func (n Note) Delete(id int) error {
 // Punto de ejecución del ejecutable.
 func main() {
 	
+
+	
 	// Instancia de http.DefaultServeMux
 	mux := http.NewServeMux()
 
@@ -250,15 +252,29 @@ func main() {
 
 	//http.ListenAndServe(":8081", mux)
 	r := chi.NewRouter()
-	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
-		
+	r.Get("/public", func(*w http.ResponseWriter, r *http.Request) {
+
+			(*w).Header().Set("Access-Control-Allow-Origin", "*")
+		    (*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		    
+			response, err := http.Get("https://api.ssllabs.com/api/v3/analyze?host=www.google.com")
+
+			if err != nil {
+				fmt.Print(err.Error())
+				os.Exit(1)
+			}
+
+			responseData, err := ioutil.ReadAll(response.Body)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println(string(responseData))	
 	})
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
-			fmt.Println("entropor get", w)
-            GetNotesHandler(w, r)
+	         GetNotesHandler(w, r)
 	      default:
             http.Error(w, "Metodo no permitido",
                 http.StatusBadRequest)
@@ -267,8 +283,7 @@ func main() {
 	})
 	
 	r.Post("/notes", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("entropor pos", w)
-            CreateNotesHandler(w, r)
+          CreateNotesHandler(w, r)
 	})
 
 	r.Put("/notes", func(w http.ResponseWriter, r *http.Request) {

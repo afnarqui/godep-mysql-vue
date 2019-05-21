@@ -36,7 +36,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:8081/notes').then((response) => {
+    axios.get('http://localhost:8081/public').then((response) => {
       console.log(response)
       this.posts = response
     })
@@ -47,7 +47,7 @@ export default {
   methods: {
     buscar: function () {
       console.log('entro a buscar')
-          axios.get('http://localhost:8081/notes').then((response) => {
+          axios.get('http://localhost:8081/public').then((response) => {
       console.log(response.data)
       this.posts = response.data
     })
