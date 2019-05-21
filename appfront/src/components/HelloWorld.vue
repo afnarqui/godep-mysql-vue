@@ -118,7 +118,7 @@ export default {
           const url = `http://localhost:8081/buscar?nombre=${self.busc}`
           axios.get(url).then((response) => {
       console.log(response.data.endpoints)
-      this.posts = response.data.endpoints
+      this.posts = response.data.endpoints == undefined ? response.data : response.data.endpoints
     })
     .catch((e) => {
       console.error(e)
