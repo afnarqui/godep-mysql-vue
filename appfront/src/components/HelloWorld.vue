@@ -57,21 +57,25 @@
 <b-card-group deck v-for="post of posts" v-bind:key="post.id">
   <b-card header="Data">
     <b-list-group>
-      <b-list-group-item href="#">{{post.address}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.host}}</b-list-group-item>
+      <b-list-group-item href="#">{{post.port}}</b-list-group-item>
 
     </b-list-group>
       <p class="card-text mt-2">
-         {{post.serverName}}
+         {{post.status}}
       </p>
+
+      <strong>{{post.protocol}}</strong>
 
   </b-card>
    <ul >
         <li v-for="po of post.endpoints" v-bind:key="po.id">
-           <h2></h2>
-           <p><strong>{{po.host}}</strong></p>
-    <p>{{po.port}}</p>
+           <h1>{{po.serverName}}</h1>
+           <h2>{{po.statusMessage}}</h2>
+
+           <p><strong>{{po.address}}</strong></p>
+    <p>{{po.grade}}</p>
+
         </li>
     </ul>
 </b-card-group>
