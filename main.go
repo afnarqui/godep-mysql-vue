@@ -322,8 +322,19 @@ func main() {
 			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
 		
 		
-			for i := range responseData {
-				fmt.Println(responseData[i]["port"]) 
+			// for i := range responseData {
+			// 	fmt.Println(responseData[i]["port"]) 
+			// }
+			var results []map[string]interface{}
+
+			// Unmarshal or Decode the JSON to the interface.
+			json.Unmarshal([]byte(responseData), &results)
+
+			for key, result := range results {
+
+				fmt.Println("Reading Value for Key :", key)
+				//Reading each value by its key
+				fmt.Println("Id :", result["port"])
 			}
 			w.Write(responseData)
 	})
