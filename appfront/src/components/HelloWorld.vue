@@ -6,9 +6,9 @@
     <div class="bar">
         <!-- Create a binding between the searchString model and the text field -->
 
-        <input type="text" v-model="searchString" placeholder="Enter your Search" />
+        <input type="text" v-model="busc" placeholder="Enter your Search" />
         <br>
-        <input @click="buscar" v-model="busc" type="button" value="Search" class="btn btn-success">
+        <input @click="buscar"  type="button" value="Search" class="btn btn-success">
     </div>
 <!--
   "host": "www.google.com",
