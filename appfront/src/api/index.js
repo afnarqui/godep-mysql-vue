@@ -1,5 +1,5 @@
 
-const URL = 'https://api.ssllabs.com/api/v3/analyze?host=www.google.com'
+const URL = 'https://jsonplaceholder.typicode.com/todos/1'
 
 
 export default function getDominios (name) {
