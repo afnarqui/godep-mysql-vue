@@ -253,10 +253,10 @@ func main() {
 
 	//http.ListenAndServe(":8081", mux)
 	r := chi.NewRouter()
-	r.Get("/public", func(w *http.ResponseWriter, r *http.Request) {
+	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 
-			(*w).Header().Set("Access-Control-Allow-Origin", "*")
-		    (*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			(w).Header().Set("Access-Control-Allow-Origin", "*")
+		    (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 		    
 			response, err := http.Get("https://api.ssllabs.com/api/v3/analyze?host=www.google.com")
 
