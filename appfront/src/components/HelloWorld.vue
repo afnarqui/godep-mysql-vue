@@ -36,11 +36,12 @@
       <b-list-group-item href="#">{{post.address}}</b-list-group-item>
       <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
       <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
-    </b-list-group>
-
-    <p class="card-text mt-2">
+     <p class="card-text mt-2">
      {{post.serverName}}
     </p>
+    </b-list-group>
+
+
   </b-card>
 </b-card-group>
 
