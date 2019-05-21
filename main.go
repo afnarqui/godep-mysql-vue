@@ -259,7 +259,10 @@ type Endpoints struct {
 	Duration          int    `json:"duration"`
 	Delegation        int    `json:"delegation"`
 }
-
+type person struct {
+	First string
+	Last string
+}
 // Punto de ejecución del ejecutable.
 func main() {
 	
@@ -329,14 +332,31 @@ func main() {
 
 			// Unmarshal or Decode the JSON to the interface.
 			json.Unmarshal([]byte(responseData), &results)
+			
 			fmt.Println("aja")
 			fmt.Println("aja",results)
-			for key, result := range results {
-
-				fmt.Println("Reading Value for Key :", key)
-				//Reading each value by its key
-				fmt.Println("Id :", result["port"])
+			j := `[{"First":"James","Last":"Bond"},{"First":"Miss","Last":"Moneypenny"}]`
+			fmt.Println("json:",j)
+			
+			xp := []person{}
+		
+			err := json.Unmarshal([]byte(j), &xp)
+			
+			if err != nil {
+				fmt.Println(err)
 			}
+			fmt.Printf("go data: %+v\n", xp)
+		
+			for i, v := fange xp {
+				fmt.Println(i, v)
+				fmt.Println("\t", v.First)
+			}
+			// for key, result := range results {
+
+			// 	fmt.Println("Reading Value for Key :", key)
+				
+			// 	fmt.Println("Id :", result["port"])
+			// }
 			w.Write(responseData)
 	})
 	
