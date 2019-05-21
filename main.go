@@ -347,7 +347,7 @@ func main() {
 			}
 			fmt.Printf("go data: %+v\n", xp)
 		
-			for i, v := fange xp {
+			for i, v := range xp {
 				fmt.Println(i, v)
 				fmt.Println("\t", v.First)
 			}
