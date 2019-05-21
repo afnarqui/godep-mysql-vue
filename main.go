@@ -270,6 +270,8 @@ func main() {
 				log.Fatal(err)
 			}
 			fmt.Println(string(responseData))	
+			fmt.Println("paso por aca y funciona")
+			w.Write(responseData)
 	})
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
