@@ -295,7 +295,7 @@ func main() {
 			}
 			fmt.Println(string(responseData))	
 			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
-			birdJson := responseData
+			birdJson := responseData.endpoints
 			var result map[string]interface{}
 			json.Unmarshal([]byte(birdJson), &result)
 
