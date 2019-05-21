@@ -31,7 +31,7 @@
     </ul>
 -->
 <b-card-group deck v-for="post of posts" v-bind:key="post.id">
-  <b-card header="post.address">
+  <b-card header={{post.address}}>
     <b-list-group >
       <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
       <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
