@@ -336,7 +336,7 @@ func main() {
 			}
 			fmt.Printf("go data: %+v\n", xp)
 
-			var newDomain[len(xp)] domain
+			var newDomain[len(responseData)] domain
 			for i, v := range xp {
 						
 				// or error handling
