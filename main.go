@@ -15,14 +15,14 @@ import (
 
 	"database/sql"
 	_ "github.com/lib/pq"
-	/*"net/http"*/
+	/*"net/http" "github.com/satori/go.uuid"*/
 	 "os"
 	"path/filepath"
 	"strings"
 	
 	
 	"github.com/go-chi/chi"
-	"github.com/satori/go.uuid"
+	
 )
 
 var db *sql.DB
