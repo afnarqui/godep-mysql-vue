@@ -462,42 +462,11 @@ func main() {
 		}
 		fmt.Println(len(responseData))
 		for i, v := range xp {
-			uuid, err := uuid.NewV4()
-			if err != nil {
-			fmt.Printf("Something went wrong Uuid: %s", err)
-			return
-			}
 			fmt.Println(i)
-			fmt.Printf("Uuid")
-			fmt.Printf("%s", uuid)
-			fmt.Println("\t", v.Host)
-			fmt.Println("\t", v.Port)
-			fmt.Println("\t",v.Protocol)
-			fmt.Println("\t",v.IsPublic)
-			fmt.Println("\t",v.Status)
-			fmt.Println("\t",v.StartTime)
-			fmt.Println("\t",v.TestTime)
-			fmt.Println("\t",v.EngineVersion)
-			fmt.Println("\t",v.CriteriaVersion)
-			fmt.Println("\t",v.Endpoints)
-			for b, k := range v.Endpoints {
-				fmt.Println("\t", uuid)
-				fmt.Println("segundo recorrido")
-				fmt.Println(b, k)
-				fmt.Println("\t","IPAddress: " + string(k.IPAddress))
-				fmt.Println("\t","ServerName: " + string(k.ServerName))
-				fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
-				fmt.Println("\t","Grade: " + string(k.Grade))
-				fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
-				fmt.Println("HasWarnings:\n",k.HasWarnings)
-				fmt.Println("IsExceptional:\n",  k.IsExceptional)
-				fmt.Println("Progress:\t", k.Progress)
-				fmt.Println("Duration:\t",k.Duration)
-				fmt.Println("Delegation:\t", + k.Delegation)
-			}
+			var nombreComparar string
+			fmt.Scanf("%s\n", &v.Host)
+			fmt.Println("este valor lo devolvió la data", nombreComparar)
 		}
-	
-		
 	
 		w.Write(responseData)
 })
