@@ -338,7 +338,7 @@ func main() {
 			fmt.Println(len(responseData))
 			// var newDomain[len(responseData)] domain
 			for i, v := range xp {
-						
+				fmt.Printf("Something went wrong: %s", i)		
 				// or error handling
 				uuid, err := uuid.NewV4()
 				if err != nil {
