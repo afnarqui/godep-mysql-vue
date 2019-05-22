@@ -76,7 +76,7 @@ func GetConnection() *sql.DB {
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
-					title
+					title,Host
 				) VALUES ('FELIPE','{"nombre":"andres felipe naranjo quintero new"}')`); err != nil {
 			log.Fatal(err)
 		}
