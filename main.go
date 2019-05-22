@@ -205,7 +205,7 @@ type Note struct {
 func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	db := GetConnection()
 	q := `SELECT
-			title,Host
+			title,host
 			FROM domaintest`
 	// Ejecutamos la query
 	rows, err := db.Query(q)
