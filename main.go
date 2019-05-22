@@ -62,21 +62,21 @@ func GetConnection() *sql.DB {
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
 					title VARCHAR(64) NULL,
-					Host              JSONB
+					Datas             JSONB
 				)`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
-					title,Host
+					title,Datas
 				) VALUES ('ANDRES','{"nombre":"andres felipe naranjo quintero"}')`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
-					title,Host
+					title,Datas
 				) VALUES ('FELIPE','{"nombre":"andres felipe naranjo quintero new"}')`); err != nil {
 			log.Fatal(err)
 		}
@@ -188,7 +188,7 @@ func MakeMigrations() error {
 
 type Domaintest struct {
 	Title       string    `json:"title"`
-	Host        []Datas `json:"Datas"` 
+	Datas        []Datas `json:"datas"` 
 }
 
 type Datas struct {
@@ -205,7 +205,7 @@ type Note struct {
 func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	db := GetConnection()
 	q := `SELECT
-			title,host
+			title,Datas
 			FROM domaintest`
 	// Ejecutamos la query
 	rows, err := db.Query(q)
@@ -223,7 +223,7 @@ func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	for rows.Next() {
 		// Escaneamos el valor actual de la fila e insertamos el retorno
 		// en los correspondientes campos de la nota.
-		rows.Scan(&n.Title,&n.Host)
+		rows.Scan(&n.Title,&n.Datas)
 		// Añadimos cada nueva nota al slice de notas que declaramos antes.
 		domain = append(domain, *n)
 	}
