@@ -346,17 +346,16 @@ func main() {
 				return
 				}
 				
-				newDomain = {
-					"Host" : v.host,
-					"Port" : v.Port,
-					"Protocol" : v.Protocol,       
-					"IsPublic" : v.IsPublic,       
-					"Status" : v.Status,         
-					"StartTime" : v.StartTime,      
-					"TestTime" : v.TestTime,
-					"EngineVersion" : v.EngineVersion,  
-					"CriteriaVersion" : v.CriteriaVersion,
-				}
+					newDomain.Host = v.Host
+					newDomain.Port = v.Port,
+					newDomain.Protocol = v.Protocol,       
+					newDomain.IsPublic = v.IsPublic,       
+					newDomain.Status = v.Status,         
+					newDomain.StartTime = v.StartTime,      
+					newDomain.TestTime = v.TestTime,
+					newDomain.EngineVersion = v.EngineVersion,  
+					newDomain.CriteriaVersion = v.CriteriaVersion,
+				
 
 
 				//fmt.Println(i, v)
@@ -387,18 +386,18 @@ func main() {
 					fmt.Println("Duration:\t",k.Duration)
 					fmt.Println("Delegation:\t", + k.Delegation)
 
-					newDomain.Endpoints = [
-						"IPAddress" : k.IPAddress,
-						"ServerName" : k.ServerName,
-						"StatusMessage" : k.StatusMessage,
-						"Grade" : k.Grade,
-						"GradeTrustIgnored" : k.GradeTrustIgnored,
-						"HasWarnings" : k.HasWarnings,
-						"IsExceptional" : k.IsExceptional,
-						"Progress" : k.Progress,
-						"Duration" : k.Duration,
-						"Delegation" : k.Delegation,
-					]					
+					// newDomain.Endpoints = [
+					// 	"IPAddress" : k.IPAddress,
+					// 	"ServerName" : k.ServerName,
+					// 	"StatusMessage" : k.StatusMessage,
+					// 	"Grade" : k.Grade,
+					// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
+					// 	"HasWarnings" : k.HasWarnings,
+					// 	"IsExceptional" : k.IsExceptional,
+					// 	"Progress" : k.Progress,
+					// 	"Duration" : k.Duration,
+					// 	"Delegation" : k.Delegation,
+					// ]					
 				}
 			}
 			// for key, result := range results {
