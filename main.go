@@ -499,7 +499,7 @@ func main() {
 		// dataNueva := [
 		// 	responseData,{"afn":"andres felipe naranjo quintero"}
 		// ]
-		var a = [2][1]string{ responseData, {"afn":"andres felipe naranjo quintero"}}
+		var a = [2][2]string{ responseData, {"afn":"andres felipe naranjo quintero"}}
 	
 		w.Write(a)
 })
