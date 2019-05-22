@@ -499,9 +499,9 @@ func main() {
 		// dataNueva := [
 		// 	responseData,{"afn":"andres felipe naranjo quintero"}
 		// ]
-		var a = [2][2]string{ responseData, {"afn":"andres felipe naranjo quintero"}}
+		
 	
-		w.Write(a)
+		w.Write(responseData,responseData)
 })
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
