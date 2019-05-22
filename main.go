@@ -463,9 +463,9 @@ func main() {
 		fmt.Println(len(responseData))
 		for i, v := range xp {
 			fmt.Println(i)
-			var nombreComparar string
-			fmt.Scanf("%s\n", &v.Host)
-			fmt.Println("este valor lo devolvió la data", nombreComparar)
+			nombreComparar := v.Host 
+			fmt.Scanf("%s\n", &nombreComparar)
+			fmt.Println("este valor lo devolvió la data", &nombreComparar)
 		}
 	
 		w.Write(responseData)
