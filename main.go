@@ -63,7 +63,7 @@ func GetConnection() *sql.DB {
 					EngineVersion   VARCHAR(120),
 					CriteriaVersion VARCHAR(120),
 					Endpoints       JSONB,
-					Host__          JSONB,
+					Host__          JSONB
 				)`); err != nil {
 			log.Fatal(err)
 		}
