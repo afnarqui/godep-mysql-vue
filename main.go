@@ -61,22 +61,23 @@ func GetConnection() *sql.DB {
 
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
-					title VARCHAR(64) NULL
+					title VARCHAR(64) NULL,
+					Host              JSONB
 				)`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
-					title
-				) VALUES ('ANDRES')`); err != nil {
+					title,Host
+				) VALUES ('ANDRES','{"nombre":"andres felipe naranjo quintero"}')`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
 					title
-				) VALUES ('FELIPE')`); err != nil {
+				) VALUES ('FELIPE','{"nombre":"andres felipe naranjo quintero new"}')`); err != nil {
 			log.Fatal(err)
 		}
 
