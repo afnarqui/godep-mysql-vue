@@ -70,14 +70,15 @@ func GetConnection() *sql.DB {
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
 					title,Datas
-				) VALUES ('ANDRES','{"nombre":"andres felipe naranjo quintero"}')`); err != nil {
+				) VALUES ('ANDRES','[{"nombre":"andres felipe naranjo quintero"}
+				]')`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
 					title,Datas
-				) VALUES ('FELIPE','{"nombre":"andres felipe naranjo quintero new"}')`); err != nil {
+				) VALUES ('FELIPE','[{"nombre":"andres felipe naranjo quintero new"}]')`); err != nil {
 			log.Fatal(err)
 		}
 
