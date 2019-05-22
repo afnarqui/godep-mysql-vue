@@ -200,7 +200,7 @@ type Note struct {
 func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	db := GetConnection()
 	q := `SELECT
-			title
+			title,Host
 			FROM domaintest`
 	// Ejecutamos la query
 	rows, err := db.Query(q)
@@ -218,7 +218,7 @@ func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	for rows.Next() {
 		// Escaneamos el valor actual de la fila e insertamos el retorno
 		// en los correspondientes campos de la nota.
-		rows.Scan(&n.Title)
+		rows.Scan(&n.Title,&n.Host)
 		// Añadimos cada nueva nota al slice de notas que declaramos antes.
 		domain = append(domain, *n)
 	}
