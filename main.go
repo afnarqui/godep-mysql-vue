@@ -73,6 +73,13 @@ func GetConnection() *sql.DB {
 			log.Fatal(err)
 		}
 
+		if _, err := db.Exec(
+			`INSERT INTO domaintest (
+					title
+				) VALUES ('FELIPE')`); err != nil {
+			log.Fatal(err)
+		}
+
 		// if _, err := db.Exec(
 		// 	`INSERT INTO domain (
 		// 			title ,
