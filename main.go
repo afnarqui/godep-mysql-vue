@@ -51,12 +51,12 @@ func GetConnection() *sql.DB {
 			`CREATE TABLE IF NOT EXISTS domain (
 				id INT PRIMARY KEY,
 					title VARCHAR(64) NULL,
-					description VARCHAR(200) NULL
+					description VARCHAR(200) NULL,
 					Uuid VARCHAR(350),
 					Host VARCHAR(120),
-					Port INT
+					Port INT,
 					Protocol VARCHAR(120),
-					IsPublic BOOL
+					IsPublic BOOL,
 					Status   VARCHAR(80),
 					StartTime       TIMESTAMP,
 					TestTime        INT,
