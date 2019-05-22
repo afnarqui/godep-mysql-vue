@@ -80,7 +80,7 @@ func GetConnection() *sql.DB {
 						1558534496458,
 						"1.34.2",
 						"2009p",
-						[
+						
 						  {
 							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
 							"serverName": "sfo03s08-in-x04.1e100.net",
@@ -105,8 +105,8 @@ func GetConnection() *sql.DB {
 							"duration": 95038,
 							"delegation": 2
 						  }
-						],
-						[{"nombre":"aja"}]
+						,
+						{"nombre":"aja"}
 					)`); err != nil {
 			log.Fatal(err)
 		}
