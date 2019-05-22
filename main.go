@@ -335,7 +335,8 @@ func main() {
 				fmt.Println(errr)
 			}
 			fmt.Printf("go data: %+v\n", xp)
-		
+
+			newDomain := []domain{}
 			for i, v := range xp {
 						
 				// or error handling
@@ -345,8 +346,21 @@ func main() {
 				return
 				}
 				
-				
-				fmt.Println(i, v)
+				newDomain = {
+					"Host" : v.host,
+					"Port" : v.Port,
+					"Protocol" : v.Protocol,       
+					"IsPublic" : v.IsPublic,       
+					"Status" : v.Status,         
+					"StartTime" : v.StartTime,      
+					"TestTime" : v.TestTime,
+					"EngineVersion" : v.EngineVersion,  
+					"CriteriaVersion" : v.CriteriaVersion,
+				}
+
+
+				//fmt.Println(i, v)
+				fmt.Printf("Uuid")
 				fmt.Printf("%s", uuid)
 				fmt.Println("\t", v.Host)
 				fmt.Println("\t", v.Port)
@@ -372,6 +386,19 @@ func main() {
 					fmt.Println("Progress:\t", k.Progress)
 					fmt.Println("Duration:\t",k.Duration)
 					fmt.Println("Delegation:\t", + k.Delegation)
+
+					newDomain.Endpoints = [
+						"IPAddress" : k.IPAddress,
+						"ServerName" : k.ServerName,
+						"StatusMessage" : k.StatusMessage,
+						"Grade" : k.Grade,
+						"GradeTrustIgnored" : k.GradeTrustIgnored,
+						"HasWarnings" : k.HasWarnings,
+						"IsExceptional" : k.IsExceptional,
+						"Progress" : k.Progress,
+						"Duration" : k.Duration,
+						"Delegation" : k.Delegation,
+					]					
 				}
 			}
 			// for key, result := range results {
