@@ -70,9 +70,9 @@ func GetConnection() *sql.DB {
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
 					title,datas
-				) VALUES ("ANDRES","
-				"nombre":"andres felipe naranjo quintero"
-				")`); err != nil {
+				) VALUES ('ANDRES','
+				[{"nombre":"andres felipe naranjo quintero"}]
+				')`); err != nil {
 			log.Fatal(err)
 		}
 
