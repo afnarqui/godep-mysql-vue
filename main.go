@@ -336,7 +336,7 @@ func main() {
 			}
 			fmt.Printf("go data: %+v\n", xp)
 
-			newDomain := {}domain[]
+			var newDomain[len(xp)] domain
 			for i, v := range xp {
 						
 				// or error handling
@@ -346,9 +346,7 @@ func main() {
 				return
 				}
 				
-					 newDomain[i] = { 
-						 "Host" : v.Host
-						}
+					 newDomain[i].Host =  v.Host
 					// newDomain[i].Port = v.Port
 					// newDomain[i].Protocol = v.Protocol
 					// newDomain[i].IsPublic = v.IsPublic       
