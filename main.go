@@ -464,10 +464,10 @@ func main() {
 		fmt.Println(len(responseData))
 		for i, v := range xp {
 			fmt.Println("le id:",i)
-			fmt.Println(v.Host)
-			nombreComparar := v.Host 
-			fmt.Scanf("%s", &nombreComparar)
-			fmt.Println("este valor lo devolvió la data", &nombreComparar)
+			var datoAfn = v.Host
+			
+			fmt.Println("este valor lo devolvió la data", &datoAfn)
+			fmt.Println("este : es: es:", datoAfn)
 		}
 	
 		w.Write(responseData)
