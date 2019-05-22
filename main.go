@@ -346,15 +346,15 @@ func main() {
 				return
 				}
 				
-					newDomain.Host = v.Host
-					newDomain.Port = v.Port,
-					newDomain.Protocol = v.Protocol,       
-					newDomain.IsPublic = v.IsPublic,       
-					newDomain.Status = v.Status,         
-					newDomain.StartTime = v.StartTime,      
-					newDomain.TestTime = v.TestTime,
-					newDomain.EngineVersion = v.EngineVersion,  
-					newDomain.CriteriaVersion = v.CriteriaVersion,
+					newDomain[i].Host = v.Host
+					newDomain[i].Port = v.Port,
+					newDomain[i].Protocol = v.Protocol,       
+					newDomain[i].IsPublic = v.IsPublic,       
+					newDomain[i].Status = v.Status,         
+					newDomain[i].StartTime = v.StartTime,      
+					newDomain[i].TestTime = v.TestTime,
+					newDomain[i].EngineVersion = v.EngineVersion,  
+					newDomain[i].CriteriaVersion = v.CriteriaVersion,
 				
 
 
