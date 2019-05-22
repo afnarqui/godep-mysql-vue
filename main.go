@@ -318,8 +318,9 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println(string(responseData))	
-			fmt.Println("paso por aca y funciona")
+			// fmt.Println(string(responseData))	
+			// fmt.Println("paso por aca y funciona")
+			
 			w.Write(responseData)
 	})
 
