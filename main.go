@@ -62,7 +62,7 @@ func GetConnection() *sql.DB {
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
 					title VARCHAR(64) NULL,
-					Datas             JSONB
+					datas             JSONB
 				)`); err != nil {
 			log.Fatal(err)
 		}
