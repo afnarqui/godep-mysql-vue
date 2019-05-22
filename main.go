@@ -64,7 +64,7 @@ func GetConnection() *sql.DB {
 
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
-					1,title
+					id,title
 				) VALUES ('ANDRES')`); err != nil {
 			log.Fatal(err)
 		}
