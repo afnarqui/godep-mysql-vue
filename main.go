@@ -312,7 +312,7 @@ func main() {
 			}
 			// fmt.Println(string(responseData))	
 			// fmt.Println("paso por aca y funciona")
-			fmt.Println(responseData)
+			fmt.Println(string(responseData))	
 			w.Write(responseData)
 	})
 
