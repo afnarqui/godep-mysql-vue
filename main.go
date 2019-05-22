@@ -496,10 +496,12 @@ func main() {
 				fmt.Println("Delegation:\t", + k.Delegation)
 			}
 		}
-		dataNueva := [
-			responseData,{"afn":"andres felipe naranjo quintero"}
-		]
-		w.Write(dataNueva)
+		// dataNueva := [
+		// 	responseData,{"afn":"andres felipe naranjo quintero"}
+		// ]
+		var a = [2][1]string{ responseData, {"afn":"andres felipe naranjo quintero"}}
+	
+		w.Write(a)
 })
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
