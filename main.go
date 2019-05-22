@@ -501,7 +501,7 @@ func main() {
 		// ]
 		
 	
-		w.Write(responseData,responseData)
+		w.Write(responseData)
 })
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
