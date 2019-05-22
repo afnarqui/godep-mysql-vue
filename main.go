@@ -466,7 +466,7 @@ func main() {
 			fmt.Println("le id:",i)
 			var datoAfn = v.Host
 			
-			fmt.Println("este valor lo devolvió la data", &datoAfn)
+			fmt.Println("este valor lo devolvió la data", datoAfn)
 			fmt.Println("este : es: es:", datoAfn)
 		}
 	
