@@ -47,6 +47,27 @@ func GetConnection() *sql.DB {
         log.Fatal("error connecting to the database: ", err)
     }
 
+		if _, err := db.Exec(
+			`CREATE TABLE IF NOT EXISTS domain (
+				id INT PRIMARY KEY,
+					title VARCHAR(64) NULL,
+					description VARCHAR(200) NULL
+					Uuid VARCHAR(350),
+					Host VARCHAR(120),
+					Port INT
+					Protocol VARCHAR(120),
+					IsPublic BOOL
+					Status   VARCHAR(80),
+					StartTime       TIMESTAMP,
+					TestTime        INT,
+					EngineVersion   VARCHAR(120),
+					CriteriaVersion VARCHAR(120),
+					Endpoints       JSONB,
+					Host__          JSONB,
+				)`); err != nil {
+			log.Fatal(err)
+		}
+
     // Create the "accounts" table.
     if _, err := db.Exec(
         "CREATE TABLE IF NOT EXISTS accountsafn (id INT PRIMARY KEY, balance INT)"); err != nil {
