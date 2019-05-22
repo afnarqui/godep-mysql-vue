@@ -188,7 +188,7 @@ func MakeMigrations() error {
 
 type Domaintest struct {
 	Title       string    `json:"title"`
-	Datas        []Datas `json:"datas"` 
+	Datas       string `json:"datas"` 
 }
 
 type Datas struct {
