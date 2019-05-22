@@ -467,7 +467,7 @@ func main() {
 			fmt.Printf("Something went wrong Uuid: %s", err)
 			return
 			}
-			
+			fmt.Println(i)
 			fmt.Printf("Uuid")
 			fmt.Printf("%s", uuid)
 			fmt.Println("\t", v.Host)
@@ -496,9 +496,7 @@ func main() {
 				fmt.Println("Delegation:\t", + k.Delegation)
 			}
 		}
-		// dataNueva := [
-		// 	responseData,{"afn":"andres felipe naranjo quintero"}
-		// ]
+	
 		
 	
 		w.Write(responseData)
