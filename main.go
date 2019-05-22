@@ -178,10 +178,36 @@ func MakeMigrations() error {
 }
 
 
-type Note struct {
-	ID          int       `json:"id,omitempty"`
+type Domaintest struct {
 	Title       string    `json:"title"`
-	Description string    `json:"description"`
+}
+
+func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
+	db := GetConnection()
+	q := `SELECT
+			title
+			FROM domaintest`
+	// Ejecutamos la query
+	rows, err := db.Query(q)
+	if err != nil {
+		return []Domaintest{}, err
+	}
+	// Cerramos el recurso
+	defer rows.Close()
+
+	// Declaramos un slice de notas para que almacene las notas que retorne
+	// la petición.
+	domain := []Domaintest{}
+	// El método Next retorna un bool, mientras sea true indicará que existe
+	// un valor siguiente para leer.
+	for rows.Next() {
+		// Escaneamos el valor actual de la fila e insertamos el retorno
+		// en los correspondientes campos de la nota.
+		rows.Scan(&n.Title)
+		// Añadimos cada nueva nota al slice de notas que declaramos antes.
+		domain = append(domain, *n)
+	}
+	return domain, nil
 }
 
 func (n Note) Create() error {
@@ -392,6 +418,41 @@ func main() {
 			fmt.Println(string(responseData))	
 			w.Write(responseData)
 	})
+
+
+	
+	r.Get("/buscartest", func(w http.ResponseWriter, r *http.Request) {
+
+		(w).Header().Set("Access-Control-Allow-Origin", "*")
+		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		
+		n := new(Domaintest)
+		// Solicitando todas las notas en la base de datos.
+		domain, err := n.GetAllDomain()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusNotFound)
+			return
+		}
+		// Convirtiendo el slice de notas a formato JSON,
+		// retorna un []byte y un error.
+		j, err := json.Marshal(domain)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		// Escribiendo el código de respuesta.
+		w.WriteHeader(http.StatusOK)
+		// Estableciendo el tipo de contenido del cuerpo de la
+		// respuesta.
+		w.Header().Set("Content-Type", "application/json")
+		// Escribiendo la respuesta, es decir nuestro slice de notas
+		// en formato JSON.
+		w.Write(j)
+	
+})
+
+
+	
 
 
 	// 	r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
