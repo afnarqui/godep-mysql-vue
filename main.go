@@ -322,7 +322,7 @@ func main() {
 			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
 		
 		
-			
+			fmt.Println(len(responseData))
 		
 			j := "["+string(responseData)+"]"
 			//fmt.Println("json:",j)
@@ -334,9 +334,9 @@ func main() {
 			if errr != nil {
 				fmt.Println(errr)
 			}
-			fmt.Printf("go data: %+v\n", xp)
-
-			var newDomain[len(responseData)] domain
+			// fmt.Printf("go data: %+v\n", xp)
+			fmt.Println(len(responseData))
+			// var newDomain[len(responseData)] domain
 			for i, v := range xp {
 						
 				// or error handling
@@ -346,7 +346,7 @@ func main() {
 				return
 				}
 				
-					 newDomain[i].Host =  v.Host
+					//  newDomain[i].Host =  v.Host
 					// newDomain[i].Port = v.Port
 					// newDomain[i].Protocol = v.Protocol
 					// newDomain[i].IsPublic = v.IsPublic       
