@@ -496,8 +496,8 @@ func main() {
 				fmt.Println("Delegation:\t", + k.Delegation)
 			}
 		}
-		valoresNuevos := {"afn":"andres felipe naranjo quintero"}
-		w.Write(responseData,valoresNuevos)
+		
+		w.Write(responseData,{"afn":"andres felipe naranjo quintero"})
 })
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
