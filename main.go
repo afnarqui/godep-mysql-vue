@@ -227,7 +227,7 @@ func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 		// Añadimos cada nueva nota al slice de notas que declaramos antes.
 		domain = append(domain, *n)
 	}
-	fmt.Println(string(domain))
+	fmt.Println(domain)
 	return domain, nil
 }
 
