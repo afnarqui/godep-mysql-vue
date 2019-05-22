@@ -2,27 +2,20 @@ package main
 
 import (
 	"encoding/json"
-	/*"flag"*/
 	"fmt"
 	"log"
 	"net/http"
 	"io/ioutil"
 	"strconv"
-
 	"errors"
 	"time"
-	/*_ "github.com/mattn/go-sqlite3"*/
-
 	"database/sql"
 	_ "github.com/lib/pq"
 	/*"net/http" "github.com/satori/go.uuid"*/
 	 "os"
 	"path/filepath"
 	"strings"
-	
-	
 	"github.com/go-chi/chi"
-	
 )
 
 var db *sql.DB
@@ -33,15 +26,8 @@ func GetConnection() *sql.DB {
 	}
 
 	var err error
-	/*
-	db, err = sql.Open("sqlite3", "data.sqlite")
-	if err != nil {
-		panic(err)
-	}
-	return db*/
 
 	db, err := sql.Open("postgres", "postgresql://root@localhost:26257/defaultdb?sslmode=disable")
-	//db, err := sql.Open("postgres", dsn)
 
 	    if err != nil {
         log.Fatal("error connecting to the database: ", err)
@@ -65,21 +51,6 @@ func GetConnection() *sql.DB {
 					Endpoints       JSONB,
 					Host__          JSONB
 				)`); err != nil {
-			log.Fatal(err)
-		}
-
-    // Create the "accounts" table.
-    if _, err := db.Exec(
-        "CREATE TABLE IF NOT EXISTS accountsafn (id INT PRIMARY KEY, balance INT)"); err != nil {
-		log.Fatal(err)
-		}
-	
-		if _, err := db.Exec(
-			`CREATE TABLE IF NOT EXISTS notes (
-				id INT PRIMARY KEY,
-				   title VARCHAR(64) NULL,
-				   description VARCHAR(200) NULL
-			  )`); err != nil {
 			log.Fatal(err)
 		}
  
@@ -341,7 +312,7 @@ func main() {
 			}
 			// fmt.Println(string(responseData))	
 			// fmt.Println("paso por aca y funciona")
-			
+			fmt.Println(responseData)
 			w.Write(responseData)
 	})
 
