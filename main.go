@@ -55,60 +55,75 @@ func GetConnection() *sql.DB {
 		}
 
 		if _, err := db.Exec(
-			`INSERT INTO domain (
-					title ,
-					description ,
-					Uuid ,
-					Host ,
-					Port ,
-					Protocol ,
-					IsPublic ,
-					Status   ,
-					StartTime      ,
-					TestTime       ,
-					EngineVersion  ,
-					CriteriaVersion,
-					Endpoints      ,
-					Host__      )VALUES
-					(
-						"www.google.com",
-						 443,
-						 "http",
-						false,
-						"READY",
-						1558534316220,
-						1558534496458,
-						"1.34.2",
-						"2009p",
-						 [{
-							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-							"serverName": "sfo03s08-in-x04.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 85131,
-							"delegation": 2
-						  },
-						  {
-							"ipAddress": "172.217.6.36",
-							"serverName": "sfo03s08-in-f4.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 95038,
-							"delegation": 2
-						  }]
-						,
-						{"nombre":"aja"}
-					)`); err != nil {
+			`CREATE TABLE IF NOT EXISTS domaintest (
+				id INT PRIMARY KEY,
+					title VARCHAR(64) NULL
+				)`); err != nil {
 			log.Fatal(err)
 		}
+
+		if _, err := db.Exec(
+			`INSERT INTO domaintest (
+					title
+				) VALUES ('ANDRES')`); err != nil {
+			log.Fatal(err)
+		}
+
+		// if _, err := db.Exec(
+		// 	`INSERT INTO domain (
+		// 			title ,
+		// 			description ,
+		// 			Uuid ,
+		// 			Host ,
+		// 			Port ,
+		// 			Protocol ,
+		// 			IsPublic ,
+		// 			Status   ,
+		// 			StartTime      ,
+		// 			TestTime       ,
+		// 			EngineVersion  ,
+		// 			CriteriaVersion,
+		// 			Endpoints      ,
+		// 			Host__      )VALUES
+		// 			(
+		// 				"www.google.com",
+		// 				 443,
+		// 				 "http",
+		// 				false,
+		// 				"READY",
+		// 				1558534316220,
+		// 				1558534496458,
+		// 				"1.34.2",
+		// 				"2009p",
+		// 				 [{
+		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 					"serverName": "sfo03s08-in-x04.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 85131,
+		// 					"delegation": 2
+		// 				  },
+		// 				  {
+		// 					"ipAddress": "172.217.6.36",
+		// 					"serverName": "sfo03s08-in-f4.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 95038,
+		// 					"delegation": 2
+		// 				  }]
+		// 				,
+		// 				{"nombre":"aja"}
+		// 			)`); err != nil {
+		// 	log.Fatal(err)
+		// }
 
 		
  
