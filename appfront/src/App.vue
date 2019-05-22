@@ -12,6 +12,7 @@
 import HelloWorld from './components/HelloWorld'
 import Dominio from './components/Dominio'
 import getDominios from './api'
+import Uuid from './api/datos.js'
 
 export default {
   name: 'App',

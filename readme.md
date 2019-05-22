@@ -190,3 +190,5 @@ npm i vue bootstrap-vue bootstrap
 go get github.com/google/uuid
 
 go get "github.com/satori/go.uuid"
+
+npm i -g vue-uuid
