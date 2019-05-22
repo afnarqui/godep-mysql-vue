@@ -496,7 +496,7 @@ func main() {
 				fmt.Println("Delegation:\t", + k.Delegation)
 			}
 		}
-		valoresNuevos := ["afn":"andres felipe naranjo quintero"]
+		valoresNuevos := {"afn":"andres felipe naranjo quintero"}
 		w.Write(responseData,valoresNuevos)
 })
 
