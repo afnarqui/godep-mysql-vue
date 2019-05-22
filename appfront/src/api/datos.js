@@ -6,7 +6,7 @@ console.log(Uuid);
 
 
 let dato = [{ 'nombre': 'andres', 'quehago': false, 'rutas': 'c:\\bd', 'tabla': 'prueba' }]
-let dato2 = [{ 'apellido': 'naranjo', 'edad': 28, 'sexo': 'F', 'quehago': true, 'nombre': 'andres' }]
+let dato2 = [{ 'apellido': 'naranjo', 'edad': 28, 'sexo': 'F', 'quehago': true, 'nombre': 'andres', 'rutas': 'c:\\bd' }]
 comparar(dato, dato2)
     .then((res) => {
       console.log('entro a el then');
@@ -100,7 +100,8 @@ comparar(dato, dato2)
 
                   path += '["'+element+'"]';
               }
-
+              console.log('resultado final path')
+              console.log(path)
               if(d['kind'] == 'E'){
                   // editar
 
@@ -134,6 +135,8 @@ comparar(dato, dato2)
              // let b = fecha.format("yyyy.dd.mm")
 
           // retornar los datos con las diferencias
+          console.log('resultado final')
+          console.log(local,remotoA);
           resolve([local, remotoA]);
       } catch (error) {
 

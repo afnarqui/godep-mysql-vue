@@ -246,6 +246,16 @@ type domain struct {
 	EngineVersion   string      `json:"engineVersion"`
 	CriteriaVersion string      `json:"criteriaVersion"`
 	Endpoints       []Endpoints `json:"endpoints"`
+	Host__            string      `json:"host__"`
+	Port__            int         `json:"port__"`
+	Protocol__        string      `json:"protocol__"`
+	IsPublic__        bool        `json:"isPublic__"`
+	Status__          string      `json:"status__"`
+	StartTime__       int64       `json:"startTime__"`
+	TestTime__        int64       `json:"testTime__"`
+	EngineVersion__   string      `json:"engineVersion__"`
+	CriteriaVersion__ string      `json:"criteriaVersion__"`
+	Endpoints__       []Endpoints__ `json:"endpoints__"`
 }
 type Endpoints struct {
 	IPAddress         string `json:"ipAddress"`
@@ -259,6 +269,20 @@ type Endpoints struct {
 	Duration          int    `json:"duration"`
 	Delegation        int    `json:"delegation"`
 }
+
+type Endpoints__ struct {
+	IPAddress__         string `json:"ipAddress__"`
+	ServerName__        string `json:"serverName__"`
+	StatusMessage__     string `json:"statusMessage__"`
+	Grade__             string `json:"grade__"`
+	GradeTrustIgnored__ string `json:"gradeTrustIgnored__"`
+	HasWarnings__       bool   `json:"hasWarnings__"`
+	IsExceptional__     bool   `json:"isExceptional__"`
+	Progress__          int    `json:"progress__"`
+	Duration__          int    `json:"duration__"`
+	Delegation__        int    `json:"delegation__"`
+}
+
 
 // Punto de ejecución del ejecutable.
 func main() {
@@ -300,115 +324,181 @@ func main() {
 	})
 
 
-		r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
+	// 	r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
 
-			nombre := r.URL.Query().Get("nombre")
-			fmt.Println(nombre)
-			(w).Header().Set("Access-Control-Allow-Origin", "*")
-			(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-			url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
-			response, err := http.Get(url)
+	// 		nombre := r.URL.Query().Get("nombre")
+	// 		fmt.Println(nombre)
+	// 		(w).Header().Set("Access-Control-Allow-Origin", "*")
+	// 		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	// 		url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
+	// 		response, err := http.Get(url)
 
-			if err != nil {
-				fmt.Print(err.Error())
-				os.Exit(1)
-			}
+	// 		if err != nil {
+	// 			fmt.Print(err.Error())
+	// 			os.Exit(1)
+	// 		}
 
-			responseData, err := ioutil.ReadAll(response.Body)
-			if err != nil {
-				log.Fatal(err)
-			}
-			fmt.Println(string(responseData))	
-			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
+	// 		responseData, err := ioutil.ReadAll(response.Body)
+	// 		if err != nil {
+	// 			log.Fatal(err)
+	// 		}
+	// 		fmt.Println(string(responseData))	
+	// 		fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
 		
 		
-			fmt.Println(len(responseData))
+	// 		fmt.Println(len(responseData))
 		
-			j := "["+string(responseData)+"]"
-			//fmt.Println("json:",j)
+	// 		j := "["+string(responseData)+"]"
+	// 		//fmt.Println("json:",j)
 			
-			xp := []domain{}
+	// 		xp := []domain{}
 		
-			errr := json.Unmarshal([]byte(j), &xp)
+	// 		errr := json.Unmarshal([]byte(j), &xp)
 			
-			if errr != nil {
-				fmt.Println(errr)
-			}
-			// fmt.Printf("go data: %+v\n", xp)
-			fmt.Println(len(responseData))
-			// var newDomain[len(responseData)] domain
-			for i, v := range xp {
-				fmt.Printf("Something went wrong: %s", i)		
-				// or error handling
-				uuid, err := uuid.NewV4()
-				if err != nil {
-				fmt.Printf("Something went wrong: %s", err)
-				return
-				}
+	// 		if errr != nil {
+	// 			fmt.Println(errr)
+	// 		}
+	// 		// fmt.Printf("go data: %+v\n", xp)
+	// 		fmt.Println(len(responseData))
+	// 		// var newDomain[len(responseData)] domain
+	// 		for i, v := range xp {
+	// 			fmt.Printf("Something went wrong: %s", i)		
+	// 			// or error handling
+	// 			uuid, err := uuid.NewV4()
+	// 			if err != nil {
+	// 			fmt.Printf("Something went wrong: %s", err)
+	// 			return
+	// 			}
 				
-					//  newDomain[i].Host =  v.Host
-					// newDomain[i].Port = v.Port
-					// newDomain[i].Protocol = v.Protocol
-					// newDomain[i].IsPublic = v.IsPublic       
-					// newDomain[i].Status = v.Status      
-					// newDomain[i].StartTime = v.StartTime
-					// newDomain[i].TestTime = v.TestTime
-					// newDomain[i].EngineVersion = v.EngineVersion
-					// newDomain[i].CriteriaVersion = v.CriteriaVersion
+	// 				//  newDomain[i].Host =  v.Host
+	// 				// newDomain[i].Port = v.Port
+	// 				// newDomain[i].Protocol = v.Protocol
+	// 				// newDomain[i].IsPublic = v.IsPublic       
+	// 				// newDomain[i].Status = v.Status      
+	// 				// newDomain[i].StartTime = v.StartTime
+	// 				// newDomain[i].TestTime = v.TestTime
+	// 				// newDomain[i].EngineVersion = v.EngineVersion
+	// 				// newDomain[i].CriteriaVersion = v.CriteriaVersion
 				
 
 
-				//fmt.Println(i, v)
-				fmt.Printf("Uuid")
-				fmt.Printf("%s", uuid)
-				fmt.Println("\t", v.Host)
-				fmt.Println("\t", v.Port)
-				fmt.Println("\t",v.Protocol)
-				fmt.Println("\t",v.IsPublic)
-				fmt.Println("\t",v.Status)
-				fmt.Println("\t",v.StartTime)
-				fmt.Println("\t",v.TestTime)
-				fmt.Println("\t",v.EngineVersion)
-				fmt.Println("\t",v.CriteriaVersion)
-				fmt.Println("\t",v.Endpoints)
-				for b, k := range v.Endpoints {
-					fmt.Println("\t", uuid)
-					fmt.Println("segundo recorrido")
-					fmt.Println(b, k)
-					fmt.Println("\t","IPAddress: " + string(k.IPAddress))
-					fmt.Println("\t","ServerName: " + string(k.ServerName))
-					fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
-					fmt.Println("\t","Grade: " + string(k.Grade))
-					fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
-					fmt.Println("HasWarnings:\n",k.HasWarnings)
-					fmt.Println("IsExceptional:\n",  k.IsExceptional)
-					fmt.Println("Progress:\t", k.Progress)
-					fmt.Println("Duration:\t",k.Duration)
-					fmt.Println("Delegation:\t", + k.Delegation)
+	// 			//fmt.Println(i, v)
+	// 			fmt.Printf("Uuid")
+	// 			fmt.Printf("%s", uuid)
+	// 			fmt.Println("\t", v.Host)
+	// 			fmt.Println("\t", v.Port)
+	// 			fmt.Println("\t",v.Protocol)
+	// 			fmt.Println("\t",v.IsPublic)
+	// 			fmt.Println("\t",v.Status)
+	// 			fmt.Println("\t",v.StartTime)
+	// 			fmt.Println("\t",v.TestTime)
+	// 			fmt.Println("\t",v.EngineVersion)
+	// 			fmt.Println("\t",v.CriteriaVersion)
+	// 			fmt.Println("\t",v.Endpoints)
+	// 			for b, k := range v.Endpoints {
+	// 				fmt.Println("\t", uuid)
+	// 				fmt.Println("segundo recorrido")
+	// 				fmt.Println(b, k)
+	// 				fmt.Println("\t","IPAddress: " + string(k.IPAddress))
+	// 				fmt.Println("\t","ServerName: " + string(k.ServerName))
+	// 				fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+	// 				fmt.Println("\t","Grade: " + string(k.Grade))
+	// 				fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+	// 				fmt.Println("HasWarnings:\n",k.HasWarnings)
+	// 				fmt.Println("IsExceptional:\n",  k.IsExceptional)
+	// 				fmt.Println("Progress:\t", k.Progress)
+	// 				fmt.Println("Duration:\t",k.Duration)
+	// 				fmt.Println("Delegation:\t", + k.Delegation)
 
-					// newDomain.Endpoints = [
-					// 	"IPAddress" : k.IPAddress,
-					// 	"ServerName" : k.ServerName,
-					// 	"StatusMessage" : k.StatusMessage,
-					// 	"Grade" : k.Grade,
-					// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
-					// 	"HasWarnings" : k.HasWarnings,
-					// 	"IsExceptional" : k.IsExceptional,
-					// 	"Progress" : k.Progress,
-					// 	"Duration" : k.Duration,
-					// 	"Delegation" : k.Delegation,
-					// ]					
-				}
-			}
-			// for key, result := range results {
+	// 				// newDomain.Endpoints = [
+	// 				// 	"IPAddress" : k.IPAddress,
+	// 				// 	"ServerName" : k.ServerName,
+	// 				// 	"StatusMessage" : k.StatusMessage,
+	// 				// 	"Grade" : k.Grade,
+	// 				// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
+	// 				// 	"HasWarnings" : k.HasWarnings,
+	// 				// 	"IsExceptional" : k.IsExceptional,
+	// 				// 	"Progress" : k.Progress,
+	// 				// 	"Duration" : k.Duration,
+	// 				// 	"Delegation" : k.Delegation,
+	// 				// ]					
+	// 			}
+	// 		}
+	// 		// for key, result := range results {
 
-			// 	fmt.Println("Reading Value for Key :", key)
+	// 		// 	fmt.Println("Reading Value for Key :", key)
 				
-			// 	fmt.Println("Id :", result["port"])
-			// }
-			w.Write(responseData)
-	})
+	// 		// 	fmt.Println("Id :", result["port"])
+	// 		// }
+	// 		w.Write(responseData)
+	// })
 	
+	r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
+
+		nombre := r.URL.Query().Get("nombre")
+		fmt.Println(nombre)
+		(w).Header().Set("Access-Control-Allow-Origin", "*")
+		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
+		response, err := http.Get(url)
+
+		if err != nil {
+			fmt.Print(err.Error())
+			os.Exit(1)
+		}
+
+		responseData, err := ioutil.ReadAll(response.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		
+		j := "["+string(responseData)+"]"
+		xp := []domain{}
+	
+		errr := json.Unmarshal([]byte(j), &xp)
+		
+		if errr != nil {
+			fmt.Println(errr)
+		}
+		fmt.Println(len(responseData))
+		for i, v := range xp {
+			uuid, err := uuid.NewV4()
+			if err != nil {
+			fmt.Printf("Something went wrong Uuid: %s", err)
+			return
+			}
+			
+			fmt.Printf("Uuid")
+			fmt.Printf("%s", uuid)
+			fmt.Println("\t", v.Host)
+			fmt.Println("\t", v.Port)
+			fmt.Println("\t",v.Protocol)
+			fmt.Println("\t",v.IsPublic)
+			fmt.Println("\t",v.Status)
+			fmt.Println("\t",v.StartTime)
+			fmt.Println("\t",v.TestTime)
+			fmt.Println("\t",v.EngineVersion)
+			fmt.Println("\t",v.CriteriaVersion)
+			fmt.Println("\t",v.Endpoints)
+			for b, k := range v.Endpoints {
+				fmt.Println("\t", uuid)
+				fmt.Println("segundo recorrido")
+				fmt.Println(b, k)
+				fmt.Println("\t","IPAddress: " + string(k.IPAddress))
+				fmt.Println("\t","ServerName: " + string(k.ServerName))
+				fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+				fmt.Println("\t","Grade: " + string(k.Grade))
+				fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+				fmt.Println("HasWarnings:\n",k.HasWarnings)
+				fmt.Println("IsExceptional:\n",  k.IsExceptional)
+				fmt.Println("Progress:\t", k.Progress)
+				fmt.Println("Duration:\t",k.Duration)
+				fmt.Println("Delegation:\t", + k.Delegation)
+			}
+		}
+	
+		w.Write(responseData,["afn":"andres felipe naranjo quintero"])
+})
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
