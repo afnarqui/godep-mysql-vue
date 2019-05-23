@@ -891,7 +891,7 @@ func main() {
 		}
 		// Convirtiendo el slice de notas a formato JSON,
 		// retorna un []byte y un error.
-		j, err := json.Marshal(domain)
+		jj, err := json.Marshal(domain)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
@@ -902,7 +902,7 @@ func main() {
 		// respuesta.
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Println("devolver valor:")
-		fmt.Println(j)
+		fmt.Println(jj)
 		
 		fmt.Println("Fin Entro por buscar metodo que se llama al dar clic en buscar:")
 		w.Write(responseData)
