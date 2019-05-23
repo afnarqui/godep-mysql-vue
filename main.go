@@ -317,7 +317,6 @@ func MakeMigrations() error {
 	i2, _ := r2.RowsAffected()
 	fmt.Println("RowsAffected")
 	fmt.Println(i2)
-	fmt.Println(_)
 
 	// q := `CREATE TABLE IF NOT EXISTS notes (
 	//         id INTEGER PRIMARY KEY AUTOINCREMENT,
