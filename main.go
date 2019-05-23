@@ -61,17 +61,19 @@ func GetConnection() *sql.DB {
 
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
-					Uuid VARCHAR(350),
-					Host VARCHAR(120),
-					Port INT,
-					Protocol VARCHAR(120),
-					IsPublic BOOL,
-					Status   VARCHAR(80),
-					StartTime       DATE,
-					TestTime        INT,
-					EngineVersion   VARCHAR(120),
-					CriteriaVersion VARCHAR(120),
-					Endpoints       VARCHAR(8000) NULL
+					Uuid VARCHAR(350) NULL,
+					Host VARCHAR(120) NULL,
+					Port INT NULL,
+					Protocol VARCHAR(120) NULL,
+					IsPublic BOOL NULL,
+					Status   VARCHAR(80) NULL,
+					StartTime       DATE NULL,
+					TestTime        INT NULL,
+					EngineVersion   VARCHAR(120) NULL,
+					CriteriaVersion VARCHAR(120) NULL,
+					Endpoints       VARCHAR(8000) NULL,
+					HostOld         VARCHAR(8000) NULL,
+					HostNew         VARCHAR(8000) NULL
 				)`); err != nil {
 			log.Fatal(err)
 		}
@@ -89,6 +91,8 @@ func GetConnection() *sql.DB {
 					EngineVersion,   
 					CriteriaVersion,
 					endpoints
+					HostOld,
+					HostNew
 				) VALUES (
 					'www.google.com',
 					443,
@@ -100,6 +104,58 @@ func GetConnection() *sql.DB {
 					'1.34.2',
 					'2009p',
 					'{"endpoints": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}',
+					  '{"HostOld": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}',
+					  '{"HostNew": [
 						{
 						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
 						"serverName": "sfo03s08-in-x04.1e100.net",
