@@ -128,9 +128,9 @@ func GetConnection() *sql.DB {
 						"duration": 95185,
 						"delegation": 2
 						}
-					  ],
-					  "{"HostNew":[]},
-					  "{"HostOld":[]}}')`); err != nil {
+					  ]}',
+					  '{"HostNew":[]}',
+					  '{"HostOld":[]}')`); err != nil {
 			log.Fatal(err)
 		}
 
