@@ -90,7 +90,7 @@ func GetConnection() *sql.DB {
 					TestTime ,
 					EngineVersion,   
 					CriteriaVersion,
-					endpoints
+					endpoints,
 					HostOld,
 					HostNew
 				) VALUES (
