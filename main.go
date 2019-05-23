@@ -776,14 +776,14 @@ func main() {
 			log.Fatal(err)
 		}
 		
-		j := "["+string(responseData)+"]"
-		xp := []domain{}
+		// j := "["+string(responseData)+"]"
+		// xp := []domain{}
 	
-		errr := json.Unmarshal([]byte(j), &xp)
+		// errr := json.Unmarshal([]byte(j), &xp)
 		
-		if errr != nil {
-			fmt.Println(errr)
-		}
+		// if errr != nil {
+		// 	fmt.Println(errr)
+		// }
 		fmt.Println(string(responseData))
 		// for i, v := range xp {
 		// 	fmt.Println("le id:",i)
