@@ -276,8 +276,18 @@ func MakeMigrations() error {
 
 
 type Domaintest struct {
-	Title       string    `json:"title"`
-	Datas       string `json:"datas"` 
+	Host            string      `json:"host"`
+	Port            int         `json:"port"`
+	Protocol        string      `json:"protocol"`
+	IsPublic        bool        `json:"isPublic"`
+	Status          string      `json:"status"`
+	StartTime       int64       `json:"startTime"`
+	TestTime        int64       `json:"testTime"`
+	EngineVersion   string      `json:"engineVersion"`
+	CriteriaVersion string      `json:"criteriaVersion"`
+	Endpoints       string `json:"endpoints"`
+	HostOld         string `json:"HostOld"`
+	HostNew         string `json:"HostNew"`
 }
 
 type Datas struct {
@@ -294,7 +304,7 @@ type Note struct {
 func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	db := GetConnection()
 	q := `SELECT
-			title,Datas
+			top 1 Host
 			FROM domaintest`
 	// Ejecutamos la query
 	rows, err := db.Query(q)
@@ -312,7 +322,7 @@ func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	for rows.Next() {
 		// Escaneamos el valor actual de la fila e insertamos el retorno
 		// en los correspondientes campos de la nota.
-		rows.Scan(&n.Title,&n.Datas)
+		rows.Scan(&n.Host)
 		// Añadimos cada nueva nota al slice de notas que declaramos antes.
 		domain = append(domain, *n)
 	}
@@ -870,7 +880,30 @@ func main() {
 				// ]					
 			}
 		}
-	
+
+
+		n := new(Domaintest)
+		// Solicitando todas las notas en la base de datos.
+		domain, err := n.GetAllDomain()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusNotFound)
+			return
+		}
+		// Convirtiendo el slice de notas a formato JSON,
+		// retorna un []byte y un error.
+		j, err := json.Marshal(domain)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		// Escribiendo el código de respuesta.
+		w.WriteHeader(http.StatusOK)
+		// Estableciendo el tipo de contenido del cuerpo de la
+		// respuesta.
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Println("devolver valor:")
+		fmt.Println(j)
+		
 		fmt.Println("Fin Entro por buscar metodo que se llama al dar clic en buscar:")
 		w.Write(responseData)
 })
