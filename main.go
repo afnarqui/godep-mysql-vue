@@ -61,7 +61,7 @@ func GetConnection() *sql.DB {
 
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
-		}			Uuid VARCHAR(350),
+					Uuid VARCHAR(350),
 					Host VARCHAR(120),
 					Port INT,
 					Protocol VARCHAR(120),
