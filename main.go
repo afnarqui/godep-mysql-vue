@@ -129,8 +129,8 @@ func GetConnection() *sql.DB {
 						"delegation": 2
 						}
 					  ]}',
-					  '{"HostNew":[{}]}',
-					  '{"HostOld":[{}]}')`); err != nil {
+					  '{"HostNew":[{"nombre":"aja"}]}',
+					  '{"HostOld":[{"apellido":"aja"}]}')`); err != nil {
 			log.Fatal(err)
 		}
 
