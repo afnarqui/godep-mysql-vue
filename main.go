@@ -188,7 +188,8 @@ func GetConnection() *sql.DB {
 }
 
 func MakeMigrations() error {
-	db := GetConnection()
+	GetConnection()
+	// db := GetConnection()
 	// q := `CREATE TABLE IF NOT EXISTS notes (
 	//         id INTEGER PRIMARY KEY AUTOINCREMENT,
     //    		title VARCHAR(64) NULL,
