@@ -52,7 +52,7 @@ func GetConnection() *sql.DB {
 					Host__          JSONB
 				)
 				
-				CREATE TABLE IF NOT EXISTS domaintest (
+				CREATE TABLE IF NOT EXISTS domaintestt (
 					Uuid VARCHAR(350) NULL,
 					Host VARCHAR(120) NULL,
 					Port INT NULL,
@@ -82,24 +82,24 @@ func GetConnection() *sql.DB {
 		// 	log.Fatal(err)
 		// }
 
-		// if _, err := db.Exec(
-		// 	`CREATE TABLE IF NOT EXISTS domaintest (
-		// 			Uuid VARCHAR(350) NULL,
-		// 			Host VARCHAR(120) NULL,
-		// 			Port INT NULL,
-		// 			Protocol VARCHAR(120) NULL,
-		// 			IsPublic BOOL NULL,
-		// 			Status   VARCHAR(80) NULL,
-		// 			StartTime       DATE NULL,
-		// 			TestTime        INT NULL,
-		// 			EngineVersion   VARCHAR(120) NULL,
-		// 			CriteriaVersion VARCHAR(120) NULL,
-		// 			Endpoints       VARCHAR(8000) NULL,
-		// 			HostOld         VARCHAR(8000) NULL,
-		// 			HostNew         VARCHAR(8000) NULL
-		// 		)`); err != nil {
-		// 	log.Fatal(err)
-		// }
+		if _, err := db.Exec(
+			`CREATE TABLE IF NOT EXISTS domaintest (
+					Uuid VARCHAR(350) NULL,
+					Host VARCHAR(120) NULL,
+					Port INT NULL,
+					Protocol VARCHAR(120) NULL,
+					IsPublic BOOL NULL,
+					Status   VARCHAR(80) NULL,
+					StartTime       DATE NULL,
+					TestTime        INT NULL,
+					EngineVersion   VARCHAR(120) NULL,
+					CriteriaVersion VARCHAR(120) NULL,
+					Endpoints       VARCHAR(8000) NULL,
+					HostOld         VARCHAR(8000) NULL,
+					HostNew         VARCHAR(8000) NULL
+				)`); err != nil {
+			log.Fatal(err)
+		}
 		// var t = time.Now().Unix()
 		// fmt.Println(t)
 		if _, err := db.Exec(
