@@ -20,7 +20,6 @@ import (
 
 var db *sql.DB
 type UUID [16]byte
-var t = time.Now().Unix()
 func GetConnection() *sql.DB {
 	if db != nil {
 		return db
@@ -94,6 +93,7 @@ func GetConnection() *sql.DB {
 					CriteriaVersion,
 					endpoints
 				) VALUES (
+					var t = time.Now().Unix()
 					'www.google.com',
 					443,
 					'http',
