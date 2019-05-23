@@ -102,14 +102,13 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://localhost:8081/public').then((response) => {
-      console.log(response)
-      //this.posts = response.data.endpoints
-      this.posts = response.data.endpoints
-    })
-    .catch((e) => {
-      console.error(e)
-    })
+    // axios.get('http://localhost:8081/public').then((response) => {
+    //   console.log(response)
+    //   this.posts = response.data.endpoints
+    // })
+    // .catch((e) => {
+    //   console.error(e)
+    // })
   },
   methods: {
     buscar: function () {

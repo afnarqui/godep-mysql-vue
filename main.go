@@ -780,7 +780,7 @@ func main() {
 		if errr != nil {
 			fmt.Println(errr)
 		}
-		fmt.Println(len(responseData))
+		fmt.Println(string(responseData))
 		for i, v := range xp {
 			fmt.Println("le id:",i)
 			var datoAfn = v.Host
