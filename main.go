@@ -295,8 +295,30 @@ func GetConnection() *sql.DB {
 }
 
 func MakeMigrations() error {
-	GetConnection()
-	// db := GetConnection()
+	// GetConnection()
+
+	db2 := GetConnection()
+	defer db2.Close()
+
+	q2 := `SELECT top 1 1 from domaintest`
+	stmt2, err := db2.Prepare(q2)
+
+	if err != nil {
+		return err
+	}
+	defer stmt2.Close()
+
+	r2, err := stmt2.Exec(q2)
+
+	if err != nil {
+		return err
+	}
+
+	i2, _ := r2.RowsAffected()
+	ftm.Println("RowsAffected")
+	ftm.Println(i2)
+	ftm.Println(_)
+
 	// q := `CREATE TABLE IF NOT EXISTS notes (
 	//         id INTEGER PRIMARY KEY AUTOINCREMENT,
     //    		title VARCHAR(64) NULL,
