@@ -20,6 +20,7 @@ import (
 
 var db *sql.DB
 type UUID [16]byte
+var t := time.Now().Unix()
 func GetConnection() *sql.DB {
 	if db != nil {
 		return db
@@ -79,7 +80,7 @@ func GetConnection() *sql.DB {
 				)`); err != nil {
 			log.Fatal(err)
 		}
-		t := time.Now().Unix()
+		
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
 					Host,
