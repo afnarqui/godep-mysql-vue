@@ -510,7 +510,11 @@ func main() {
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 			(w).Header().Set("Access-Control-Allow-Origin", "*")
 		    (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		    nombre := r.URL.Query().Get("nombre")
+			nombre := r.URL.Query().Get("nombre")
+			
+			if nombre == "" { 
+				nombre := "google.com"
+			  }
 			response, err := http.Get("https://api.ssllabs.com/api/v3/analyze?host="+nombre)
 
 			if err != nil {
