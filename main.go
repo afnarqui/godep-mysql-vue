@@ -528,6 +528,7 @@ func main() {
 			}
 			// fmt.Println(string(responseData))	
 			// fmt.Println("paso por aca y funciona")
+			fmt.Println("Inicio Entro por public metodo que se llama al inicio de el programa:")
 			fmt.Println("devolver data:")
 			fmt.Println(string(responseData))	
 		
@@ -609,6 +610,8 @@ func main() {
 				
 			// 	fmt.Println("Id :", result["port"])
 			// }
+			fmt.Println("Fin Entro por public metodo que se llama al inicio de el programa:")
+			
 			w.Write(responseData)
 	})
 
@@ -802,7 +805,9 @@ func main() {
 		if errr != nil {
 			fmt.Println(errr)
 		}
-		fmt.Println(len(responseData))
+		//fmt.Println(len(responseData))
+		fmt.Println("Inicio Entro por buscar metodo que se llama al dar clic en buscar:")
+			
 		for i, v := range xp {
 			fmt.Printf("Something went wrong: %s", i)		
 			uuid, err := uuid.NewV4()
@@ -866,6 +871,7 @@ func main() {
 			}
 		}
 	
+		fmt.Println("Fin Entro por buscar metodo que se llama al dar clic en buscar:")
 		w.Write(responseData)
 })
 
