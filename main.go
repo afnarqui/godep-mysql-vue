@@ -54,11 +54,27 @@ func GetConnection() *sql.DB {
 			log.Fatal(err)
 		}
 
-		// if _, err := db.Exec(
-		// 	`DROP TABLE IF EXISTS domaintest`); err != nil {
-		// 	log.Fatal(err)
-		// }
-
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS accounts`); err != nil {
+			log.Fatal(err)
+		}
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS accountsafn`); err != nil {
+			log.Fatal(err)
+		}
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS estudiantes`); err != nil {
+			log.Fatal(err)
+		}
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS notes`); err != nil {
+			log.Fatal(err)
+		}
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS pruebaafn`); err != nil {
+			log.Fatal(err)
+		}
+	
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
 					Uuid VARCHAR(350) NULL,
