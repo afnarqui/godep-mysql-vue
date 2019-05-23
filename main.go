@@ -76,7 +76,7 @@ func GetConnection() *sql.DB {
 					HostNew         VARCHAR(8000) NULL
 				)
 				
-				go
+				
 
 				INSERT INTO domaintest (
 					Host,
