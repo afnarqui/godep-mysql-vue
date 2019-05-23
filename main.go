@@ -79,110 +79,110 @@ func GetConnection() *sql.DB {
 		}
 		// var t = time.Now().Unix()
 		// fmt.Println(t)
-		if _, err := db.Exec(
-			`INSERT INTO domaintest (
-					Host,
-					Port,
-					Protocol, 
-					IsPublic,
-					Status,   
-					StartTime,
-					TestTime ,
-					EngineVersion,   
-					CriteriaVersion,
-					endpoints,
-					HostOld,
-					HostNew
-				) VALUES (
-					'www.google.com',
-					443,
-					'http',
-					false,
-					'READY',
-					'2019-03-26',
-					1558624016,
-					'1.34.2',
-					'2009p',
-					'{"endpoints": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}',
-					  '{"HostOld": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}',
-					  '{"HostNew": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}')`); err != nil {
-			log.Fatal(err)
-		}
+		// if _, err := db.Exec(
+		// 	`INSERT INTO domaintest (
+		// 			Host,
+		// 			Port,
+		// 			Protocol, 
+		// 			IsPublic,
+		// 			Status,   
+		// 			StartTime,
+		// 			TestTime ,
+		// 			EngineVersion,   
+		// 			CriteriaVersion,
+		// 			endpoints,
+		// 			HostOld,
+		// 			HostNew
+		// 		) VALUES (
+		// 			'www.google.com',
+		// 			443,
+		// 			'http',
+		// 			false,
+		// 			'READY',
+		// 			'2019-03-26',
+		// 			1558624016,
+		// 			'1.34.2',
+		// 			'2009p',
+		// 			'{"endpoints": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}',
+		// 			  '{"HostOld": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}',
+		// 			  '{"HostNew": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}')`); err != nil {
+		// 	log.Fatal(err)
+		// }
 		 
  return db
 }
