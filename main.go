@@ -784,7 +784,7 @@ func main() {
 		// if errr != nil {
 		// 	fmt.Println(errr)
 		// }
-		fmt.Println(string(responseData))
+		// fmt.Println(string(responseData))
 		// for i, v := range xp {
 		// 	fmt.Println("le id:",i)
 		// 	var datoAfn = v.Host
@@ -822,7 +822,7 @@ func main() {
 				// newDomain[i].CriteriaVersion = v.CriteriaVersion
 			
 
-
+			fmt.Println("entro en el metodo buscar debo guardar aca")
 			//fmt.Println(i, v)
 			fmt.Printf("Uuid")
 			fmt.Printf("%s", uuid)
