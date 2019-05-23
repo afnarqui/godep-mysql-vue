@@ -75,7 +75,7 @@ func GetConnection() *sql.DB {
 					CriteriaVersion VARCHAR(120),
 					Endpoints       VARCHAR(8000) NULL,
 					HostNew         VARCHAR(8000) NULL,
-					HostOld         VARCHAR MAX() NULL
+					HostOld         VARCHAR(8000) NULL
 				)`); err != nil {
 			log.Fatal(err)
 		}
