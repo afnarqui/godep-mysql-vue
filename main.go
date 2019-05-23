@@ -20,7 +20,7 @@ import (
 
 var db *sql.DB
 type UUID [16]byte
-var t := time.Now().Unix()
+var t = time.Now().Unix()
 func GetConnection() *sql.DB {
 	if db != nil {
 		return db
