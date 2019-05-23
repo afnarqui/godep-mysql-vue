@@ -99,8 +99,8 @@ func GetConnection() *sql.DB {
 					'http',
 					false,
 					'READY',
-					time.Now().Unix(),
-					time.Now().Unix(),
+					time.Now().RFC1123(),
+					time.Now().RFC1123(),
 					'1.34.2',
 					'2009p',
 					'{"endpoints": [
