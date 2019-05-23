@@ -79,7 +79,8 @@ func GetConnection() *sql.DB {
 				)`); err != nil {
 			log.Fatal(err)
 		}
-		
+		var t = time.Now().Unix()
+		fmt.Println(t)
 		if _, err := db.Exec(
 			`INSERT INTO domaintest (
 					Host,
@@ -93,7 +94,6 @@ func GetConnection() *sql.DB {
 					CriteriaVersion,
 					endpoints
 				) VALUES (
-					var t = time.Now().Unix()
 					'www.google.com',
 					443,
 					'http',
