@@ -69,7 +69,7 @@ func GetConnection() *sql.DB {
 					Protocol VARCHAR(120),
 					IsPublic BOOL,
 					Status   VARCHAR(80),
-					StartTime       TIMESTAMP,
+					StartTime       DATE,
 					TestTime        INT,
 					EngineVersion   VARCHAR(120),
 					CriteriaVersion VARCHAR(120),
@@ -100,7 +100,7 @@ func GetConnection() *sql.DB {
 					false,
 					'READY',
 					time.Now().UTC(),
-					time.Now().UTC(),
+					1558624016,
 					'1.34.2',
 					'2009p',
 					'{"endpoints": [
