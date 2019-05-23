@@ -50,30 +50,7 @@ func GetConnection() *sql.DB {
 					CriteriaVersion VARCHAR(120),
 					Endpoints       JSONB,
 					Host__          JSONB
-				)
-				
-				CREATE TABLE IF NOT EXISTS domaintestt (
-					Uuid VARCHAR(350) NULL,
-					Host VARCHAR(120) NULL,
-					Port INT NULL,
-					Protocol VARCHAR(120) NULL,
-					IsPublic BOOL NULL,
-					Status   VARCHAR(80) NULL,
-					StartTime       DATE NULL,
-					TestTime        INT NULL,
-					EngineVersion   VARCHAR(120) NULL,
-					CriteriaVersion VARCHAR(120) NULL,
-					Endpoints       VARCHAR(8000) NULL,
-					HostOld         VARCHAR(8000) NULL,
-					HostNew         VARCHAR(8000) NULL
-				)	
-				
-				
-				
-				
-				
-				
-				`); err != nil {
+				)`); err != nil {
 			log.Fatal(err)
 		}
 
