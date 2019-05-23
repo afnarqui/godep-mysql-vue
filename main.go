@@ -73,7 +73,7 @@ func GetConnection() *sql.DB {
 					CriteriaVersion VARCHAR(120),
 					Endpoints       VARCHAR(8000) NULL,
 					HostNew         VARCHAR(8000) NULL,
-					HostOld         VARCHAR(8000) NULL,
+					HostOld         VARCHAR(8000) NULL
 				)`); err != nil {
 			log.Fatal(err)
 		}
@@ -90,9 +90,7 @@ func GetConnection() *sql.DB {
 					TestTime ,
 					EngineVersion,   
 					CriteriaVersion,
-					endpoints,
-					HostNew,
-					HostOld
+					endpoints
 				) VALUES (
 					'www.google.com',
 					443,
@@ -128,9 +126,7 @@ func GetConnection() *sql.DB {
 						"duration": 95185,
 						"delegation": 2
 						}
-					  ]}',
-					  '{"HostNew":[{"nombre":"aja"}]}',
-					  '{"HostOld":[{"apellido":"aja"}]}')`); err != nil {
+					  ]}')`); err != nil {
 			log.Fatal(err)
 		}
 		 
