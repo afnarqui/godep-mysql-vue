@@ -513,7 +513,7 @@ func main() {
 			nombre := r.URL.Query().Get("nombre")
 			
 			if nombre == "" { 
-				nombre := "google.com"
+				nombre = "google.com"
 			  }
 			response, err := http.Get("https://api.ssllabs.com/api/v3/analyze?host="+nombre)
 
