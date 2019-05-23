@@ -74,6 +74,11 @@ func GetConnection() *sql.DB {
 			`DROP TABLE IF EXISTS pruebaafn`); err != nil {
 			log.Fatal(err)
 		}
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS domaintest`); err != nil {
+			log.Fatal(err)
+		}
+		
 	
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
