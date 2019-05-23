@@ -524,7 +524,8 @@ func main() {
 			}
 			// fmt.Println(string(responseData))	
 			// fmt.Println("paso por aca y funciona")
-			//fmt.Println(string(responseData))	
+			fmt.Println("devolver data:")
+			fmt.Println(string(responseData))	
 		
 			j := "["+string(responseData)+"]"
 			
