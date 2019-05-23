@@ -785,12 +785,85 @@ func main() {
 			fmt.Println(errr)
 		}
 		fmt.Println(string(responseData))
-		for i, v := range xp {
-			fmt.Println("le id:",i)
-			var datoAfn = v.Host
+		// for i, v := range xp {
+		// 	fmt.Println("le id:",i)
+		// 	var datoAfn = v.Host
 			
-			fmt.Println("este valor lo devolvió la data", datoAfn)
-			fmt.Println("este : es: es:", datoAfn)
+		// 	fmt.Println("este valor lo devolvió la data", datoAfn)
+		// 	fmt.Println("este : es: es:", datoAfn)
+		// }
+
+		j := "["+string(responseData)+"]"
+			
+		xp := []domain{}
+	
+		errr := json.Unmarshal([]byte(j), &xp)
+		
+		if errr != nil {
+			fmt.Println(errr)
+		}
+		fmt.Println(len(responseData))
+		for i, v := range xp {
+			fmt.Printf("Something went wrong: %s", i)		
+			uuid, err := uuid.NewV4()
+			if err != nil {
+			fmt.Printf("Something went wrong: %s", err)
+			return
+			}
+			
+				//  newDomain[i].Host =  v.Host
+				// newDomain[i].Port = v.Port
+				// newDomain[i].Protocol = v.Protocol
+				// newDomain[i].IsPublic = v.IsPublic       
+				// newDomain[i].Status = v.Status      
+				// newDomain[i].StartTime = v.StartTime
+				// newDomain[i].TestTime = v.TestTime
+				// newDomain[i].EngineVersion = v.EngineVersion
+				// newDomain[i].CriteriaVersion = v.CriteriaVersion
+			
+
+
+			//fmt.Println(i, v)
+			fmt.Printf("Uuid")
+			fmt.Printf("%s", uuid)
+			fmt.Println("\t", v.Host)
+			fmt.Println("\t", v.Port)
+			fmt.Println("\t",v.Protocol)
+			fmt.Println("\t",v.IsPublic)
+			fmt.Println("\t",v.Status)
+			fmt.Println("\t",v.StartTime)
+			fmt.Println("\t",v.TestTime)
+			fmt.Println("\t",v.EngineVersion)
+			fmt.Println("\t",v.CriteriaVersion)
+			fmt.Println("\t",v.Endpoints)
+			for b, k := range v.Endpoints {
+				fmt.Println("\t", uuid)
+				fmt.Println("segundo recorrido")
+				fmt.Println(b, k)
+				fmt.Println("\t","IPAddress: " + string(k.IPAddress))
+				fmt.Println("\t","ServerName: " + string(k.ServerName))
+				fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+				fmt.Println("\t","Grade: " + string(k.Grade))
+				fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+				fmt.Println("HasWarnings:\n",k.HasWarnings)
+				fmt.Println("IsExceptional:\n",  k.IsExceptional)
+				fmt.Println("Progress:\t", k.Progress)
+				fmt.Println("Duration:\t",k.Duration)
+				fmt.Println("Delegation:\t", + k.Delegation)
+
+				// newDomain.Endpoints = [
+				// 	"IPAddress" : k.IPAddress,
+				// 	"ServerName" : k.ServerName,
+				// 	"StatusMessage" : k.StatusMessage,
+				// 	"Grade" : k.Grade,
+				// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
+				// 	"HasWarnings" : k.HasWarnings,
+				// 	"IsExceptional" : k.IsExceptional,
+				// 	"Progress" : k.Progress,
+				// 	"Duration" : k.Duration,
+				// 	"Delegation" : k.Delegation,
+				// ]					
+			}
 		}
 	
 		w.Write(responseData)
