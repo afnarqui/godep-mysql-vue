@@ -192,3 +192,9 @@ go get github.com/google/uuid
 go get "github.com/satori/go.uuid"
 
 npm i -g vue-uuid
+
+cockroach sql --insecure
+
+select host,Port,Protocol,IsPublic,Status,StartTime,endpoints,
+TestTime ,EngineVersion,CriteriaVersion,endpoints,HostNew,HostOld
+from domaintest;

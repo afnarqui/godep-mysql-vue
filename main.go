@@ -61,9 +61,7 @@ func GetConnection() *sql.DB {
 
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domaintest (
-					title VARCHAR(64) NULL,
-					description VARCHAR(200) NULL,
-					Uuid VARCHAR(350),
+		}			Uuid VARCHAR(350),
 					Host VARCHAR(120),
 					Port INT,
 					Protocol VARCHAR(120),
@@ -92,7 +90,9 @@ func GetConnection() *sql.DB {
 					TestTime ,
 					EngineVersion,   
 					CriteriaVersion,
-					endpoints
+					endpoints,
+					HostNew,
+					HostOld
 				) VALUES (
 					'www.google.com',
 					443,
@@ -128,7 +128,9 @@ func GetConnection() *sql.DB {
 						"duration": 95185,
 						"delegation": 2
 						}
-				  	]}')`); err != nil {
+					  ],
+					  "{"HostNew":[]},
+					  "{"HostOld":[]}}')`); err != nil {
 			log.Fatal(err)
 		}
 
