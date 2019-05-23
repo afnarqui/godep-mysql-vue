@@ -99,7 +99,7 @@ func GetConnection() *sql.DB {
 					'http',
 					false,
 					'READY',
-					time.Now().UTC(),
+					'2019-03-26',
 					1558624016,
 					'1.34.2',
 					'2009p',
