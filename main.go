@@ -11,7 +11,8 @@ import (
 	"time"
 	"database/sql"
 	_ "github.com/lib/pq"
-	/*"net/http" "github.com/satori/go.uuid"*/
+	/*"net/http" */
+	"github.com/satori/go.uuid"
 	 "os"
 	"path/filepath"
 	"strings"
