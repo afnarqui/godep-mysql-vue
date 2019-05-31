@@ -198,3 +198,41 @@ cockroach sql --insecure
 select host,Port,Protocol,IsPublic,Status,StartTime,endpoints,
 TestTime ,EngineVersion,CriteriaVersion,endpoints,HostNew,HostOld
 from domaintest;
+
+docker run --name govue -p 8080:8080 -p 8081:8081 --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local -it afnarqui/godep:v12 bash
+
+cd $GOPATH/src/github.com/afnarqui
+cd godep-mysql-vue
+cockroach start --insecure
+
+docker exec -it godepv1 bash
+cd $GOPATH/src/github.com/afnarqui
+cd godep-mysql-vue
+go run main.go
+
+cd $GOPATH/src/github.com/afnarqui
+cd godep-mysql-vue
+go run crud.go
+
+
+docker run --name govue -p 8080:8080 -p 8081:8081 --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local -it afnarqui/godep:v12 bash
+ cd $GOPATH/src/github.com/afnarqui
+ cd godep-mysql-vue/
+ cockroach start --insecure
+
+ docker exec -it govue bash
+ cd $GOPATH/src/github.com/afnarqui
+cd godep-mysql-vue
+ go run crud.go
+
+  docker exec -it govue bash
+ cd $GOPATH/src/github.com/afnarqui
+cd godep-mysql-vue
+cockroach sql --insecure
+
+~/go/src/github.com/afnarqui/godep-mysql-vue/appfront
+npm run build
+copiar todo de la carpeta dist
+a la carpeta public de la raiz
+
+docker run --name godep -p 8080:8080 -it --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local afnarqui/godep:v12 bash

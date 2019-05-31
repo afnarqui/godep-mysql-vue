@@ -35,6 +35,11 @@ func GetConnection() *sql.DB {
     }
 
 		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS domain`); err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domain (
 				id INT PRIMARY KEY,
 					title VARCHAR(64) NULL,
@@ -503,7 +508,7 @@ type Endpoints__ struct {
 func main() {
 	
 
-	
+	GetConnection()
 	// Instancia de http.DefaultServeMux
 	mux := http.NewServeMux()
 
