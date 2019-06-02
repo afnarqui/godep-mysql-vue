@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!--<img src="./assets/logo.png">-->
-    <ul>
+    <!-- <ul>
       <Dominio v-for="dominio in dominios" v-bind:key="dominio.ipAddress"/>
-    </ul>
+    </ul> -->
     <HelloWorld/>
   </div>
 </template>

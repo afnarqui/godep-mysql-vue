@@ -1,14 +1,11 @@
 <template>
-
 <div id="id">
   <form id="main" v-cloak>
-
     <div class="bar">
-        <!-- Create a binding between the searchString model and the text field -->
-
         <input type="text" v-model="busc" placeholder="Enter your Search" />
-       <br/><br/>
+         <br/><br/>
         <input @click="buscar"  type="button" value="Search" class="btn btn-success">
+        <br/><br/>
     </div>
 <!--
   "host": "www.google.com",
@@ -33,92 +30,73 @@
       "duration": 331020,
       "delegation": 2
     },
-     <ul v-if="posts && posts.length" >
-        <li v-for="post of posts" v-bind:key="post.id">
-           <h2></h2>
-           <p><strong>{{post.address}}</strong></p>
-    <p>{{post.grade}}</p>
+    -->
+  
+ <b-card-group deck v-if="posts && postsnew.length">
+  <b-card header="Data">
+    <b-list-group v-for="post of postsnew" v-bind:key="post.id">
+      <b-list-group-item href="#"> Host: {{post.host}}</b-list-group-item>
+      <b-list-group-item href="#">Port: {{post.port}}</b-list-group-item>
+      <b-list-group-item href="#">Is Public: {{post.isPublic}}</b-list-group-item>
+      <b-list-group-item href="#">Status: {{post.status}}</b-list-group-item>
+      <b-list-group-item href="#">Start Time: {{post.startTime}}</b-list-group-item>
+      <b-list-group-item href="#">Test Time: {{post.testTime}}</b-list-group-item>
+      <b-list-group-item href="#">Engine Version: {{post.engineVersion}}</b-list-group-item>
+      <b-list-group-item href="#">Criteria Version: {{post.criteriaVersion}}</b-list-group-item>
+       <p class="card-text mt-2">
+        Protocol:  {{post.protocol}}
+      </p>
+    </b-list-group>
+  </b-card>
+    <b-card header="Endpoints">
+    <ul >
+        <li v-for="po of posts.endpoints" v-bind:key="po.id">
+           <h4>Server Name: {{po.serverName}}</h4>
+           <p>Status Message: {{po.statusMessage}}</p>
+           <p>Ip Address: {{po.ipAddress}}</p>
+          <p><strong>Address: {{po.address}}</strong></p>
+          <p>Grade: {{po.grade}}</p>
+          <p><strong>Status Message: {{po.statusMessage}}</strong></p>
+          <p><strong>Grade Trust Ignored: {{po.gradeTrustIgnored}}</strong></p>
+          <p><strong>Has Warnings: {{po.hasWarnings}}</strong></p>
+          <p><strong>Is Exceptional: {{po.isExceptional}}</strong></p>
+          <p><strong>Progress: {{po.progress}}</strong></p>
+          <p><strong>Duration: {{po.duration}}</strong></p>
+          <p><strong>Delegation: {{po.delegation}}</strong></p>
         </li>
     </ul>
-
-
-
-<b-card-group deck v-for="post of posts" v-bind:key="post.id">
-  <b-card header="Data">
-    <b-list-group>
-      <b-list-group-item href="#">{{post.host}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.port}}</b-list-group-item>
-
-    </b-list-group>
-      <p class="card-text mt-2">
-         {{post.status}}
-      </p>
-
-      <strong>{{post.protocol}}</strong>
-
   </b-card>
-   <ul >
-        <li v-for="po of post.endpoints" v-bind:key="po.id">
-           <h1>{{po.serverName}}</h1>
-           <h2>{{po.statusMessage}}</h2>
-
-           <p><strong>{{po.address}}</strong></p>
-    <p>{{po.grade}}</p>
-
-        </li>
-    </ul>
-</b-card-group>
---><br/>
-<b-card-group deck v-for="post of posts" v-bind:key="post.id">
-  <b-card header="Data">
-    <b-list-group>
-      <b-list-group-item href="#">{{post.address}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.grade}}</b-list-group-item>
-      <b-list-group-item href="#">{{post.statusMessage}}</b-list-group-item>
-
-    </b-list-group>
-      <p class="card-text mt-2">
-         {{post.serverName}}
-      </p>
-
-  </b-card>
-</b-card-group>
-
+</b-card-group> 
 </form>
-
-
-
 </div>
 </template>
-
 <script>
 import axios from 'axios';
-
+import getDominios from '../api/info'
 export default {
   name: 'app',
   data () {
     return {
-      posts: []
+      posts: [],
+      postsnew: []
     }
   },
   mounted() {
-    // axios.get('http://localhost:8081/public').then((response) => {
-    //   console.log(response)
-    //   this.posts = response.data.endpoints
-    // })
-    // .catch((e) => {
-    //   console.error(e)
-    // })
   },
   methods: {
     buscar: function () {
       console.log('entro a buscar')
-          const self = this
-          const url = `http://localhost:8081/buscar?nombre=${self.busc}`
-          axios.get(url).then((response) => {
-      console.log(response.data.endpoints)
-      this.posts = response.data.endpoints == undefined ? response.data : response.data.endpoints
-    })
+        const self = this
+        const url = `http://localhost:8081/public?nombre=${self.busc}`
+        getDominios(url)
+        .then( function(dominios) {
+          let data = JSON.stringify(dominios)
+          let datanew = `[${data}]`
+          self.postsnew = JSON.parse(datanew)
+          console.log(self.postsnew)
+          console.log(JSON.parse(data))
+          self.posts = JSON.parse(data) 
+        })
     .catch((e) => {
       console.error(e)
     })
@@ -126,8 +104,6 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;

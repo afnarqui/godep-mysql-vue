@@ -7,10 +7,10 @@ console.log(Uuid);
 
 let dato = [{ 'nombre': 'andres', 'quehago': false, 'rutas': 'c:\\bd', 'tabla': 'prueba' }]
 let dato2 = [{ 'apellido': 'naranjo', 'edad': 28, 'sexo': 'F', 'quehago': true, 'nombre': 'andres', 'rutas': 'c:\\bd' }]
-comparar(dato, dato2)
-    .then((res) => {
-      console.log('entro a el then');
-      console.log(res);
+// // // // comparar(dato, dato2)
+// // // //     .then((res) => {
+// // // //       console.log('entro a el then');
+// // // //       console.log(res);
       /*
       initProyecto.guardarLocal(res)
             .then((nuevaData) => {
@@ -36,11 +36,11 @@ comparar(dato, dato2)
             })
 
             */
-    })
-    .catch((err) => {
-      console.log('no funciono')
-      console.log(err);
-    });
+    // // // // })
+    // // // // .catch((err) => {
+    // // // //   console.log('no funciono')
+    // // // //   console.log(err);
+    // // // // });
 
 
 

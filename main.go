@@ -17,8 +17,9 @@ import (
 	"path/filepath"
 	"strings"
 	"github.com/go-chi/chi"
+	// "bytes"
 )
-
+var Host string
 var db *sql.DB
 type UUID [16]byte
 func GetConnection() *sql.DB {
@@ -106,110 +107,201 @@ func GetConnection() *sql.DB {
 		}
 		// var t = time.Now().Unix()
 		// fmt.Println(t)
-		// if _, err := db.Exec(
-		// 	`INSERT INTO domaintest (
-		// 			Host,
-		// 			Port,
-		// 			Protocol, 
-		// 			IsPublic,
-		// 			Status,   
-		// 			StartTime,
-		// 			TestTime ,
-		// 			EngineVersion,   
-		// 			CriteriaVersion,
-		// 			endpoints,
-		// 			HostOld,
-		// 			HostNew
-		// 		) VALUES (
-		// 			'www.google.com',
-		// 			443,
-		// 			'http',
-		// 			false,
-		// 			'READY',
-		// 			'2019-03-26',
-		// 			1558624016,
-		// 			'1.34.2',
-		// 			'2009p',
-		// 			'{"endpoints": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}',
-		// 			  '{"HostOld": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}',
-		// 			  '{"HostNew": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}')`); err != nil {
-		// 	log.Fatal(err)
-		// }
+		if _, err := db.Exec(
+			`INSERT INTO domaintest (
+					Uuid,
+					Host,
+					Port,
+					Protocol, 
+					IsPublic,
+					Status,   
+					StartTime,
+					TestTime ,
+					EngineVersion,   
+					CriteriaVersion,
+					endpoints,
+					HostOld,
+					HostNew
+				) VALUES (
+					'XXXX-YYYY-ZZZZ',
+					'www.google.com',
+					443,
+					'http',
+					false,
+					'READY',
+					'2019-03-26',
+					1558624016,
+					'1.34.2',
+					'2009p',
+					'{"endpoints": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}',
+					  '{"HostOld": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}',
+					  '{"HostNew": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}'),
+					  (
+						'AAAA-BBBB-CCCC-DDDD',
+						'www.googleafn.com',
+						449,
+						'http',
+						false,
+						'READY',
+						'2019-03-26',
+						1558624016,
+						'1.34.2',
+						'2009p',
+						'{"endpoints": [
+							{
+							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+							"serverName": "sfo03s08-in-x04.1e100.net",
+							"statusMessage": "Ready",
+							"grade": "A+",
+							"gradeTrustIgnored": "A+",
+							"hasWarnings": false,
+							"isExceptional": true,
+							"progress": 100,
+							"duration": 85620,
+							"delegation": 2
+							},
+							{
+							"ipAddress": "172.217.6.36",
+							"serverName": "sfo03s08-in-f4.1e100.net",
+							"statusMessage": "Ready",
+							"grade": "A+",
+							"gradeTrustIgnored": "A+",
+							"hasWarnings": false,
+							"isExceptional": true,
+							"progress": 100,
+							"duration": 95185,
+							"delegation": 2
+							}
+						  ]}',
+						  '{"HostOld": [
+							{
+							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+							"serverName": "sfo03s08-in-x04.1e100.net",
+							"statusMessage": "Ready",
+							"grade": "A+",
+							"gradeTrustIgnored": "A+",
+							"hasWarnings": false,
+							"isExceptional": true,
+							"progress": 100,
+							"duration": 85620,
+							"delegation": 2
+							},
+							{
+							"ipAddress": "172.217.6.36",
+							"serverName": "sfo03s08-in-f4.1e100.net",
+							"statusMessage": "Ready",
+							"grade": "A+",
+							"gradeTrustIgnored": "A+",
+							"hasWarnings": false,
+							"isExceptional": true,
+							"progress": 100,
+							"duration": 95185,
+							"delegation": 2
+							}
+						  ]}',
+						  '{"HostNew": [
+							{
+							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+							"serverName": "sfo03s08-in-x04.1e100.net",
+							"statusMessage": "Ready",
+							"grade": "A+",
+							"gradeTrustIgnored": "A+",
+							"hasWarnings": false,
+							"isExceptional": true,
+							"progress": 100,
+							"duration": 85620,
+							"delegation": 2
+							},
+							{
+							"ipAddress": "172.217.6.36",
+							"serverName": "sfo03s08-in-f4.1e100.net",
+							"statusMessage": "Ready",
+							"grade": "A+",
+							"gradeTrustIgnored": "A+",
+							"hasWarnings": false,
+							"isExceptional": true,
+							"progress": 100,
+							"duration": 95185,
+							"delegation": 2
+							}
+						  ]}')`); err != nil {
+			log.Fatal(err)
+		}
 		 
  return db
 }
@@ -281,6 +373,7 @@ func MakeMigrations() error {
 
 
 type Domaintest struct {
+	Uuid            string      `json:"uuid"`
 	Host            string      `json:"host"`
 	Port            int         `json:"port"`
 	Protocol        string      `json:"protocol"`
@@ -290,10 +383,42 @@ type Domaintest struct {
 	TestTime        int64       `json:"testTime"`
 	EngineVersion   string      `json:"engineVersion"`
 	CriteriaVersion string      `json:"criteriaVersion"`
-	Endpoints       string `json:"endpoints"`
+	Endpoints       []Endpoints `json:"endpoints"`
 	HostOld         string `json:"HostOld"`
 	HostNew         string `json:"HostNew"`
 }
+type DomaintestNuevos []Domaintest
+type DomaintestOne struct {
+	Host            string      `json:"host"`
+	Port            int         `json:"port"`
+	Protocol        string      `json:"protocol"`
+	IsPublic        bool        `json:"isPublic"`
+	Status          string      `json:"status"`
+	StartTime       int64       `json:"startTime"`
+	TestTime        int64       `json:"testTime"`
+	EngineVersion   string      `json:"engineVersion"`
+	CriteriaVersion string      `json:"criteriaVersion"`
+	Endpoints       []Endpoints `json:"endpoints"`
+	HostOld         string `json:"HostOld"`
+	HostNew         string `json:"HostNew"`
+}
+type DomaintestOnePruebas []DomaintestOne
+type DomaintestOnes struct {
+	Host            string      `json:"host"`
+	Port            int         `json:"port"`
+	Protocol        string      `json:"protocol"`
+	IsPublic        bool        `json:"isPublic"`
+	Status          string      `json:"status"`
+	StartTime       int64       `json:"startTime"`
+	TestTime        int64       `json:"testTime"`
+	EngineVersion   string      `json:"engineVersion"`
+	CriteriaVersion string      `json:"criteriaVersion"`
+	Endpoints       []Endpoints `json:"endpoints"`
+	HostOld         string `json:"HostOld"`
+	HostNew         string `json:"HostNew"`
+}
+
+type DomaintestsOnes []DomaintestOne
 
 type Datas struct {
 	nombre 		string `json:"nombre"`
@@ -306,34 +431,7 @@ type Note struct {
 	UpdatedAt   time.Time `json:"updated_at,omitempty"`
 }
 
-func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
-	db := GetConnection()
-	q := `SELECT
-			top 1 Host
-			FROM domaintest`
-	// Ejecutamos la query
-	rows, err := db.Query(q)
-	if err != nil {
-		return []Domaintest{}, err
-	}
-	// Cerramos el recurso
-	defer rows.Close()
 
-	// Declaramos un slice de notas para que almacene las notas que retorne
-	// la petición.
-	domain := []Domaintest{}
-	// El método Next retorna un bool, mientras sea true indicará que existe
-	// un valor siguiente para leer.
-	for rows.Next() {
-		// Escaneamos el valor actual de la fila e insertamos el retorno
-		// en los correspondientes campos de la nota.
-		rows.Scan(&n.Host)
-		// Añadimos cada nueva nota al slice de notas que declaramos antes.
-		domain = append(domain, *n)
-	}
-	fmt.Println(domain)
-	return domain, nil
-}
 
 func (n Note) Create() error {
 	// Realizamos la conexión a la base de datos.
@@ -452,9 +550,6 @@ func (n Note) Delete(id int) error {
 }
 
 
-
-/*var note Note*/
-
 type domain struct {
 	Host            string      `json:"host"`
 	Port            int         `json:"port"`
@@ -475,10 +570,9 @@ type domain struct {
 	TestTime__        int64       `json:"testTime__"`
 	EngineVersion__   string      `json:"engineVersion__"`
 	CriteriaVersion__ string      `json:"criteriaVersion__"`
-	Endpoints__       []Endpoints__ `json:"endpoints__"`
 }
 type Endpoints struct {
-	IPAddress         string `json:"ipAddress"`
+	IpAddress         string `json:"ipAddress"`
 	ServerName        string `json:"serverName"`
 	StatusMessage     string `json:"statusMessage"`
 	Grade             string `json:"grade"`
@@ -490,190 +584,240 @@ type Endpoints struct {
 	Delegation        int    `json:"delegation"`
 }
 
-type Endpoints__ struct {
-	IPAddress__         string `json:"ipAddress__"`
-	ServerName__        string `json:"serverName__"`
-	StatusMessage__     string `json:"statusMessage__"`
-	Grade__             string `json:"grade__"`
-	GradeTrustIgnored__ string `json:"gradeTrustIgnored__"`
-	HasWarnings__       bool   `json:"hasWarnings__"`
-	IsExceptional__     bool   `json:"isExceptional__"`
-	Progress__          int    `json:"progress__"`
-	Duration__          int    `json:"duration__"`
-	Delegation__        int    `json:"delegation__"`
-}
+type Endpointss []Endpoints
 
-
-// Punto de ejecución del ejecutable.
 func main() {
-	
 
 	GetConnection()
-	// Instancia de http.DefaultServeMux
 	mux := http.NewServeMux()
-
-	// flag para realizar la creación de las tablas en la base de datos.
-	
-
 	mux.HandleFunc("/", IndexHandler)
-	//mux.HandleFunc("/notes", NotesHandler)
-
+	
 	log.Println("Corriendo en http://localhost:8081")
-	
-	//http.ListenAndServe(":8081", mux)
 	r := chi.NewRouter()
+
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
-			(w).Header().Set("Access-Control-Allow-Origin", "*")
-		    (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-			nombre := r.URL.Query().Get("nombre")
-			
-			if nombre == "" { 
-				nombre = "google.com"
-			  }
-			response, err := http.Get("https://api.ssllabs.com/api/v3/analyze?host="+nombre)
 
-			if err != nil {
-				fmt.Print(err.Error())
-				os.Exit(1)
-			}
-
-			responseData, err := ioutil.ReadAll(response.Body)
-			if err != nil {
-				log.Fatal(err)
-			}
-			// fmt.Println(string(responseData))	
-			// fmt.Println("paso por aca y funciona")
-			fmt.Println("Inicio Entro por public metodo que se llama al inicio de el programa:")
-			fmt.Println("devolver data:")
-			fmt.Println(string(responseData))	
+		nombre := r.URL.Query().Get("nombre")
 		
-			j := "["+string(responseData)+"]"
-			
-			xp := []domain{}
-		
-			errr := json.Unmarshal([]byte(j), &xp)
-			
-			if errr != nil {
-				fmt.Println(errr)
-			}
-			fmt.Println(len(responseData))
-			for i, v := range xp {
-				fmt.Printf("Something went wrong: %s", i)		
-				uuid, err := uuid.NewV4()
-				if err != nil {
-				fmt.Printf("Something went wrong: %s", err)
-				return
-				}
-				
-					//  newDomain[i].Host =  v.Host
-					// newDomain[i].Port = v.Port
-					// newDomain[i].Protocol = v.Protocol
-					// newDomain[i].IsPublic = v.IsPublic       
-					// newDomain[i].Status = v.Status      
-					// newDomain[i].StartTime = v.StartTime
-					// newDomain[i].TestTime = v.TestTime
-					// newDomain[i].EngineVersion = v.EngineVersion
-					// newDomain[i].CriteriaVersion = v.CriteriaVersion
-				
-
-
-				//fmt.Println(i, v)
-				fmt.Printf("Uuid")
-				fmt.Printf("%s", uuid)
-				fmt.Println("\t", v.Host)
-				fmt.Println("\t", v.Port)
-				fmt.Println("\t",v.Protocol)
-				fmt.Println("\t",v.IsPublic)
-				fmt.Println("\t",v.Status)
-				fmt.Println("\t",v.StartTime)
-				fmt.Println("\t",v.TestTime)
-				fmt.Println("\t",v.EngineVersion)
-				fmt.Println("\t",v.CriteriaVersion)
-				fmt.Println("\t",v.Endpoints)
-				for b, k := range v.Endpoints {
-					fmt.Println("\t", uuid)
-					fmt.Println("segundo recorrido")
-					fmt.Println(b, k)
-					fmt.Println("\t","IPAddress: " + string(k.IPAddress))
-					fmt.Println("\t","ServerName: " + string(k.ServerName))
-					fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
-					fmt.Println("\t","Grade: " + string(k.Grade))
-					fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
-					fmt.Println("HasWarnings:\n",k.HasWarnings)
-					fmt.Println("IsExceptional:\n",  k.IsExceptional)
-					fmt.Println("Progress:\t", k.Progress)
-					fmt.Println("Duration:\t",k.Duration)
-					fmt.Println("Delegation:\t", + k.Delegation)
-
-					// newDomain.Endpoints = [
-					// 	"IPAddress" : k.IPAddress,
-					// 	"ServerName" : k.ServerName,
-					// 	"StatusMessage" : k.StatusMessage,
-					// 	"Grade" : k.Grade,
-					// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
-					// 	"HasWarnings" : k.HasWarnings,
-					// 	"IsExceptional" : k.IsExceptional,
-					// 	"Progress" : k.Progress,
-					// 	"Duration" : k.Duration,
-					// 	"Delegation" : k.Delegation,
-					// ]					
-				}
-			}
-			// for key, result := range results {
-
-			// 	fmt.Println("Reading Value for Key :", key)
-				
-			// 	fmt.Println("Id :", result["port"])
-			// }
-			fmt.Println("Fin Entro por public metodo que se llama al inicio de el programa:")
-			
-			w.Write(responseData)
-	})
-
-
-	
-	r.Get("/buscartest", func(w http.ResponseWriter, r *http.Request) {
-
 		(w).Header().Set("Access-Control-Allow-Origin", "*")
 		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		
+		url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
+		        
+		response, err := http.Get(url)
+
+		if err != nil {
+			fmt.Print(err.Error())
+			os.Exit(1)
+		}
+		responseData, err := ioutil.ReadAll(response.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		j := "["+string(responseData)+"]"
+		xp := []Domaintest{}
+	
+		errr := json.Unmarshal([]byte(j), &xp)
+		if errr != nil {
+			fmt.Println(errr)
+		}
+		pruebas := Domaintest{}
+		endpointsssf := Endpointss{}
+		for i, v := range xp {
+			 fmt.Println(i,v)
+			 pruebas.Host = v.Host
+			 Host = v.Host
+			 pruebas.Port = v.Port
+			 pruebas.Protocol = v.Protocol
+			 pruebas.IsPublic = v.IsPublic
+			 pruebas.Status = v.Status
+			 pruebas.StartTime = v.StartTime
+			 pruebas.TestTime = v.TestTime
+			 pruebas.EngineVersion = v.EngineVersion
+			 pruebas.CriteriaVersion = v.CriteriaVersion
+			
+			for b, k := range v.Endpoints {
+				endpointsss := Endpointss{
+					Endpoints{
+						Grade:k.Grade,
+						IpAddress:k.IpAddress,
+						ServerName : k.ServerName,
+						StatusMessage : k.StatusMessage,
+						GradeTrustIgnored : k.GradeTrustIgnored,
+						HasWarnings : k.HasWarnings,
+						IsExceptional : k.IsExceptional,
+						Progress : k.Progress,
+						Duration : k.Duration,
+						Delegation : k.Delegation,
+					},
+				}
+	
+				fmt.Println(b)
+				endpointsssf = endpointsss
+			}
+			pruebas.Endpoints = endpointsssf 
+			uuid, err := uuid.NewV4()
+			fmt.Println(uuid)
+			if err != nil {
+			fmt.Printf("Something went wrong: %s", err)
+			return
+			}
+		}
+
 		n := new(Domaintest)
-		// Solicitando todas las notas en la base de datos.
 		domain, err := n.GetAllDomain()
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusNotFound)
 			return
 		}
-		// Convirtiendo el slice de notas a formato JSON,
-		// retorna un []byte y un error.
-		j, err := json.Marshal(domain)
+		
+		jj, err := json.Marshal(domain)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
-		// Escribiendo el código de respuesta.
-		w.WriteHeader(http.StatusOK)
-		// Estableciendo el tipo de contenido del cuerpo de la
-		// respuesta.
-		w.Header().Set("Content-Type", "application/json")
-		// Escribiendo la respuesta, es decir nuestro slice de notas
-		// en formato JSON.
-		w.Write(j)
+
+		xpjj := []Domaintest{}
 	
+		errrs := json.Unmarshal([]byte(jj), &xpjj)
+		if errrs != nil {
+			fmt.Println(errrs)
+		}
+
+		fmt.Println(xpjj)
+		// fmt.Println(pruebas)
+
+		json.NewEncoder(w).Encode(pruebas)
 })
+	// r.Get("/public", func (w http.ResponseWriter, r *http.Request){
+	// 	nombre := r.URL.Query().Get("nombre")
+	// 	fmt.Println(nombre)
+	// 	(w).Header().Set("Access-Control-Allow-Origin", "*")
+	// 	(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	// 	url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
+	// 	response, err := http.Get(url)
 
+	// 	if err != nil {
+	// 		fmt.Print(err.Error())
+	// 		os.Exit(1)
+	// 	}
 
+	// 	responseData, err := ioutil.ReadAll(response.Body)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	fmt.Println(responseData)
+	// 	// j := "["+string(responseData)+"]"
+			
+	// 	// xp := []domain{}
 	
+	// 	// errr := json.Unmarshal([]byte(j), &xp)
+		
+	// 	// if errr != nil {
+	// 	// 	fmt.Println(errr)
+	// 	// }
+	// 	//fmt.Println(len(responseData))
+	// 	// fmt.Println("Inicio Entro por buscar metodo que se llama al dar clic en buscar:")
+			
+	// 	// for i, v := range xp {
+	// 	// 	fmt.Printf("Something went wrong: %s", i)		
+	// 	// 	uuid, err := uuid.NewV4()
+	// 	// 	if err != nil {
+	// 	// 	fmt.Printf("Something went wrong: %s", err)
+	// 	// 	return
+	// 	// 	}
+			
+	// 			//  newDomain[i].Host =  v.Host
+	// 			// newDomain[i].Port = v.Port
+	// 			// newDomain[i].Protocol = v.Protocol
+	// 			// newDomain[i].IsPublic = v.IsPublic       
+	// 			// newDomain[i].Status = v.Status      
+	// 			// newDomain[i].StartTime = v.StartTime
+	// 			// newDomain[i].TestTime = v.TestTime
+	// 			// newDomain[i].EngineVersion = v.EngineVersion
+	// 			// newDomain[i].CriteriaVersion = v.CriteriaVersion
+			
+
+	// 		// fmt.Println("entro en el metodo buscar debo guardar aca")
+	// 		// fmt.Printf("Uuid")
+	// 		// fmt.Printf("%s", uuid)
+	// 		// fmt.Println("\t", v.Host)
+	// 		// fmt.Println("\t", v.Port)
+	// 		// fmt.Println("\t",v.Protocol)
+	// 		// fmt.Println("\t",v.IsPublic)
+	// 		// fmt.Println("\t",v.Status)
+	// 		// fmt.Println("\t",v.StartTime)
+	// 		// fmt.Println("\t",v.TestTime)
+	// 		// fmt.Println("\t",v.EngineVersion)
+	// 		// fmt.Println("\t",v.CriteriaVersion)
+	// 		// fmt.Println("\t",v.Endpoints)
+	// 		// for b, k := range v.Endpoints {
+	// 		// 	fmt.Println("\t", uuid)
+	// 		// 	fmt.Println("segundo recorrido")
+	// 		// 	fmt.Println(b, k)
+	// 		// 	fmt.Println("\t","IPAddress: " + string(k.IPAddress))
+	// 		// 	fmt.Println("\t","ServerName: " + string(k.ServerName))
+	// 		// 	fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+	// 		// 	fmt.Println("\t","Grade: " + string(k.Grade))
+	// 		// 	fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+	// 		// 	fmt.Println("HasWarnings:\n",k.HasWarnings)
+	// 		// 	fmt.Println("IsExceptional:\n",  k.IsExceptional)
+	// 		// 	fmt.Println("Progress:\t", k.Progress)
+	// 		// 	fmt.Println("Duration:\t",k.Duration)
+	// 		// 	fmt.Println("Delegation:\t", + k.Delegation)
+
+	// 			// newDomain.Endpoints = [
+	// 			// 	"IPAddress" : k.IPAddress,
+	// 			// 	"ServerName" : k.ServerName,
+	// 			// 	"StatusMessage" : k.StatusMessage,
+	// 			// 	"Grade" : k.Grade,
+	// 			// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
+	// 			// 	"HasWarnings" : k.HasWarnings,
+	// 			// 	"IsExceptional" : k.IsExceptional,
+	// 			// 	"Progress" : k.Progress,
+	// 			// 	"Duration" : k.Duration,
+	// 			// 	"Delegation" : k.Delegation,
+	// 			// ]					
+	// 	// 	}
+	// 	// }
 
 
-	// 	r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
-
-	// 		nombre := r.URL.Query().Get("nombre")
-	// 		fmt.Println(nombre)
+	// 	n := new(Domaintest)
+	// 	// Solicitando todas las notas en la base de datos.
+	// 	domain, err := n.GetAllDomain()
+	// 	fmt.Println("va a consultar bd")
+	// 	if err != nil {
+	// 		http.Error(w, err.Error(), http.StatusNotFound)
+	// 		fmt.Println("bummmm no trajo nada de bd")
+	// 		return
+	// 	}
+	// 	// Convirtiendo el slice de notas a formato JSON,
+	// 	// retorna un []byte y un error.
+	// 	jj, err := json.Marshal(domain)
+	// 	if err != nil {
+	// 		http.Error(w, err.Error(), http.StatusBadRequest)
+	// 		return
+	// 	}
+	// 	// Escribiendo el código de respuesta.
+	// 	w.WriteHeader(http.StatusOK)
+	// 	// Estableciendo el tipo de contenido del cuerpo de la
+	// 	// respuesta.
+	// 	w.Header().Set("Content-Type", "application/json")
+	// 	fmt.Println("devolver valor:")
+	// 	fmt.Println(jj)
+		
+	// 	fmt.Println("Fin Entro por buscar metodo que se llama al dar clic en buscar:")
+	// 	w.Write(responseData)
+	// })
+	// r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 	// 		(w).Header().Set("Access-Control-Allow-Origin", "*")
-	// 		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	// 		url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
-	// 		response, err := http.Get(url)
+	// 	    (w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	// 		nombre := r.URL.Query().Get("nombre")
+			
+	// 		if nombre == "" { 
+	// 			nombre = "google.com"
+	// 		  }
+	// 		response, err := http.Get("https://api.ssllabs.com/api/v3/analyze?host="+nombre)
 
 	// 		if err != nil {
 	// 			fmt.Print(err.Error())
@@ -684,14 +828,11 @@ func main() {
 	// 		if err != nil {
 	// 			log.Fatal(err)
 	// 		}
+	// 		fmt.Println("Inicio Entro por public metodo que se llama al inicio de el programa:")
+	// 		fmt.Println("devolver data:")
 	// 		fmt.Println(string(responseData))	
-	// 		fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
-		
-		
-	// 		fmt.Println(len(responseData))
 		
 	// 		j := "["+string(responseData)+"]"
-	// 		//fmt.Println("json:",j)
 			
 	// 		xp := []domain{}
 		
@@ -700,12 +841,9 @@ func main() {
 	// 		if errr != nil {
 	// 			fmt.Println(errr)
 	// 		}
-	// 		// fmt.Printf("go data: %+v\n", xp)
 	// 		fmt.Println(len(responseData))
-	// 		// var newDomain[len(responseData)] domain
 	// 		for i, v := range xp {
 	// 			fmt.Printf("Something went wrong: %s", i)		
-	// 			// or error handling
 	// 			uuid, err := uuid.NewV4()
 	// 			if err != nil {
 	// 			fmt.Printf("Something went wrong: %s", err)
@@ -772,121 +910,18 @@ func main() {
 				
 	// 		// 	fmt.Println("Id :", result["port"])
 	// 		// }
+	// 		fmt.Println("Fin Entro por public metodo que se llama al inicio de el programa:")
+			
 	// 		w.Write(responseData)
 	// })
-	
-	r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
 
-		nombre := r.URL.Query().Get("nombre")
-		fmt.Println(nombre)
+
+	
+	r.Get("/buscartest", func(w http.ResponseWriter, r *http.Request) {
+
 		(w).Header().Set("Access-Control-Allow-Origin", "*")
 		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
-		response, err := http.Get(url)
-
-		if err != nil {
-			fmt.Print(err.Error())
-			os.Exit(1)
-		}
-
-		responseData, err := ioutil.ReadAll(response.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
 		
-		// j := "["+string(responseData)+"]"
-		// xp := []domain{}
-	
-		// errr := json.Unmarshal([]byte(j), &xp)
-		
-		// if errr != nil {
-		// 	fmt.Println(errr)
-		// }
-		// fmt.Println(string(responseData))
-		// for i, v := range xp {
-		// 	fmt.Println("le id:",i)
-		// 	var datoAfn = v.Host
-			
-		// 	fmt.Println("este valor lo devolvió la data", datoAfn)
-		// 	fmt.Println("este : es: es:", datoAfn)
-		// }
-
-		j := "["+string(responseData)+"]"
-			
-		xp := []domain{}
-	
-		errr := json.Unmarshal([]byte(j), &xp)
-		
-		if errr != nil {
-			fmt.Println(errr)
-		}
-		//fmt.Println(len(responseData))
-		fmt.Println("Inicio Entro por buscar metodo que se llama al dar clic en buscar:")
-			
-		for i, v := range xp {
-			fmt.Printf("Something went wrong: %s", i)		
-			uuid, err := uuid.NewV4()
-			if err != nil {
-			fmt.Printf("Something went wrong: %s", err)
-			return
-			}
-			
-				//  newDomain[i].Host =  v.Host
-				// newDomain[i].Port = v.Port
-				// newDomain[i].Protocol = v.Protocol
-				// newDomain[i].IsPublic = v.IsPublic       
-				// newDomain[i].Status = v.Status      
-				// newDomain[i].StartTime = v.StartTime
-				// newDomain[i].TestTime = v.TestTime
-				// newDomain[i].EngineVersion = v.EngineVersion
-				// newDomain[i].CriteriaVersion = v.CriteriaVersion
-			
-
-			fmt.Println("entro en el metodo buscar debo guardar aca")
-			//fmt.Println(i, v)
-			fmt.Printf("Uuid")
-			fmt.Printf("%s", uuid)
-			fmt.Println("\t", v.Host)
-			fmt.Println("\t", v.Port)
-			fmt.Println("\t",v.Protocol)
-			fmt.Println("\t",v.IsPublic)
-			fmt.Println("\t",v.Status)
-			fmt.Println("\t",v.StartTime)
-			fmt.Println("\t",v.TestTime)
-			fmt.Println("\t",v.EngineVersion)
-			fmt.Println("\t",v.CriteriaVersion)
-			fmt.Println("\t",v.Endpoints)
-			for b, k := range v.Endpoints {
-				fmt.Println("\t", uuid)
-				fmt.Println("segundo recorrido")
-				fmt.Println(b, k)
-				fmt.Println("\t","IPAddress: " + string(k.IPAddress))
-				fmt.Println("\t","ServerName: " + string(k.ServerName))
-				fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
-				fmt.Println("\t","Grade: " + string(k.Grade))
-				fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
-				fmt.Println("HasWarnings:\n",k.HasWarnings)
-				fmt.Println("IsExceptional:\n",  k.IsExceptional)
-				fmt.Println("Progress:\t", k.Progress)
-				fmt.Println("Duration:\t",k.Duration)
-				fmt.Println("Delegation:\t", + k.Delegation)
-
-				// newDomain.Endpoints = [
-				// 	"IPAddress" : k.IPAddress,
-				// 	"ServerName" : k.ServerName,
-				// 	"StatusMessage" : k.StatusMessage,
-				// 	"Grade" : k.Grade,
-				// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
-				// 	"HasWarnings" : k.HasWarnings,
-				// 	"IsExceptional" : k.IsExceptional,
-				// 	"Progress" : k.Progress,
-				// 	"Duration" : k.Duration,
-				// 	"Delegation" : k.Delegation,
-				// ]					
-			}
-		}
-
-
 		n := new(Domaintest)
 		// Solicitando todas las notas en la base de datos.
 		domain, err := n.GetAllDomain()
@@ -896,7 +931,7 @@ func main() {
 		}
 		// Convirtiendo el slice de notas a formato JSON,
 		// retorna un []byte y un error.
-		jj, err := json.Marshal(domain)
+		j, err := json.Marshal(domain)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
@@ -906,12 +941,265 @@ func main() {
 		// Estableciendo el tipo de contenido del cuerpo de la
 		// respuesta.
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Println("devolver valor:")
-		fmt.Println(jj)
-		
-		fmt.Println("Fin Entro por buscar metodo que se llama al dar clic en buscar:")
-		w.Write(responseData)
+		// Escribiendo la respuesta, es decir nuestro slice de notas
+		// en formato JSON.
+		w.Write(j)
+	
 })
+
+
+	
+
+
+		r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
+
+			nombre := r.URL.Query().Get("nombre")
+			fmt.Println(nombre)
+			(w).Header().Set("Access-Control-Allow-Origin", "*")
+			(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+			url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
+			response, err := http.Get(url)
+
+			if err != nil {
+				fmt.Print(err.Error())
+				os.Exit(1)
+			}
+
+			responseData, err := ioutil.ReadAll(response.Body)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println(string(responseData))	
+			fmt.Println("paso por aca y funciona buscando debe recorrer para poder editar")
+		
+		
+			fmt.Println(len(responseData))
+		
+			j := "["+string(responseData)+"]"
+			//fmt.Println("json:",j)
+			
+			xp := []domain{}
+			
+			errr := json.Unmarshal([]byte(j), &xp)
+			
+			if errr != nil {
+				fmt.Println(errr)
+			}
+			// fmt.Printf("go data: %+v\n", xp)
+			fmt.Println(len(responseData))
+			// var newDomain[len(responseData)] domain
+			for i, v := range xp {
+				fmt.Printf("afnSomething went wrong: %s", i)		
+				// or error handling
+				uuid, err := uuid.NewV4()
+				if err != nil {
+				fmt.Printf("Something went wrong: %s", err)
+				return
+				}
+				
+					//  newDomain[i].Host =  v.Host
+					// newDomain[i].Port = v.Port
+					// newDomain[i].Protocol = v.Protocol
+					// newDomain[i].IsPublic = v.IsPublic       
+					// newDomain[i].Status = v.Status      
+					// newDomain[i].StartTime = v.StartTime
+					// newDomain[i].TestTime = v.TestTime
+					// newDomain[i].EngineVersion = v.EngineVersion
+					// newDomain[i].CriteriaVersion = v.CriteriaVersion
+				
+
+
+				//fmt.Println(i, v)
+				fmt.Printf("Uuid")
+				fmt.Printf("%s", uuid)
+				fmt.Println("\t", v.Host)
+				fmt.Println("\t", v.Port)
+				fmt.Println("\t",v.Protocol)
+				fmt.Println("\t",v.IsPublic)
+				fmt.Println("\t",v.Status)
+				fmt.Println("\t",v.StartTime)
+				fmt.Println("\t",v.TestTime)
+				fmt.Println("\t",v.EngineVersion)
+				fmt.Println("\t",v.CriteriaVersion)
+				fmt.Println("\t",v.Endpoints)
+				for b, k := range v.Endpoints {
+					fmt.Println("\t", uuid)
+					fmt.Println("segundo recorrido")
+					fmt.Println(b, k)
+					fmt.Println("\t","IPAddress: " + string(k.IpAddress))
+					fmt.Println("\t","ServerName: " + string(k.ServerName))
+					fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+					fmt.Println("\t","Grade: " + string(k.Grade))
+					fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+					fmt.Println("HasWarnings:\n",k.HasWarnings)
+					fmt.Println("IsExceptional:\n",  k.IsExceptional)
+					fmt.Println("Progress:\t", k.Progress)
+					fmt.Println("Duration:\t",k.Duration)
+					fmt.Println("Delegation:\t", + k.Delegation)
+
+					// newDomain.Endpoints = [
+					// 	"IPAddress" : k.IPAddress,
+					// 	"ServerName" : k.ServerName,
+					// 	"StatusMessage" : k.StatusMessage,
+					// 	"Grade" : k.Grade,
+					// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
+					// 	"HasWarnings" : k.HasWarnings,
+					// 	"IsExceptional" : k.IsExceptional,
+					// 	"Progress" : k.Progress,
+					// 	"Duration" : k.Duration,
+					// 	"Delegation" : k.Delegation,
+					// ]					
+				}
+			}
+			// for key, result := range results {
+
+			// 	fmt.Println("Reading Value for Key :", key)
+				
+			// 	fmt.Println("Id :", result["port"])
+			// }
+			//  w.Write(j)
+		
+			 w.Write(responseData) 
+	})
+	
+// 	r.Get("/buscar", func(w http.ResponseWriter, r *http.Request) {
+
+// 		nombre := r.URL.Query().Get("nombre")
+// 		fmt.Println(nombre)
+// 		(w).Header().Set("Access-Control-Allow-Origin", "*")
+// 		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+// 		url := "https://api.ssllabs.com/api/v3/analyze?host="+nombre
+// 		response, err := http.Get(url)
+
+// 		if err != nil {
+// 			fmt.Print(err.Error())
+// 			os.Exit(1)
+// 		}
+
+// 		responseData, err := ioutil.ReadAll(response.Body)
+// 		if err != nil {
+// 			log.Fatal(err)
+// 		}
+		
+// 		// j := "["+string(responseData)+"]"
+// 		// xp := []domain{}
+	
+// 		// errr := json.Unmarshal([]byte(j), &xp)
+		
+// 		// if errr != nil {
+// 		// 	fmt.Println(errr)
+// 		// }
+// 		// fmt.Println(string(responseData))
+// 		// for i, v := range xp {
+// 		// 	fmt.Println("le id:",i)
+// 		// 	var datoAfn = v.Host
+			
+// 		// 	fmt.Println("este valor lo devolvió la data", datoAfn)
+// 		// 	fmt.Println("este : es: es:", datoAfn)
+// 		// }
+
+// 		j := "["+string(responseData)+"]"
+	
+// 		xp := []domain{}
+	
+// 		errr := json.Unmarshal([]byte(j), &xp)
+		
+// 		if errr != nil {
+// 			fmt.Println(errr)
+// 		}
+// 		//fmt.Println(len(responseData))
+// 		fmt.Println("Inicio Entro por buscar metodo que se llama al dar clic en buscar:")
+			
+// 		for i, v := range xp {
+// 			fmt.Printf("Something went wrong: %s", i)		
+// 			uuid, err := uuid.NewV4()
+// 			if err != nil {
+// 			fmt.Printf("Something went wrong: %s", err)
+// 			return
+// 			}
+			
+// 				//  newDomain[i].Host =  v.Host
+// 				// newDomain[i].Port = v.Port
+// 				// newDomain[i].Protocol = v.Protocol
+// 				// newDomain[i].IsPublic = v.IsPublic       
+// 				// newDomain[i].Status = v.Status      
+// 				// newDomain[i].StartTime = v.StartTime
+// 				// newDomain[i].TestTime = v.TestTime
+// 				// newDomain[i].EngineVersion = v.EngineVersion
+// 				// newDomain[i].CriteriaVersion = v.CriteriaVersion
+			
+
+// 			fmt.Println("entro en el metodo buscar debo guardar aca")
+// 			//fmt.Println(i, v)
+// 			fmt.Printf("Uuid")
+// 			fmt.Printf("%s", uuid)
+// 			fmt.Println("\t", v.Host)
+// 			fmt.Println("\t", v.Port)
+// 			fmt.Println("\t",v.Protocol)
+// 			fmt.Println("\t",v.IsPublic)
+// 			fmt.Println("\t",v.Status)
+// 			fmt.Println("\t",v.StartTime)
+// 			fmt.Println("\t",v.TestTime)
+// 			fmt.Println("\t",v.EngineVersion)
+// 			fmt.Println("\t",v.CriteriaVersion)
+// 			fmt.Println("\t",v.Endpoints)
+// 			for b, k := range v.Endpoints {
+// 				fmt.Println("\t", uuid)
+// 				fmt.Println("segundo recorrido")
+// 				fmt.Println(b, k)
+// 				fmt.Println("\t","IPAddress: " + string(k.IPAddress))
+// 				fmt.Println("\t","ServerName: " + string(k.ServerName))
+// 				fmt.Println("\t","StatusMessage: " + string(k.StatusMessage))
+// 				fmt.Println("\t","Grade: " + string(k.Grade))
+// 				fmt.Println("\t","GradeTrustIgnored: " + string(k.GradeTrustIgnored))
+// 				fmt.Println("HasWarnings:\n",k.HasWarnings)
+// 				fmt.Println("IsExceptional:\n",  k.IsExceptional)
+// 				fmt.Println("Progress:\t", k.Progress)
+// 				fmt.Println("Duration:\t",k.Duration)
+// 				fmt.Println("Delegation:\t", + k.Delegation)
+
+// 				// newDomain.Endpoints = [
+// 				// 	"IPAddress" : k.IPAddress,
+// 				// 	"ServerName" : k.ServerName,
+// 				// 	"StatusMessage" : k.StatusMessage,
+// 				// 	"Grade" : k.Grade,
+// 				// 	"GradeTrustIgnored" : k.GradeTrustIgnored,
+// 				// 	"HasWarnings" : k.HasWarnings,
+// 				// 	"IsExceptional" : k.IsExceptional,
+// 				// 	"Progress" : k.Progress,
+// 				// 	"Duration" : k.Duration,
+// 				// 	"Delegation" : k.Delegation,
+// 				// ]					
+// 			}
+// 		}
+
+
+// 		n := new(Domaintest)
+// 		// Solicitando todas las notas en la base de datos.
+// 		domain, err := n.GetAllDomain()
+// 		if err != nil {
+// 			http.Error(w, err.Error(), http.StatusNotFound)
+// 			return
+// 		}
+// 		// Convirtiendo el slice de notas a formato JSON,
+// 		// retorna un []byte y un error.
+// 		// j := "["+string(domain)+"]"
+// 		jj, err := json.Marshal(domain)
+// 		if err != nil {
+// 			http.Error(w, err.Error(), http.StatusBadRequest)
+// 			return
+// 		}
+// 		// Escribiendo el código de respuesta.
+// 		w.WriteHeader(http.StatusOK)
+// 		// Estableciendo el tipo de contenido del cuerpo de la
+// 		// respuesta.
+// 		w.Header().Set("Content-Type", "application/json")
+// 		fmt.Println("devolver valor:")
+// 		fmt.Println(jj)
+		
+// 		fmt.Println("Fin Entro por buscar metodo que se llama al dar clic en buscar:")
+// 		w.Write(jj)
+// })
 
 	r.Get("/notes", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
@@ -992,6 +1280,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "hola mundo")
 	direccion := ":8081" // Como cadena, no como entero; porque representa una dirección
 	fmt.Println("Servidor listo escuchando en " + direccion)
+
 	log.Fatal(http.ListenAndServe(direccion+"/public/index.html", nil))
 	
 }
@@ -1116,3 +1405,36 @@ func NotesHandler(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
+	db := GetConnection()
+	Host = "'"+Host+"'"
+
+	q := "SELECT distinct uuid,host,port FROM domaintest where host="+string(Host)
+	// Ejecutamos la query
+	rows, err := db.Query(q)
+	if err != nil {
+		return []Domaintest{}, err
+	}
+	defer rows.Close()
+	bks := make([]Domaintest, 0)
+	for rows.Next() {
+		bk := Domaintest{}
+		err := rows.Scan(&bk.Uuid,&bk.Host, &bk.Port) // order matters
+		if err != nil {
+			panic(err)
+		}
+		bks = append(bks, bk)
+	}
+	return bks, nil 
+	
+    // fmt.Println("dentro de la consulta de bd rows ")
+	// fmt.Println(rows)
+	// for rows.Next() {
+	// 	rows.Scan(&n.Host,&n.Uuid)
+	// 	domain = append(domain, *n)
+	// }
+	// fmt.Println("dentro de la consulta de bd ")
+	// fmt.Println(domain)
+	// fmt.Println("termino la consulta de bd dentro")
+	// return domain, nil
+}

@@ -235,4 +235,11 @@ npm run build
 copiar todo de la carpeta dist
 a la carpeta public de la raiz
 
-docker run --name godep -p 8080:8080 -it --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local afnarqui/godep:v12 bash
+docker run --name go -p 8080:8080 -p 26257:26257 -it --volumes-from volumen -v c:/Users/afnarqui/proyectos:/local afnarqui/godep:v12 bash
+ cd $GOPATH/src/github.com/afnarqui
+ cockroach start --insecure
+
+cockroach sql --insecure
+ SHOW DATABASES;
+ select * form database.table;
+
