@@ -243,3 +243,5 @@ cockroach sql --insecure
  SHOW DATABASES;
  select * form database.table;
 
+ go get github.com/afnarqui/godep-mysql-vue/db.go
+
