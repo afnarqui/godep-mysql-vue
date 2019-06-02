@@ -6,12 +6,9 @@ import (
 	"log"
 	"net/http"
 	"io/ioutil"
-	"strconv"
-	"errors"
 	"time"
 	"database/sql"
 	_ "github.com/lib/pq"
-	_ "github.com/afnarqui/godep-mysql-vue/db.go"
 	"github.com/satori/go.uuid"
 	 "os"
 	"path/filepath"
@@ -306,7 +303,7 @@ func GetConnection() *sql.DB {
 }
 
 func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
-	db := db.db.GetConnection()
+	db := GetConnection()
 	Host = "'"+Host+"'"
 
 	q := "SELECT distinct uuid,host,port FROM domaintest where host="+string(Host)
@@ -362,7 +359,7 @@ type Endpointss []Endpoints
 
 func main() {
 
-	db.db.GetConnection()
+	GetConnection()
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", IndexHandler)
 	
@@ -513,7 +510,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // func MakeMigrations() error {
-// 	db2 := db.db.GetConnection()
+// 	db2 := GetConnection()
 // 	defer db2.Close()
 
 // 	q2 := `SELECT top 1 1 from domaintest`
