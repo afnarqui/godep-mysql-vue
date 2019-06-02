@@ -14,10 +14,12 @@ import (
 	"path/filepath"
 	"strings"
 	"github.com/go-chi/chi"
+	"errors"
 )
 var Host string
 var db *sql.DB
 type UUID [16]byte
+var domainnew = Domain{}
 
 func GetConnection() *sql.DB {
 	if db != nil {
@@ -32,289 +34,304 @@ func GetConnection() *sql.DB {
         log.Fatal("error connecting to the database: ", err)
     }
 
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS domain`); err != nil {
-			log.Fatal(err)
-		}
+		// if _, err := db.Exec(
+		// 	`DROP TABLE IF EXISTS domain`); err != nil {
+		// 	log.Fatal(err)
+		// }
 
-		if _, err := db.Exec(
-			`CREATE TABLE IF NOT EXISTS domain (
-				id INT PRIMARY KEY,
-					title VARCHAR(64) NULL,
-					description VARCHAR(200) NULL,
-					Uuid VARCHAR(350),
-					Host VARCHAR(120),
-					Port INT,
-					Protocol VARCHAR(120),
-					IsPublic BOOL,
-					Status   VARCHAR(80),
-					StartTime       TIMESTAMP,
-					TestTime        INT,
-					EngineVersion   VARCHAR(120),
-					CriteriaVersion VARCHAR(120),
-					Endpoints       JSONB,
-					Host__          JSONB
-				)`); err != nil {
-			log.Fatal(err)
-		}
+		// if _, err := db.Exec(
+		// 	`CREATE TABLE IF NOT EXISTS domain (
+		// 		id INT PRIMARY KEY,
+		// 			title VARCHAR(64) NULL,
+		// 			description VARCHAR(200) NULL,
+		// 			Uuid VARCHAR(350),
+		// 			Host VARCHAR(120),
+		// 			Port INT,
+		// 			Protocol VARCHAR(120),
+		// 			IsPublic BOOL,
+		// 			Status   VARCHAR(80),
+		// 			StartTime       TIMESTAMP,
+		// 			TestTime        INT,
+		// 			EngineVersion   VARCHAR(120),
+		// 			CriteriaVersion VARCHAR(120),
+		// 			Endpoints       JSONB,
+		// 			Host__          JSONB
+		// 		)`); err != nil {
+		// 	log.Fatal(err)
+		// }
 
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS accounts`); err != nil {
-			log.Fatal(err)
-		}
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS accountsafn`); err != nil {
-			log.Fatal(err)
-		}
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS estudiantes`); err != nil {
-			log.Fatal(err)
-		}
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS notes`); err != nil {
-			log.Fatal(err)
-		}
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS pruebaafn`); err != nil {
-			log.Fatal(err)
-		}
-		if _, err := db.Exec(
-			`DROP TABLE IF EXISTS domaintest`); err != nil {
-			log.Fatal(err)
-		}
+
+		// if _, err := db.Exec(
+		// 	`DROP TABLE IF EXISTS domainold`); err != nil {
+		// 	log.Fatal(err)
+		// }
 		
-	
-		if _, err := db.Exec(
-			`CREATE TABLE IF NOT EXISTS domaintest (
-					Uuid VARCHAR(350) NULL,
-					Host VARCHAR(120) NULL,
-					Port INT NULL,
-					Protocol VARCHAR(120) NULL,
-					IsPublic BOOL NULL,
-					Status   VARCHAR(80) NULL,
-					StartTime       DATE NULL,
-					TestTime        INT NULL,
-					EngineVersion   VARCHAR(120) NULL,
-					CriteriaVersion VARCHAR(120) NULL,
-					Endpoints       VARCHAR(8000) NULL,
-					HostOld         VARCHAR(8000) NULL,
-					HostNew         VARCHAR(8000) NULL
-				)`); err != nil {
-			log.Fatal(err)
-		}
+		// if _, err := db.Exec(
+		// 	`CREATE TABLE IF NOT EXISTS domain (
+		// 			Uuid uuid NULL,
+		// 			Host VARCHAR(120) NULL,
+		// 			Port INT NULL,
+		// 			Protocol VARCHAR(120) NULL,
+		// 			IsPublic BOOL NULL,
+		// 			Status   VARCHAR(80) NULL,
+		// 			StartTime       DATE NULL,
+		// 			TestTime        INT NULL,
+		// 			EngineVersion   VARCHAR(120) NULL,
+		// 			CriteriaVersion VARCHAR(120) NULL,
+		// 			Endpoints       VARCHAR(8000) NULL,
+		// 			HostOld         VARCHAR(8000) NULL,
+		// 			HostNew         VARCHAR(8000) NULL
+		// 		)`); err != nil {
+		// 	log.Fatal(err)
+		// }
 
-		if _, err := db.Exec(
-			`INSERT INTO domaintest (
-					Uuid,
-					Host,
-					Port,
-					Protocol, 
-					IsPublic,
-					Status,   
-					StartTime,
-					TestTime ,
-					EngineVersion,   
-					CriteriaVersion,
-					endpoints,
-					HostOld,
-					HostNew
-				) VALUES (
-					'XXXX-YYYY-ZZZZ',
-					'www.google.com',
-					443,
-					'http',
-					false,
-					'READY',
-					'2019-03-26',
-					1558624016,
-					'1.34.2',
-					'2009p',
-					'{"endpoints": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}',
-					  '{"HostOld": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}',
-					  '{"HostNew": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}'),
-					  (
-						'AAAA-BBBB-CCCC-DDDD',
-						'www.googleafn.com',
-						449,
-						'http',
-						false,
-						'READY',
-						'2019-03-26',
-						1558624016,
-						'1.34.2',
-						'2009p',
-						'{"endpoints": [
-							{
-							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-							"serverName": "sfo03s08-in-x04.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 85620,
-							"delegation": 2
-							},
-							{
-							"ipAddress": "172.217.6.36",
-							"serverName": "sfo03s08-in-f4.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 95185,
-							"delegation": 2
-							}
-						  ]}',
-						  '{"HostOld": [
-							{
-							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-							"serverName": "sfo03s08-in-x04.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 85620,
-							"delegation": 2
-							},
-							{
-							"ipAddress": "172.217.6.36",
-							"serverName": "sfo03s08-in-f4.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 95185,
-							"delegation": 2
-							}
-						  ]}',
-						  '{"HostNew": [
-							{
-							"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-							"serverName": "sfo03s08-in-x04.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 85620,
-							"delegation": 2
-							},
-							{
-							"ipAddress": "172.217.6.36",
-							"serverName": "sfo03s08-in-f4.1e100.net",
-							"statusMessage": "Ready",
-							"grade": "A+",
-							"gradeTrustIgnored": "A+",
-							"hasWarnings": false,
-							"isExceptional": true,
-							"progress": 100,
-							"duration": 95185,
-							"delegation": 2
-							}
-						  ]}')`); err != nil {
-			log.Fatal(err)
-		}
+		// if _, err := db.Exec(
+		// 	`CREATE TABLE IF NOT EXISTS domainhistory (
+		// 			Uuid uuid NULL,
+		// 			Host VARCHAR(120) NULL,
+		// 			Port INT NULL,
+		// 			Protocol VARCHAR(120) NULL,
+		// 			IsPublic BOOL NULL,
+		// 			Status   VARCHAR(80) NULL,
+		// 			StartTime       DATE NULL,
+		// 			TestTime        INT NULL,
+		// 			EngineVersion   VARCHAR(120) NULL,
+		// 			CriteriaVersion VARCHAR(120) NULL,
+		// 			Endpoints       VARCHAR(8000) NULL,
+		// 			HostOld         VARCHAR(8000) NULL,
+		// 			HostNew         VARCHAR(8000) NULL
+		// 		)`); err != nil {
+		// 	log.Fatal(err)
+		// }
+
+		// if _, err := db.Exec(
+		// 	`CREATE TABLE IF NOT EXISTS domain (
+		// 			Uuid uuid NULL,
+		// 			Host VARCHAR(120) NULL,
+		// 			Port INT NULL,
+		// 			Protocol VARCHAR(120) NULL,
+		// 			IsPublic BOOL NULL,
+		// 			Status   VARCHAR(80) NULL,
+		// 			StartTime       DATE NULL,
+		// 			TestTime        INT NULL,
+		// 			EngineVersion   VARCHAR(120) NULL,
+		// 			CriteriaVersion VARCHAR(120) NULL,
+		// 			Endpoints       VARCHAR(8000) NULL,
+		// 			HostOld         VARCHAR(8000) NULL,
+		// 			HostNew         VARCHAR(8000) NULL
+		// 		)`); err != nil {
+		// 	log.Fatal(err)
+		// }
+
+		// if _, err := db.Exec(
+		// 	`INSERT INTO domain (
+		// 			Host,
+		// 			Port,
+		// 			Protocol, 
+		// 			IsPublic,
+		// 			Status,   
+		// 			StartTime,
+		// 			TestTime ,
+		// 			EngineVersion,   
+		// 			CriteriaVersion,
+		// 			endpoints,
+		// 			HostOld,
+		// 			HostNew
+		// 		) VALUES (
+		// 			'www.google.com',
+		// 			443,
+		// 			'http',
+		// 			false,
+		// 			'READY',
+		// 			'2019-03-26',
+		// 			1558624016,
+		// 			'1.34.2',
+		// 			'2009p',
+		// 			'{"endpoints": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}',
+		// 			  '{"HostOld": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}',
+		// 			  '{"HostNew": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}'),
+		// 			  (
+		// 				'www.googleafn.com',
+		// 				449,
+		// 				'http',
+		// 				false,
+		// 				'READY',
+		// 				'2019-03-26',
+		// 				1558624016,
+		// 				'1.34.2',
+		// 				'2009p',
+		// 				'{"endpoints": [
+		// 					{
+		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 					"serverName": "sfo03s08-in-x04.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 85620,
+		// 					"delegation": 2
+		// 					},
+		// 					{
+		// 					"ipAddress": "172.217.6.36",
+		// 					"serverName": "sfo03s08-in-f4.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 95185,
+		// 					"delegation": 2
+		// 					}
+		// 				  ]}',
+		// 				  '{"HostOld": [
+		// 					{
+		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 					"serverName": "sfo03s08-in-x04.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 85620,
+		// 					"delegation": 2
+		// 					},
+		// 					{
+		// 					"ipAddress": "172.217.6.36",
+		// 					"serverName": "sfo03s08-in-f4.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 95185,
+		// 					"delegation": 2
+		// 					}
+		// 				  ]}',
+		// 				  '{"HostNew": [
+		// 					{
+		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 					"serverName": "sfo03s08-in-x04.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 85620,
+		// 					"delegation": 2
+		// 					},
+		// 					{
+		// 					"ipAddress": "172.217.6.36",
+		// 					"serverName": "sfo03s08-in-f4.1e100.net",
+		// 					"statusMessage": "Ready",
+		// 					"grade": "A+",
+		// 					"gradeTrustIgnored": "A+",
+		// 					"hasWarnings": false,
+		// 					"isExceptional": true,
+		// 					"progress": 100,
+		// 					"duration": 95185,
+		// 					"delegation": 2
+		// 					}
+		// 				  ]}')`); err != nil {
+		// 	log.Fatal(err)
+		// }
 		 
  return db
 }
 
-func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
+func (n *Domain) GetAllDomain() ([]Domain, error) {
 	db := GetConnection()
 	Host = "'"+Host+"'"
 
-	q := "SELECT distinct uuid,host,port FROM domaintest where host="+string(Host)
+	q := "SELECT distinct uuid,host,port FROM domain where host="+string(Host)
 	rows, err := db.Query(q)
 	if err != nil {
-		return []Domaintest{}, err
+		return []Domain{}, err
 	}
 	defer rows.Close()
-	bks := make([]Domaintest, 0)
+	bks := make([]Domain, 0)
 	for rows.Next() {
-		bk := Domaintest{}
+		bk := Domain{}
 		err := rows.Scan(&bk.Uuid,&bk.Host, &bk.Port) 
 		if err != nil {
 			panic(err)
@@ -324,9 +341,8 @@ func (n *Domaintest) GetAllDomain() ([]Domaintest, error) {
 	return bks, nil 
 }
 
-
-type Domaintest struct {
-	Uuid            string      `json:"uuid"`
+type Domain struct {
+	Uuid            string 		`json:"uuid"`
 	Host            string      `json:"host"`
 	Port            int         `json:"port"`
 	Protocol        string      `json:"protocol"`
@@ -337,10 +353,7 @@ type Domaintest struct {
 	EngineVersion   string      `json:"engineVersion"`
 	CriteriaVersion string      `json:"criteriaVersion"`
 	Endpoints       []Endpoints `json:"endpoints"`
-	HostOld         string `json:"HostOld"`
-	HostNew         string `json:"HostNew"`
 }
-
 
 type Endpoints struct {
 	IpAddress         string `json:"ipAddress"`
@@ -386,16 +399,23 @@ func main() {
 		}
 
 		j := "["+string(responseData)+"]"
-		xp := []Domaintest{}
+		xp := []Domain{}
 	
 		errr := json.Unmarshal([]byte(j), &xp)
 		if errr != nil {
 			fmt.Println(errr)
 		}
-		data := Domaintest{}
+		data := Domain{}
 		endpointsssf := Endpointss{}
+
 		for i, v := range xp {
-			 fmt.Println(i,v)
+			uuid, err := uuid.NewV4()
+			fmt.Println(uuid)
+			if err != nil {
+			fmt.Printf("Something went wrong: %s", err)
+			return
+			}
+			fmt.Println(i,v)
 			 data.Host = v.Host
 			 Host = v.Host
 			 data.Port = v.Port
@@ -427,15 +447,9 @@ func main() {
 				endpointsssf = endpointsss
 			}
 			data.Endpoints = endpointsssf 
-			uuid, err := uuid.NewV4()
-			fmt.Println(uuid)
-			if err != nil {
-			fmt.Printf("Something went wrong: %s", err)
-			return
-			}
 		}
 
-		n := new(Domaintest)
+		n := new(Domain)
 		domain, err := n.GetAllDomain()
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusNotFound)
@@ -448,7 +462,7 @@ func main() {
 			return
 		}
 
-		responsedata:= []Domaintest{}
+		responsedata:= []Domain{}
 	
 		errrs := json.Unmarshal([]byte(dataDomain), &responsedata)
 		if errrs != nil {
@@ -459,7 +473,11 @@ func main() {
 		if len(responsedata) > 0 {
 			fmt.Println("debo de actualizar registros")
 		} else {
+			var datanew Domain
 			fmt.Println("debo de ingresar registro")
+			domainnew = data
+			fmt.Println(domainnew)
+			err = datanew.CreateDomain()
 		}
 
 		json.NewEncoder(w).Encode(data)
@@ -509,11 +527,156 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	
 }
 
+func (n Domain) CreateDomain() error {
+	// db := GetConnection()
+
+	// q := `INSERT INTO domain (
+	// 					Host,
+	// 					Port,
+	// 					Protocol, 
+	// 					IsPublic,
+	// 					Status,   
+	// 					StartTime,
+	// 					TestTime ,
+	// 					EngineVersion,   
+	// 					CriteriaVersion,
+	// 					endpoints,
+	// 					HostOld,
+	// 					HostNew
+	// 				) VALUES (
+	// 					'www.google.com',
+	// 					443,
+	// 					'http',
+	// 					false,
+	// 					'READY',
+	// 					'2019-03-26',
+	// 					1558624016,
+	// 					'1.34.2',
+	// 					'2009p',
+	// 					'{"endpoints": [
+	// 						{
+	// 						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+	// 						"serverName": "sfo03s08-in-x04.1e100.net",
+	// 						"statusMessage": "Ready",
+	// 						"grade": "A+",
+	// 						"gradeTrustIgnored": "A+",
+	// 						"hasWarnings": false,
+	// 						"isExceptional": true,
+	// 						"progress": 100,
+	// 						"duration": 85620,
+	// 						"delegation": 2
+	// 						},
+	// 						{
+	// 						"ipAddress": "172.217.6.36",
+	// 						"serverName": "sfo03s08-in-f4.1e100.net",
+	// 						"statusMessage": "Ready",
+	// 						"grade": "A+",
+	// 						"gradeTrustIgnored": "A+",
+	// 						"hasWarnings": false,
+	// 						"isExceptional": true,
+	// 						"progress": 100,
+	// 						"duration": 95185,
+	// 						"delegation": 2
+	// 						}
+	// 					  ]}',
+	// 					  '{"HostOld": [
+	// 						{
+	// 						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+	// 						"serverName": "sfo03s08-in-x04.1e100.net",
+	// 						"statusMessage": "Ready",
+	// 						"grade": "A+",
+	// 						"gradeTrustIgnored": "A+",
+	// 						"hasWarnings": false,
+	// 						"isExceptional": true,
+	// 						"progress": 100,
+	// 						"duration": 85620,
+	// 						"delegation": 2
+	// 						},
+	// 						{
+	// 						"ipAddress": "172.217.6.36",
+	// 						"serverName": "sfo03s08-in-f4.1e100.net",
+	// 						"statusMessage": "Ready",
+	// 						"grade": "A+",
+	// 						"gradeTrustIgnored": "A+",
+	// 						"hasWarnings": false,
+	// 						"isExceptional": true,
+	// 						"progress": 100,
+	// 						"duration": 95185,
+	// 						"delegation": 2
+	// 						}
+	// 					  ]}',
+	// 					  '{"HostNew": [
+	// 						{
+	// 						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+	// 						"serverName": "sfo03s08-in-x04.1e100.net",
+	// 						"statusMessage": "Ready",
+	// 						"grade": "A+",
+	// 						"gradeTrustIgnored": "A+",
+	// 						"hasWarnings": false,
+	// 						"isExceptional": true,
+	// 						"progress": 100,
+	// 						"duration": 85620,
+	// 						"delegation": 2
+	// 						},
+	// 						{
+	// 						"ipAddress": "172.217.6.36",
+	// 						"serverName": "sfo03s08-in-f4.1e100.net",
+	// 						"statusMessage": "Ready",
+	// 						"grade": "A+",
+	// 						"gradeTrustIgnored": "A+",
+	// 						"hasWarnings": false,
+	// 						"isExceptional": true,
+	// 						"progress": 100,
+	// 						"duration": 95185,
+	// 						"delegation": 2
+	// 						}
+	// 					  ]}')`
+
+	var host = domainnew.Host
+	var port = domainnew.Port
+	fmt.Println(host)
+	
+	fmt.Println(port)
+	// if _, err := db.Exec("INSERT INTO domain (Host,Port) VALUES ($host,$port)"); err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	q := `INSERT INTO 
+	domain(host,port)
+	VALUES ($1,$2)`
+
+
+		db := GetConnection()
+		defer db.Close()
+
+		stmt, err := db.Prepare(q)
+
+		if err != nil {
+		return err
+		}
+		defer stmt.Close()
+
+		r, err := stmt.Exec(host, port)
+
+		if err != nil {
+		return err
+		}
+
+		i, _ := r.RowsAffected()
+
+		if i != 1 {
+		return errors.New("Should error rows")
+		}
+
+
+	return nil
+}
+
 // func MakeMigrations() error {
 // 	db2 := GetConnection()
 // 	defer db2.Close()
 
-// 	q2 := `SELECT top 1 1 from domaintest`
+// 	q2 := `SELECT top 1 1 from domain`
 // 	stmt2, err := db2.Prepare(q2)
 
 // 	if err != nil {
