@@ -9,7 +9,6 @@ import (
 	"time"
 	"database/sql"
 	_ "github.com/lib/pq"
-	// "github.com/satori/go.uuid"
 	 "os"
 	"path/filepath"
 	"strings"
@@ -18,7 +17,6 @@ import (
 )
 var Host string
 var db *sql.DB
-// type UUID [16]byte
 var domainnew = Domain{}
 var domainold = Domain{}
 var responsedatasearch = []Domain{}
@@ -44,16 +42,17 @@ func (n *Domain) GetAllDomain() ([]Domain, error) {
 	db := GetConnection()
 	Host = "'"+Host+"'"
 
-	q := "SELECT distinct host,port FROM domain where host="+string(Host)
+	q := "select distinct host,port,protocol,ispublic,status from domain where host="+string(Host)
 	rows, err := db.Query(q)
 	if err != nil {
 		return []Domain{}, err
 	}
+	//,&bk.StartTime,&bk.TestTime,&bk.EngineVersion,&bk.CriteriaVersion
 	defer rows.Close()
 	bks := make([]Domain, 0)
 	for rows.Next() {
 		bk := Domain{}
-		err := rows.Scan(&bk.Host, &bk.Port) 
+		err := rows.Scan(&bk.Host, &bk.Port,&bk.Protocol,&bk.IsPublic,&bk.Status) 
 		if err != nil {
 			panic(err)
 		}
@@ -80,9 +79,6 @@ func (n *Domain) GetDomain() ([]Domain, error) {
 		}
 		bks = append(bks, bk)
 	}
-	// fmt.Println("lo que devuelve de base de datos")
-	// fmt.Println(bks)
-	// fmt.Println("lo que devuelve de base de datos end")
 	return bks, nil 
 }
 
@@ -105,8 +101,6 @@ func (n *Domaincomparar) GetDomaincomparar() ([]Domaincomparar, error) {
 		}
 		bks = append(bks, bk)
 	}
-	fmt.Println("aja")
-	fmt.Println(bks)
 	return bks, nil 
 }
 
@@ -116,10 +110,6 @@ type Domain struct {
 	Protocol        string      `json:"protocol"`
 	IsPublic        bool        `json:"isPublic"`
 	Status          string      `json:"status"`
-	StartTime       int64       `json:"startTime"`
-	TestTime        int64       `json:"testTime"`
-	EngineVersion   string      `json:"engineVersion"`
-	CriteriaVersion string      `json:"criteriaVersion"`
 	Endpoints       []Endpoints `json:"endpoints"`
 }
 
@@ -129,20 +119,12 @@ type Domaincomparar struct {
 	Protocol        string      `json:"protocol"`
 	IsPublic        bool        `json:"isPublic"`
 	Status          string      `json:"status"`
-	StartTime       int64       `json:"startTime"`
-	TestTime        int64       `json:"testTime"`
-	EngineVersion   string      `json:"engineVersion"`
-	CriteriaVersion string      `json:"criteriaVersion"`
 	Endpoints       []Endpoints `json:"endpoints"`
 	Hostold            string      `json:"hostold"`
 	Portold            int         `json:"portold"`
 	Protocolold        string      `json:"protocolold"`
 	IsPublicold        bool        `json:"isPublicold"`
 	Statusold          string      `json:"statusold"`
-	StartTimeold       int64       `json:"startTimeold"`
-	TestTimeold        int64       `json:"testTimeold"`
-	EngineVersionold   string      `json:"engineVersionold"`
-	CriteriaVersionold string      `json:"criteriaVersionold"`
 	Endpointsold       []Endpoints `json:"endpointsold"`
 }
 
@@ -195,19 +177,12 @@ func main() {
 		}
 		fmt.Println(responsedata)
 		if len(responsedata) > 0 {
-			fmt.Println("debo imprimir los registros")
 			responsedatasearchcomparar = responsedata
-				
 		} else {
-			
-			fmt.Println("debo no se que hacer con los registros")
 		}
-		fmt.Println("llega hasta el final")
 		json.NewEncoder(w).Encode(responsedatasearchcomparar)
 })
 	r.Get("/buscardomain", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("entro en buscardomain")
-
 		(w).Header().Set("Access-Control-Allow-Origin", "*")
 		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 		n := new(Domain)
@@ -228,16 +203,11 @@ func main() {
 		if errrs != nil {
 			fmt.Println(errrs)
 		}
-		fmt.Println(responsedata)
 		if len(responsedata) > 0 {
-			fmt.Println("debo imprimir los registros")
+			fmt.Println("print")
 			responsedatasearch = responsedata
-				
 		} else {
-			
-			fmt.Println("debo no se que hacer con los registros")
 		}
-		fmt.Println("llega hasta el final")
 		json.NewEncoder(w).Encode(responsedatasearch)
 })
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
@@ -277,10 +247,10 @@ func main() {
 			 data.Protocol = v.Protocol
 			 data.IsPublic = v.IsPublic
 			 data.Status = v.Status
-			 data.StartTime = v.StartTime
-			 data.TestTime = v.TestTime
-			 data.EngineVersion = v.EngineVersion
-			 data.CriteriaVersion = v.CriteriaVersion
+			//  data.StartTime = v.StartTime
+			//  data.TestTime = v.TestTime
+			//  data.EngineVersion = v.EngineVersion
+			//  data.CriteriaVersion = v.CriteriaVersion
 			
 			for b, k := range v.Endpoints {
 				endpointsss := Endpointss{
@@ -327,27 +297,22 @@ func main() {
 		fmt.Println(responsedata)
 		if len(responsedata) > 0 {
 			var dataupdate Domain
-			fmt.Println("debo de actualizar registros")
 			domainold = responsedata[0]
+			fmt.Println("debo actualizar eliminar de todo")
 			err = dataupdate.DeleteDomain()
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-				fmt.Println("se presento un error al eliminar registro")
 				return
 			}		
 		} else {
 			var datanew Domain
-			fmt.Println("debo de ingresar registro")
-			
-			fmt.Println(domainnew)
+			fmt.Println("debo crear")
 			err = datanew.CreateDomain()
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-				fmt.Println("se presento un error")
 				return
 			}
 		}
-		fmt.Println("llega hasta el final")
 		json.NewEncoder(w).Encode(domainnew)
 })
 
@@ -386,9 +351,7 @@ func FileServer(r chi.Router, path string, root http.FileSystem) {
 }
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	
-	fmt.Fprint(w, "hola mundo")
-	direccion := ":8081" // Como cadena, no como entero; porque representa una dirección
+	direccion := ":8081" 
 	fmt.Println("Servidor listo escuchando en " + direccion)
 
 	log.Fatal(http.ListenAndServe(direccion+"/public/index.html", nil))
@@ -502,8 +465,10 @@ func (n Domain) CreateDomain() error {
 	var host = domainnew.Host
 	var port = domainnew.Port
 	var protocol = domainnew.Protocol 
-	// var isPublic = domainnew.IsPublic
-	// var status = domainnew.Status
+	var isPublic = domainnew.IsPublic
+	fmt.Println("IsPublic")
+	fmt.Println(domainnew.IsPublic)
+	var status = domainnew.Status
 	// var startTime = domainnew.StartTime
 	// var testTime = domainnew.TestTime
 	// var engineVersion = domainnew.EngineVersion   
@@ -511,25 +476,24 @@ func (n Domain) CreateDomain() error {
 	// var endpointss = domainnew.Endpoints
 
 	// q := `INSERT INTO 
-	// domain(host,port,protocol,isPublic,status,startTime,testTime,engineVersion,criteriaVersion,endpoints)
+	// domain(host,port,protocol,isPublic,status)
 	// VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`
-	q := `INSERT INTO 
-	domain(host,port,protocol)
-	VALUES ($1,$2,$3)`
-
+	q := "INSERT INTO domain(host,port,protocol,ispublic,status) VALUES ($1,$2,$3,$4,$5)"
+	// select host,port,protocol,ispublic,status,starttime,testtime,engineversion,criteriaversion from domain;
 		db := GetConnection()
 		defer db.Close()
-
+		fmt.Println("va a guardar")
+		fmt.Println(q)
 		stmt, err := db.Prepare(q)
 
 		if err != nil {
 		return err
 		}
 		defer stmt.Close()
-
+	     // select host,port,protocol,ispublic,status,starttime,testtime,engineversion,criteriaversion from domain;
 		// r, err := stmt.Exec(host,port,protocol,isPublic,status,startTime,testTime,engineVersion,criteriaVersion,endpointss)
 
-		r, err := stmt.Exec(host,port,protocol)
+		r, err := stmt.Exec(host,port,protocol,isPublic,status)
 		if err != nil {
 		return err
 		}
@@ -554,10 +518,6 @@ func (n Domain) DeleteDomain() error {
 	qdomain := `DELETE FROM domain
 		WHERE host=$1`
 	stmtdomain, errdomain := dbdomain.Prepare(qdomain)
-	// fmt.Println("voy a eliminar")
-	// fmt.Println(host)
-	// fmt.Println(qdomain)
-	// fmt.Println("voy a eliminar fin prueba")
 	if errdomain != nil {
 		// return errdomain
 	}
@@ -591,11 +551,18 @@ func (n Domain) DeleteDomain() error {
 
 	var portnewdomain = domainnew.Port
 	var protocolnewdomain = domainnew.Protocol 
-	
+	var isPublicnewdomain = domainnew.IsPublic 
+	var statusnewdomain = domainnew.Status
+	// var starttimenewdomain = domainnew.StartTime
+	// var testtimenewdomain = domainnew.TestTime
+	// var engineversionnewdomain = domainnew.EngineVersion
+	// var criteriaversionnewdomain = domainnew.CriteriaVersion
+	// ,starttime,testtime,engineversion,criteriaversion
+	// ,$6,$7,$8,$9
 	qnewdomain := `INSERT INTO 
-	domain(host,port,protocol)
-	VALUES ($1,$2,$3)`
-
+	domain(host,port,protocol,ispublic,status)
+	VALUES ($1,$2,$3,$4,$5)`
+     
 		dbnewdomain := GetConnection()
 		defer dbnewdomain.Close()
 
@@ -605,8 +572,10 @@ func (n Domain) DeleteDomain() error {
 		return errnewdomain
 		}
 		defer stmtnewdomain.Close()
-
-		rnewdomain, errnewdomain := stmtnewdomain.Exec(host,portnewdomain,protocolnewdomain)
+		
+		
+		//,starttimenewdomain,testtimenewdomain,engineversionnewdomain,criteriaversionnewdomain
+		rnewdomain, errnewdomain := stmtnewdomain.Exec(host,portnewdomain,protocolnewdomain,isPublicnewdomain,statusnewdomain)
 		if errnewdomain != nil {
 		return errnewdomain
 		}
@@ -620,11 +589,18 @@ func (n Domain) DeleteDomain() error {
 
 		var portolddomain = domainold.Port
 		var protocololddomain = domainold.Protocol 
-		
+		var isPublicolddomain = domainold.IsPublic 
+		var statusolddomain = domainold.Status
+		// var starttimeolddomain = domainold.StartTime
+		// var testtimeolddomain = domainold.TestTime
+		// var engineversionolddomain = domainold.EngineVersion
+		// var criteriaversionolddomain = domainold.CriteriaVersion
+		//,starttime,testtime,engineversion,criteriaversion
+		// ,$6,$7,$8,$9
 		qolddomain := `INSERT INTO 
-		domainold(host,port,protocol)
-		VALUES ($1,$2,$3)`
-	
+		domainold(host,port,protocol,ispublic,status)
+		VALUES ($1,$2,$3,$4,$5)`
+
 			dbolddomain := GetConnection()
 			defer dbolddomain.Close()
 	
@@ -634,8 +610,8 @@ func (n Domain) DeleteDomain() error {
 			return errolddomain
 			}
 			defer stmtolddomain.Close()
-	
-			rolddomain, errolddomain := stmtolddomain.Exec(host,portolddomain,protocololddomain)
+			//,starttimeolddomain,testtimeolddomain,engineversionolddomain,criteriaversionolddomain
+			rolddomain, errolddomain := stmtolddomain.Exec(host,portolddomain,protocololddomain,isPublicolddomain,statusolddomain)
 			if errolddomain != nil {
 			return errolddomain
 			}
@@ -646,10 +622,11 @@ func (n Domain) DeleteDomain() error {
 			return errors.New("Should error rows olddomain")
 			}		
 
-
+			//,starttime,testtime,engineversion,criteriaversion
+			// ,$6,$7,$8,$9
 			qhistorydomain := `INSERT INTO 
-			domainhistory(host,port,protocol)
-			VALUES ($1,$2,$3)`
+			domainhistory(host,port,protocol,ispublic,status)
+							VALUES ($1,$2,$3,$4,$5)`
 		
 				dbhistorydomain := GetConnection()
 				defer dbhistorydomain.Close()
@@ -660,8 +637,8 @@ func (n Domain) DeleteDomain() error {
 				return errhistorydomain
 				}
 				defer stmthistorydomain.Close()
-		
-				rhistorydomain, errhistorydomain := stmthistorydomain.Exec(host,portolddomain,protocololddomain)
+				//,starttimeolddomain,testtimeolddomain,engineversionolddomain,criteriaversionolddomain
+				rhistorydomain, errhistorydomain := stmthistorydomain.Exec(host,portolddomain,protocololddomain,isPublicolddomain,statusolddomain)
 				if errhistorydomain != nil {
 				return errhistorydomain
 				}
@@ -723,7 +700,11 @@ func (n Domain) DeleteDomain() error {
 			`DROP TABLE IF EXISTS domainhistory`); err != nil {
 			log.Fatal(err)
 		}
-
+		// StartTime       VARCHAR(120) NULL,
+		// TestTime        TIMESTAMP DEFAULT now(),
+		// EngineVersion   VARCHAR(120)  NULL,
+		// CriteriaVersion VARCHAR(120)  NULL,
+		// Endpoints       VARCHAR(8000) NULL  
 		
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domain (
@@ -732,255 +713,87 @@ func (n Domain) DeleteDomain() error {
 					Protocol VARCHAR(120) NULL,
 					IsPublic BOOL NULL,
 					Status   VARCHAR(80) NULL,
-					StartTime       DATE NULL,
-					TestTime        INT NULL,
-					EngineVersion   VARCHAR(120) NULL,
-					CriteriaVersion VARCHAR(120) NULL,
-					Endpoints       VARCHAR(8000) NULL
-				)`); err != nil {
+					Endpoints       VARCHAR(8000) NULL 
+					)`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domainold (
-		 			Host VARCHAR(120) NULL,
-					Port INT NULL,
-					Protocol VARCHAR(120) NULL,
-					IsPublic BOOL NULL,
-					Status   VARCHAR(80) NULL,
-					StartTime       DATE NULL,
-					TestTime        INT NULL,
-					EngineVersion   VARCHAR(120) NULL,
-					CriteriaVersion VARCHAR(120) NULL,
-					Endpoints       VARCHAR(8000) NULL
+				Host VARCHAR(120) NULL,
+				Port INT NULL,
+				Protocol VARCHAR(120) NULL,
+				IsPublic BOOL NULL,
+				Status   VARCHAR(80) NULL,
+				Endpoints       VARCHAR(8000) NULL 
 				)`); err != nil {
 			log.Fatal(err)
 		}
 
 		if _, err := db.Exec(
 			`CREATE TABLE IF NOT EXISTS domainhistory (
-					Host VARCHAR(120) NULL,
-					Port INT NULL,
-					Protocol VARCHAR(120) NULL,
-					IsPublic BOOL NULL,
-					Status   VARCHAR(80) NULL,
-					StartTime       DATE NULL,
-					TestTime        INT NULL,
-					EngineVersion   VARCHAR(120) NULL,
-					CriteriaVersion VARCHAR(120) NULL,
-					Endpoints       VARCHAR(8000) NULL
+				Host VARCHAR(120) NULL,
+				Port INT NULL,
+				Protocol VARCHAR(120) NULL,
+				IsPublic BOOL NULL,
+				Status   VARCHAR(80) NULL,
+				Endpoints       VARCHAR(8000) NULL 
 				)`); err != nil {
 			log.Fatal(err)
 		}
 
 
 
-		if _, err := db.Exec(
-			`INSERT INTO domain (
-					Host,
-					Port,
-					Protocol, 
-					IsPublic,
-					Status,   
-					StartTime,
-					TestTime ,
-					EngineVersion,   
-					CriteriaVersion,
-					endpoints
-				) VALUES (
-					'www.google.com',
-					444,
-					'http',
-					false,
-					'READY edit',
-					'2019-03-26',
-					1558624016,
-					'1.34.2',
-					'2009p',
-					'{"endpoints": [
-						{
-						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-						"serverName": "sfo03s08-in-x04.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 85620,
-						"delegation": 2
-						},
-						{
-						"ipAddress": "172.217.6.36",
-						"serverName": "sfo03s08-in-f4.1e100.net",
-						"statusMessage": "Ready",
-						"grade": "A+",
-						"gradeTrustIgnored": "A+",
-						"hasWarnings": false,
-						"isExceptional": true,
-						"progress": 100,
-						"duration": 95185,
-						"delegation": 2
-						}
-					  ]}')`); err != nil {
-			log.Fatal(err)
-		}
+		// if _, err := db.Exec(
+		// 	`INSERT INTO domain (
+		// 			Host,
+		// 			Port,
+		// 			Protocol, 
+		// 			IsPublic,
+		// 			Status,   
+		// 			StartTime,
+		// 			TestTime ,
+		// 			EngineVersion,   
+		// 			CriteriaVersion,
+		// 			endpoints
+		// 		) VALUES (
+		// 			'www.google.com',
+		// 			444,
+		// 			'http',
+		// 			false,
+		// 			'READY edit',
+		// 			'2019-03-26',
+		// 			1558624016,
+		// 			'1.34.2',
+		// 			'2009p',
+		// 			'{"endpoints": [
+		// 				{
+		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+		// 				"serverName": "sfo03s08-in-x04.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 85620,
+		// 				"delegation": 2
+		// 				},
+		// 				{
+		// 				"ipAddress": "172.217.6.36",
+		// 				"serverName": "sfo03s08-in-f4.1e100.net",
+		// 				"statusMessage": "Ready",
+		// 				"grade": "A+",
+		// 				"gradeTrustIgnored": "A+",
+		// 				"hasWarnings": false,
+		// 				"isExceptional": true,
+		// 				"progress": 100,
+		// 				"duration": 95185,
+		// 				"delegation": 2
+		// 				}
+		// 			  ]}')`); err != nil {
+		// 	log.Fatal(err)
+		// }
 		 
 	return nil
  }
-
-
-// func CreateNotesHandler(w http.ResponseWriter, r *http.Request) {
-//     var note Note
-	
-//     err := json.NewDecoder(r.Body).Decode(&note)
-//     if err != nil {
-//         http.Error(w, err.Error(), http.StatusBadRequest)
-//         return
-//     }
-//     err = note.Create()
-//     if err != nil {
-//         http.Error(w, err.Error(), http.StatusInternalServerError)
-//         return
-//     }
-//     w.WriteHeader(http.StatusOK)
-// }
-
-// func UpdateNotesHandler(w http.ResponseWriter, r *http.Request) {
-//     var note Note
-// err := json.NewDecoder(r.Body).Decode(&note)
-//     if err != nil {
-//         http.Error(w, err.Error(), http.StatusBadRequest)
-//         return
-//     }
-//     err = note.Update()
-//     if err != nil {
-//         http.Error(w, err.Error(), http.StatusInternalServerError)
-//         return
-//     }
-//     w.WriteHeader(http.StatusOK)
-// }
-
-// func DeleteNotesHandler(w http.ResponseWriter, r *http.Request) {
-//     idStr := r.URL.Query().Get("id")
-//     if idStr == "" {
-//          http.Error(w, "Query id es requerido",
-//              http.StatusBadRequest)
-//          return
-//     }
-//     id, err := strconv.Atoi(idStr)
-//     if err != nil {
-//          http.Error(w, "Query id debe ser un número",
-//              http.StatusBadRequest)
-//          return
-//     }
-//     var note Note
-//     err = note.Delete(id)
-//     if err != nil {
-//         http.Error(w, err.Error(), http.StatusInternalServerError)
-//         return
-//     }
-//     w.WriteHeader(http.StatusOK)
-// }
-
-// func NotesHandler(w http.ResponseWriter, r *http.Request) {
-//     switch r.Method {
-//         case http.MethodPost:
-//             CreateNotesHandler(w, r)
-//         case http.MethodPut:
-//             UpdateNotesHandler(w, r)
-//         case http.MethodDelete:
-//             DeleteNotesHandler(w, r)
-//         default:
-//             http.Error(w, "Metodo no permitido",
-//                 http.StatusBadRequest)
-//             return
-//     }
-// }
-
-// type Note struct {
-// 	ID          int       `json:"id,omitempty"`
-// 	Title       string    `json:"title"`
-// 	Description string    `json:"description"`
-// 	CreatedAt   time.Time `json:"created_at,omitempty"`
-// 	UpdatedAt   time.Time `json:"updated_at,omitempty"`
-// }
-
-// func (n Note) Create() error {
-// 	db := GetConnection()
-
-// 	q := `INSERT INTO notes (id,title, description)
-// 			VALUES($1, $2, $3)`
-
-// 	stmt, err := db.Prepare(q)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	defer stmt.Close()
-// 	r, err := stmt.Exec(n.ID,n.Title, n.Description)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if i, err := r.RowsAffected(); err != nil || i != 1 {
-// 		return errors.New("ERROR: Se esperaba una fila afectada")
-// 	}
-// 	return nil
-// }
-
-
-// func (n *Note) GetByID(id int) (Note, error) {
-// 	db := GetConnection()
-// 	q := `SELECT
-// 		id, title, description
-// 		FROM notes WHERE id=$1`
-
-// 	err := db.QueryRow(q, id).Scan(
-// 		&n.ID, &n.Title, &n.Description,
-// 	)
-// 	if err != nil {
-// 		return Note{}, err
-// 	}
-
-// 	return *n, nil
-// }
-
-// func (n Note) Update() error {
-// 	db := GetConnection()
-// 	q := `UPDATE notes set title=$1, description=$2
-// 		WHERE id=$3`
-// 	stmt, err := db.Prepare(q)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	defer stmt.Close()
-
-// 	r, err := stmt.Exec(n.Title, n.Description, n.ID)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if i, err := r.RowsAffected(); err != nil || i != 1 {
-// 		return errors.New("ERROR: Se esperaba una fila afectada")
-// 	}
-// 	return nil
-// }
-
-// func (n Note) Delete(id int) error {
-// 	db := GetConnection()
-
-// 	q := `DELETE FROM notes
-// 		WHERE id=$1`
-// 	stmt, err := db.Prepare(q)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	defer stmt.Close()
-
-// 	r, err := stmt.Exec(id)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if i, err := r.RowsAffected(); err != nil || i != 1 {
-// 		return errors.New("ERROR: Se esperaba una fila afectada")
-// 	}
-// 	return nil
-// }

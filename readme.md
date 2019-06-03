@@ -243,4 +243,5 @@ cockroach sql --insecure
  SHOW DATABASES;
  select * form database.table;
 
+npm install --save vue-router
 

@@ -16,18 +16,18 @@ export default function buscardomaincomparar (name) {
         var hostold = data[i]["hostold"]
         var portold = data[i]["portold"]
         var statusold = data[i]["statusold"]
-        console.log(host)
-        console.log(portold)
+
         valorInicial.push({
           "host": host,
           "port": JSON.stringify(port),
           "status": status
        })
+
        valorfinal.push({
         "host": hostold,
         "port": JSON.stringify(portold),
         "status":statusold
-     })
+       })
 
         if(i + 1 === data.length){
           var remoto =valorfinal
