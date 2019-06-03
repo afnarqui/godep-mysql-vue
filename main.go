@@ -9,7 +9,7 @@ import (
 	"time"
 	"database/sql"
 	_ "github.com/lib/pq"
-	"github.com/satori/go.uuid"
+	// "github.com/satori/go.uuid"
 	 "os"
 	"path/filepath"
 	"strings"
@@ -18,304 +18,25 @@ import (
 )
 var Host string
 var db *sql.DB
-type UUID [16]byte
+// type UUID [16]byte
 var domainnew = Domain{}
+var domainold = Domain{}
+var responsedatasearch = []Domain{}
+var responsedatasearchcomparar = []Domaincomparar{}
 
 func GetConnection() *sql.DB {
 	if db != nil {
 		return db
 	}
 
-	var err error
+	 var err error
 
-	db, err := sql.Open("postgres", "postgresql://root@localhost:26257/defaultdb?sslmode=disable")
+	 db, err := sql.Open("postgres", "postgresql://root@localhost:26257/defaultdb?sslmode=disable")
 
-	    if err != nil {
-        log.Fatal("error connecting to the database: ", err)
-    }
-
-		// if _, err := db.Exec(
-		// 	`DROP TABLE IF EXISTS domain`); err != nil {
-		// 	log.Fatal(err)
-		// }
-
-		// if _, err := db.Exec(
-		// 	`CREATE TABLE IF NOT EXISTS domain (
-		// 		id INT PRIMARY KEY,
-		// 			title VARCHAR(64) NULL,
-		// 			description VARCHAR(200) NULL,
-		// 			Uuid VARCHAR(350),
-		// 			Host VARCHAR(120),
-		// 			Port INT,
-		// 			Protocol VARCHAR(120),
-		// 			IsPublic BOOL,
-		// 			Status   VARCHAR(80),
-		// 			StartTime       TIMESTAMP,
-		// 			TestTime        INT,
-		// 			EngineVersion   VARCHAR(120),
-		// 			CriteriaVersion VARCHAR(120),
-		// 			Endpoints       JSONB,
-		// 			Host__          JSONB
-		// 		)`); err != nil {
-		// 	log.Fatal(err)
-		// }
-
-
-		// if _, err := db.Exec(
-		// 	`DROP TABLE IF EXISTS domainold`); err != nil {
-		// 	log.Fatal(err)
-		// }
-		
-		// if _, err := db.Exec(
-		// 	`CREATE TABLE IF NOT EXISTS domain (
-		// 			Uuid uuid NULL,
-		// 			Host VARCHAR(120) NULL,
-		// 			Port INT NULL,
-		// 			Protocol VARCHAR(120) NULL,
-		// 			IsPublic BOOL NULL,
-		// 			Status   VARCHAR(80) NULL,
-		// 			StartTime       DATE NULL,
-		// 			TestTime        INT NULL,
-		// 			EngineVersion   VARCHAR(120) NULL,
-		// 			CriteriaVersion VARCHAR(120) NULL,
-		// 			Endpoints       VARCHAR(8000) NULL,
-		// 			HostOld         VARCHAR(8000) NULL,
-		// 			HostNew         VARCHAR(8000) NULL
-		// 		)`); err != nil {
-		// 	log.Fatal(err)
-		// }
-
-		// if _, err := db.Exec(
-		// 	`CREATE TABLE IF NOT EXISTS domainhistory (
-		// 			Uuid uuid NULL,
-		// 			Host VARCHAR(120) NULL,
-		// 			Port INT NULL,
-		// 			Protocol VARCHAR(120) NULL,
-		// 			IsPublic BOOL NULL,
-		// 			Status   VARCHAR(80) NULL,
-		// 			StartTime       DATE NULL,
-		// 			TestTime        INT NULL,
-		// 			EngineVersion   VARCHAR(120) NULL,
-		// 			CriteriaVersion VARCHAR(120) NULL,
-		// 			Endpoints       VARCHAR(8000) NULL,
-		// 			HostOld         VARCHAR(8000) NULL,
-		// 			HostNew         VARCHAR(8000) NULL
-		// 		)`); err != nil {
-		// 	log.Fatal(err)
-		// }
-
-		// if _, err := db.Exec(
-		// 	`CREATE TABLE IF NOT EXISTS domain (
-		// 			Uuid uuid NULL,
-		// 			Host VARCHAR(120) NULL,
-		// 			Port INT NULL,
-		// 			Protocol VARCHAR(120) NULL,
-		// 			IsPublic BOOL NULL,
-		// 			Status   VARCHAR(80) NULL,
-		// 			StartTime       DATE NULL,
-		// 			TestTime        INT NULL,
-		// 			EngineVersion   VARCHAR(120) NULL,
-		// 			CriteriaVersion VARCHAR(120) NULL,
-		// 			Endpoints       VARCHAR(8000) NULL,
-		// 			HostOld         VARCHAR(8000) NULL,
-		// 			HostNew         VARCHAR(8000) NULL
-		// 		)`); err != nil {
-		// 	log.Fatal(err)
-		// }
-
-		// if _, err := db.Exec(
-		// 	`INSERT INTO domain (
-		// 			Host,
-		// 			Port,
-		// 			Protocol, 
-		// 			IsPublic,
-		// 			Status,   
-		// 			StartTime,
-		// 			TestTime ,
-		// 			EngineVersion,   
-		// 			CriteriaVersion,
-		// 			endpoints,
-		// 			HostOld,
-		// 			HostNew
-		// 		) VALUES (
-		// 			'www.google.com',
-		// 			443,
-		// 			'http',
-		// 			false,
-		// 			'READY',
-		// 			'2019-03-26',
-		// 			1558624016,
-		// 			'1.34.2',
-		// 			'2009p',
-		// 			'{"endpoints": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}',
-		// 			  '{"HostOld": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}',
-		// 			  '{"HostNew": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}'),
-		// 			  (
-		// 				'www.googleafn.com',
-		// 				449,
-		// 				'http',
-		// 				false,
-		// 				'READY',
-		// 				'2019-03-26',
-		// 				1558624016,
-		// 				'1.34.2',
-		// 				'2009p',
-		// 				'{"endpoints": [
-		// 					{
-		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 					"serverName": "sfo03s08-in-x04.1e100.net",
-		// 					"statusMessage": "Ready",
-		// 					"grade": "A+",
-		// 					"gradeTrustIgnored": "A+",
-		// 					"hasWarnings": false,
-		// 					"isExceptional": true,
-		// 					"progress": 100,
-		// 					"duration": 85620,
-		// 					"delegation": 2
-		// 					},
-		// 					{
-		// 					"ipAddress": "172.217.6.36",
-		// 					"serverName": "sfo03s08-in-f4.1e100.net",
-		// 					"statusMessage": "Ready",
-		// 					"grade": "A+",
-		// 					"gradeTrustIgnored": "A+",
-		// 					"hasWarnings": false,
-		// 					"isExceptional": true,
-		// 					"progress": 100,
-		// 					"duration": 95185,
-		// 					"delegation": 2
-		// 					}
-		// 				  ]}',
-		// 				  '{"HostOld": [
-		// 					{
-		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 					"serverName": "sfo03s08-in-x04.1e100.net",
-		// 					"statusMessage": "Ready",
-		// 					"grade": "A+",
-		// 					"gradeTrustIgnored": "A+",
-		// 					"hasWarnings": false,
-		// 					"isExceptional": true,
-		// 					"progress": 100,
-		// 					"duration": 85620,
-		// 					"delegation": 2
-		// 					},
-		// 					{
-		// 					"ipAddress": "172.217.6.36",
-		// 					"serverName": "sfo03s08-in-f4.1e100.net",
-		// 					"statusMessage": "Ready",
-		// 					"grade": "A+",
-		// 					"gradeTrustIgnored": "A+",
-		// 					"hasWarnings": false,
-		// 					"isExceptional": true,
-		// 					"progress": 100,
-		// 					"duration": 95185,
-		// 					"delegation": 2
-		// 					}
-		// 				  ]}',
-		// 				  '{"HostNew": [
-		// 					{
-		// 					"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 					"serverName": "sfo03s08-in-x04.1e100.net",
-		// 					"statusMessage": "Ready",
-		// 					"grade": "A+",
-		// 					"gradeTrustIgnored": "A+",
-		// 					"hasWarnings": false,
-		// 					"isExceptional": true,
-		// 					"progress": 100,
-		// 					"duration": 85620,
-		// 					"delegation": 2
-		// 					},
-		// 					{
-		// 					"ipAddress": "172.217.6.36",
-		// 					"serverName": "sfo03s08-in-f4.1e100.net",
-		// 					"statusMessage": "Ready",
-		// 					"grade": "A+",
-		// 					"gradeTrustIgnored": "A+",
-		// 					"hasWarnings": false,
-		// 					"isExceptional": true,
-		// 					"progress": 100,
-		// 					"duration": 95185,
-		// 					"delegation": 2
-		// 					}
-		// 				  ]}')`); err != nil {
-		// 	log.Fatal(err)
-		// }
-		 
+	     if err != nil {
+         log.Fatal("error connecting to the database: ", err)
+     }
+	 
  return db
 }
 
@@ -323,7 +44,7 @@ func (n *Domain) GetAllDomain() ([]Domain, error) {
 	db := GetConnection()
 	Host = "'"+Host+"'"
 
-	q := "SELECT distinct uuid,host,port FROM domain where host="+string(Host)
+	q := "SELECT distinct host,port FROM domain where host="+string(Host)
 	rows, err := db.Query(q)
 	if err != nil {
 		return []Domain{}, err
@@ -332,7 +53,7 @@ func (n *Domain) GetAllDomain() ([]Domain, error) {
 	bks := make([]Domain, 0)
 	for rows.Next() {
 		bk := Domain{}
-		err := rows.Scan(&bk.Uuid,&bk.Host, &bk.Port) 
+		err := rows.Scan(&bk.Host, &bk.Port) 
 		if err != nil {
 			panic(err)
 		}
@@ -341,8 +62,55 @@ func (n *Domain) GetAllDomain() ([]Domain, error) {
 	return bks, nil 
 }
 
+func (n *Domain) GetDomain() ([]Domain, error) {
+	db := GetConnection()
+	
+	q := "SELECT host,port FROM domain"
+	rows, err := db.Query(q)
+	if err != nil {
+		return []Domain{}, err
+	}
+	defer rows.Close()
+	bks := make([]Domain, 0)
+	for rows.Next() {
+		bk := Domain{}
+		err := rows.Scan(&bk.Host, &bk.Port) 
+		if err != nil {
+			panic(err)
+		}
+		bks = append(bks, bk)
+	}
+	// fmt.Println("lo que devuelve de base de datos")
+	// fmt.Println(bks)
+	// fmt.Println("lo que devuelve de base de datos end")
+	return bks, nil 
+}
+
+func (n *Domaincomparar) GetDomaincomparar() ([]Domaincomparar, error) {
+	db := GetConnection()
+	
+	q := "select domain.host as host,domainold.host as hostold,domain.port as port,domainold.port as portold FROM domain inner join domainold on domainold.host=domain.host"
+	
+	rows, err := db.Query(q)
+	if err != nil {
+		return []Domaincomparar{}, err
+	}
+	defer rows.Close()
+	bks := make([]Domaincomparar, 0)
+	for rows.Next() {
+		bk := Domaincomparar{}
+		err := rows.Scan(&bk.Host,&bk.Hostold ,&bk.Port,&bk.Portold) 
+		if err != nil {
+			panic(err)
+		}
+		bks = append(bks, bk)
+	}
+	fmt.Println("aja")
+	fmt.Println(bks)
+	return bks, nil 
+}
+
 type Domain struct {
-	Uuid            string 		`json:"uuid"`
 	Host            string      `json:"host"`
 	Port            int         `json:"port"`
 	Protocol        string      `json:"protocol"`
@@ -353,6 +121,29 @@ type Domain struct {
 	EngineVersion   string      `json:"engineVersion"`
 	CriteriaVersion string      `json:"criteriaVersion"`
 	Endpoints       []Endpoints `json:"endpoints"`
+}
+
+type Domaincomparar struct {
+	Host            string      `json:"host"`
+	Port            int         `json:"port"`
+	Protocol        string      `json:"protocol"`
+	IsPublic        bool        `json:"isPublic"`
+	Status          string      `json:"status"`
+	StartTime       int64       `json:"startTime"`
+	TestTime        int64       `json:"testTime"`
+	EngineVersion   string      `json:"engineVersion"`
+	CriteriaVersion string      `json:"criteriaVersion"`
+	Endpoints       []Endpoints `json:"endpoints"`
+	Hostold            string      `json:"hostold"`
+	Portold            int         `json:"portold"`
+	Protocolold        string      `json:"protocolold"`
+	IsPublicold        bool        `json:"isPublicold"`
+	Statusold          string      `json:"statusold"`
+	StartTimeold       int64       `json:"startTimeold"`
+	TestTimeold        int64       `json:"testTimeold"`
+	EngineVersionold   string      `json:"engineVersionold"`
+	CriteriaVersionold string      `json:"criteriaVersionold"`
+	Endpointsold       []Endpoints `json:"endpointsold"`
 }
 
 type Endpoints struct {
@@ -372,13 +163,83 @@ type Endpointss []Endpoints
 
 func main() {
 
-	GetConnection()
+	MakeMigrations()
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", IndexHandler)
 	
 	log.Println("Corriendo en http://localhost:8081")
 	r := chi.NewRouter()
 
+	r.Get("/buscardomaincomparar", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("entro en buscardomaincomparar")
+
+		(w).Header().Set("Access-Control-Allow-Origin", "*")
+		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		n := new(Domaincomparar)
+		domain, err := n.GetDomaincomparar()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusNotFound)
+			return
+		}
+		dataDomain, err := json.Marshal(domain)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		responsedata:= []Domaincomparar{}
+	
+		errrs := json.Unmarshal([]byte(dataDomain), &responsedata)
+		if errrs != nil {
+			fmt.Println(errrs)
+		}
+		fmt.Println(responsedata)
+		if len(responsedata) > 0 {
+			fmt.Println("debo imprimir los registros")
+			responsedatasearchcomparar = responsedata
+				
+		} else {
+			
+			fmt.Println("debo no se que hacer con los registros")
+		}
+		fmt.Println("llega hasta el final")
+		json.NewEncoder(w).Encode(responsedatasearchcomparar)
+})
+	r.Get("/buscardomain", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("entro en buscardomain")
+
+		(w).Header().Set("Access-Control-Allow-Origin", "*")
+		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		n := new(Domain)
+		domain, err := n.GetDomain()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusNotFound)
+			return
+		}
+		dataDomain, err := json.Marshal(domain)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		responsedata:= []Domain{}
+	
+		errrs := json.Unmarshal([]byte(dataDomain), &responsedata)
+		if errrs != nil {
+			fmt.Println(errrs)
+		}
+		fmt.Println(responsedata)
+		if len(responsedata) > 0 {
+			fmt.Println("debo imprimir los registros")
+			responsedatasearch = responsedata
+				
+		} else {
+			
+			fmt.Println("debo no se que hacer con los registros")
+		}
+		fmt.Println("llega hasta el final")
+		json.NewEncoder(w).Encode(responsedatasearch)
+})
 	r.Get("/public", func(w http.ResponseWriter, r *http.Request) {
 
 		nombre := r.URL.Query().Get("nombre")
@@ -409,13 +270,7 @@ func main() {
 		endpointsssf := Endpointss{}
 
 		for i, v := range xp {
-			uuid, err := uuid.NewV4()
-			fmt.Println(uuid)
-			if err != nil {
-			fmt.Printf("Something went wrong: %s", err)
-			return
-			}
-			fmt.Println(i,v)
+			 fmt.Println(i,v)
 			 data.Host = v.Host
 			 Host = v.Host
 			 data.Port = v.Port
@@ -448,7 +303,8 @@ func main() {
 			}
 			data.Endpoints = endpointsssf 
 		}
-
+		domainnew = data
+	
 		n := new(Domain)
 		domain, err := n.GetAllDomain()
 		if err != nil {
@@ -468,19 +324,31 @@ func main() {
 		if errrs != nil {
 			fmt.Println(errrs)
 		}
-
 		fmt.Println(responsedata)
 		if len(responsedata) > 0 {
+			var dataupdate Domain
 			fmt.Println("debo de actualizar registros")
+			domainold = responsedata[0]
+			err = dataupdate.DeleteDomain()
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				fmt.Println("se presento un error al eliminar registro")
+				return
+			}		
 		} else {
 			var datanew Domain
 			fmt.Println("debo de ingresar registro")
-			domainnew = data
+			
 			fmt.Println(domainnew)
 			err = datanew.CreateDomain()
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				fmt.Println("se presento un error")
+				return
+			}
 		}
-
-		json.NewEncoder(w).Encode(data)
+		fmt.Println("llega hasta el final")
+		json.NewEncoder(w).Encode(domainnew)
 })
 
 	workDir, _ := os.Getwd()
@@ -528,7 +396,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (n Domain) CreateDomain() error {
-	// db := GetConnection()
 
 	// q := `INSERT INTO domain (
 	// 					Host,
@@ -634,17 +501,21 @@ func (n Domain) CreateDomain() error {
 
 	var host = domainnew.Host
 	var port = domainnew.Port
-	fmt.Println(host)
-	
-	fmt.Println(port)
-	// if _, err := db.Exec("INSERT INTO domain (Host,Port) VALUES ($host,$port)"); err != nil {
-	// 	log.Fatal(err)
-	// }
+	var protocol = domainnew.Protocol 
+	// var isPublic = domainnew.IsPublic
+	// var status = domainnew.Status
+	// var startTime = domainnew.StartTime
+	// var testTime = domainnew.TestTime
+	// var engineVersion = domainnew.EngineVersion   
+	// var criteriaVersion = domainnew.CriteriaVersion
+	// var endpointss = domainnew.Endpoints
 
+	// q := `INSERT INTO 
+	// domain(host,port,protocol,isPublic,status,startTime,testTime,engineVersion,criteriaVersion,endpoints)
+	// VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`
 	q := `INSERT INTO 
-	domain(host,port)
-	VALUES ($1,$2)`
-
+	domain(host,port,protocol)
+	VALUES ($1,$2,$3)`
 
 		db := GetConnection()
 		defer db.Close()
@@ -656,8 +527,9 @@ func (n Domain) CreateDomain() error {
 		}
 		defer stmt.Close()
 
-		r, err := stmt.Exec(host, port)
+		// r, err := stmt.Exec(host,port,protocol,isPublic,status,startTime,testTime,engineVersion,criteriaVersion,endpointss)
 
+		r, err := stmt.Exec(host,port,protocol)
 		if err != nil {
 		return err
 		}
@@ -672,36 +544,290 @@ func (n Domain) CreateDomain() error {
 	return nil
 }
 
-// func MakeMigrations() error {
-// 	db2 := GetConnection()
-// 	defer db2.Close()
+func (n Domain) DeleteDomain() error {
 
-// 	q2 := `SELECT top 1 1 from domain`
-// 	stmt2, err := db2.Prepare(q2)
 
-// 	if err != nil {
-// 		return err
-// 	}
-// 	defer stmt2.Close()
+	dbdomain := GetConnection()
 
-// 	r2, err := stmt2.Exec(q2)
+	var host = domainnew.Host
 
-// 	if err != nil {
-// 		return err
-// 	}
+	qdomain := `DELETE FROM domain
+		WHERE host=$1`
+	stmtdomain, errdomain := dbdomain.Prepare(qdomain)
+	// fmt.Println("voy a eliminar")
+	// fmt.Println(host)
+	// fmt.Println(qdomain)
+	// fmt.Println("voy a eliminar fin prueba")
+	if errdomain != nil {
+		// return errdomain
+	}
+	defer stmtdomain.Close()
 
-// 	i2, _ := r2.RowsAffected()
-// 	fmt.Println("RowsAffected")
-// 	fmt.Println(i2)
+	rdomain, errdomain := stmtdomain.Exec(host)
+	if errdomain != nil {
+		// return errdomain
+	}
+	if idomain, errdomain := rdomain.RowsAffected(); errdomain != nil || idomain != 1 {
+		//return errors.New("ERROR: Se esperaba una fila afectada")
+	}
 
-// 	// q := `CREATE TABLE IF NOT EXISTS notes (
-// 	//         id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     //    		title VARCHAR(64) NULL,
-//     //    		description VARCHAR(200) NULL
-// 	//       );`
+	dbdomainold := GetConnection()
 
-// 	return nil
-// }
+	qdomainold := `DELETE FROM domainold
+		WHERE host=$1`
+	stmtdomainold, errdomainold := dbdomainold.Prepare(qdomainold)
+	if errdomainold != nil {
+		//return errdomainold
+	}
+	defer stmtdomainold.Close()
+
+	rdomainold, errdomainold := stmtdomainold.Exec(host)
+	if errdomainold != nil {
+		//return errdomainold
+	}
+	if idomainold, errdomainold := rdomainold.RowsAffected(); errdomainold != nil || idomainold != 1 {
+		//return errors.New("ERROR: Se esperaba una fila afectada")
+	}
+
+	var portnewdomain = domainnew.Port
+	var protocolnewdomain = domainnew.Protocol 
+	
+	qnewdomain := `INSERT INTO 
+	domain(host,port,protocol)
+	VALUES ($1,$2,$3)`
+
+		dbnewdomain := GetConnection()
+		defer dbnewdomain.Close()
+
+		stmtnewdomain, errnewdomain := dbnewdomain.Prepare(qnewdomain)
+
+		if errnewdomain != nil {
+		return errnewdomain
+		}
+		defer stmtnewdomain.Close()
+
+		rnewdomain, errnewdomain := stmtnewdomain.Exec(host,portnewdomain,protocolnewdomain)
+		if errnewdomain != nil {
+		return errnewdomain
+		}
+
+		inewdomain, _ := rnewdomain.RowsAffected()
+
+		if inewdomain != 1 {
+		return errors.New("Should error rows newdomain")
+		}
+
+
+		var portolddomain = domainold.Port
+		var protocololddomain = domainold.Protocol 
+		
+		qolddomain := `INSERT INTO 
+		domainold(host,port,protocol)
+		VALUES ($1,$2,$3)`
+	
+			dbolddomain := GetConnection()
+			defer dbolddomain.Close()
+	
+			stmtolddomain, errolddomain := dbolddomain.Prepare(qolddomain)
+	
+			if errolddomain != nil {
+			return errolddomain
+			}
+			defer stmtolddomain.Close()
+	
+			rolddomain, errolddomain := stmtolddomain.Exec(host,portolddomain,protocololddomain)
+			if errolddomain != nil {
+			return errolddomain
+			}
+	
+			iolddomain, _ := rolddomain.RowsAffected()
+	
+			if iolddomain != 1 {
+			return errors.New("Should error rows olddomain")
+			}		
+
+
+			qhistorydomain := `INSERT INTO 
+			domainhistory(host,port,protocol)
+			VALUES ($1,$2,$3)`
+		
+				dbhistorydomain := GetConnection()
+				defer dbhistorydomain.Close()
+		
+				stmthistorydomain, errhistorydomain := dbhistorydomain.Prepare(qhistorydomain)
+		
+				if errhistorydomain != nil {
+				return errhistorydomain
+				}
+				defer stmthistorydomain.Close()
+		
+				rhistorydomain, errhistorydomain := stmthistorydomain.Exec(host,portolddomain,protocololddomain)
+				if errhistorydomain != nil {
+				return errhistorydomain
+				}
+		
+				ihistorydomain, _ := rhistorydomain.RowsAffected()
+		
+				if ihistorydomain != 1 {
+				return errors.New("Should error rows historydomain")
+				}		
+	
+
+	return nil
+}
+
+ func MakeMigrations() error {
+	db2 := GetConnection()
+	defer db2.Close()
+
+	q2 := `SELECT host,port from domain`
+	stmt2, err := db2.Prepare(q2)
+
+	if err != nil {
+		 return err
+	}
+	defer stmt2.Close()
+
+	r2, err := stmt2.Exec(q2)
+
+	if err != nil {
+		 return err
+	}
+
+	i2, _ := r2.RowsAffected()
+	fmt.Println("RowsAffected")
+	fmt.Println(i2)
+	if (i2 > 0){
+		fmt.Println("no hace nada")
+		return nil
+	}
+	fmt.Println("va a correr la migración")
+
+	db, err := sql.Open("postgres", "postgresql://root@localhost:26257/defaultdb?sslmode=disable")
+
+	    if err != nil {
+        log.Fatal("error connecting to the database: ", err)
+    }
+
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS domain`); err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS domainold`); err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := db.Exec(
+			`DROP TABLE IF EXISTS domainhistory`); err != nil {
+			log.Fatal(err)
+		}
+
+		
+		if _, err := db.Exec(
+			`CREATE TABLE IF NOT EXISTS domain (
+					Host VARCHAR(120) NULL,
+					Port INT NULL,
+					Protocol VARCHAR(120) NULL,
+					IsPublic BOOL NULL,
+					Status   VARCHAR(80) NULL,
+					StartTime       DATE NULL,
+					TestTime        INT NULL,
+					EngineVersion   VARCHAR(120) NULL,
+					CriteriaVersion VARCHAR(120) NULL,
+					Endpoints       VARCHAR(8000) NULL
+				)`); err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := db.Exec(
+			`CREATE TABLE IF NOT EXISTS domainold (
+		 			Host VARCHAR(120) NULL,
+					Port INT NULL,
+					Protocol VARCHAR(120) NULL,
+					IsPublic BOOL NULL,
+					Status   VARCHAR(80) NULL,
+					StartTime       DATE NULL,
+					TestTime        INT NULL,
+					EngineVersion   VARCHAR(120) NULL,
+					CriteriaVersion VARCHAR(120) NULL,
+					Endpoints       VARCHAR(8000) NULL
+				)`); err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := db.Exec(
+			`CREATE TABLE IF NOT EXISTS domainhistory (
+					Host VARCHAR(120) NULL,
+					Port INT NULL,
+					Protocol VARCHAR(120) NULL,
+					IsPublic BOOL NULL,
+					Status   VARCHAR(80) NULL,
+					StartTime       DATE NULL,
+					TestTime        INT NULL,
+					EngineVersion   VARCHAR(120) NULL,
+					CriteriaVersion VARCHAR(120) NULL,
+					Endpoints       VARCHAR(8000) NULL
+				)`); err != nil {
+			log.Fatal(err)
+		}
+
+
+
+		if _, err := db.Exec(
+			`INSERT INTO domain (
+					Host,
+					Port,
+					Protocol, 
+					IsPublic,
+					Status,   
+					StartTime,
+					TestTime ,
+					EngineVersion,   
+					CriteriaVersion,
+					endpoints
+				) VALUES (
+					'www.google.com',
+					444,
+					'http',
+					false,
+					'READY edit',
+					'2019-03-26',
+					1558624016,
+					'1.34.2',
+					'2009p',
+					'{"endpoints": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}')`); err != nil {
+			log.Fatal(err)
+		}
+		 
+	return nil
+ }
 
 
 // func CreateNotesHandler(w http.ResponseWriter, r *http.Request) {
