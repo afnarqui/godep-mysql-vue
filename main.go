@@ -744,56 +744,48 @@ func (n Domain) DeleteDomain() error {
 
 
 
-		// if _, err := db.Exec(
-		// 	`INSERT INTO domain (
-		// 			Host,
-		// 			Port,
-		// 			Protocol, 
-		// 			IsPublic,
-		// 			Status,   
-		// 			StartTime,
-		// 			TestTime ,
-		// 			EngineVersion,   
-		// 			CriteriaVersion,
-		// 			endpoints
-		// 		) VALUES (
-		// 			'www.google.com',
-		// 			444,
-		// 			'http',
-		// 			false,
-		// 			'READY edit',
-		// 			'2019-03-26',
-		// 			1558624016,
-		// 			'1.34.2',
-		// 			'2009p',
-		// 			'{"endpoints": [
-		// 				{
-		// 				"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
-		// 				"serverName": "sfo03s08-in-x04.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 85620,
-		// 				"delegation": 2
-		// 				},
-		// 				{
-		// 				"ipAddress": "172.217.6.36",
-		// 				"serverName": "sfo03s08-in-f4.1e100.net",
-		// 				"statusMessage": "Ready",
-		// 				"grade": "A+",
-		// 				"gradeTrustIgnored": "A+",
-		// 				"hasWarnings": false,
-		// 				"isExceptional": true,
-		// 				"progress": 100,
-		// 				"duration": 95185,
-		// 				"delegation": 2
-		// 				}
-		// 			  ]}')`); err != nil {
-		// 	log.Fatal(err)
-		// }
+		if _, err := db.Exec(
+			`INSERT INTO domain (
+					Host,
+					Port,
+					Protocol, 
+					IsPublic,
+					Status,   
+					endpoints
+				) VALUES (
+					'www.google.com',
+					449,
+					'https',
+					true,
+					'READY edit',
+					'{"endpoints": [
+						{
+						"ipAddress": "2607:f8b0:4005:809:0:0:0:2004",
+						"serverName": "sfo03s08-in-x04.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 85620,
+						"delegation": 2
+						},
+						{
+						"ipAddress": "172.217.6.36",
+						"serverName": "sfo03s08-in-f4.1e100.net",
+						"statusMessage": "Ready",
+						"grade": "A+",
+						"gradeTrustIgnored": "A+",
+						"hasWarnings": false,
+						"isExceptional": true,
+						"progress": 100,
+						"duration": 95185,
+						"delegation": 2
+						}
+					  ]}')`); err != nil {
+			log.Fatal(err)
+		}
 		 
 	return nil
  }

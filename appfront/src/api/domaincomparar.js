@@ -16,17 +16,24 @@ export default function buscardomaincomparar (name) {
         var hostold = data[i]["hostold"]
         var portold = data[i]["portold"]
         var statusold = data[i]["statusold"]
-
+        var ispublic = data[i]["ispublic"]
+        var ispublicold = data[i]["ispublicold"]
+        var protocol = data[i]["protocol"]
+        var protocolold = data[i]["protocolold"]
         valorInicial.push({
           "host": host,
           "port": JSON.stringify(port),
-          "status": status
+          "status": JSON.stringify(status),
+          "ispublic": ispublic === undefined ? "false" : JSON.stringify(ispublic),
+          "protocol": JSON.stringify(protocol)
        })
 
        valorfinal.push({
         "host": hostold,
         "port": JSON.stringify(portold),
-        "status":statusold
+        "status":JSON.stringify(statusold),
+        "ispublic": ispublicold === undefined ? "false" : JSON.stringify(ispublicold),
+        "protocol":JSON.stringify(protocolold)
        })
 
         if(i + 1 === data.length){

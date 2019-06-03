@@ -60,10 +60,33 @@
           <div v-else>
             <b-list-group-item href="#"> status: {{post.status}}</b-list-group-item>
           </div>
-      <b-list-group-item href="#">Start Time: {{post.startTime}}</b-list-group-item>
-      <b-list-group-item href="#">Test Time: {{post.testTime}}</b-list-group-item>
-      <b-list-group-item href="#">Engine Version: {{post.engineVersion}}</b-list-group-item>
-      <b-list-group-item href="#">Criteria Version: {{post.criteriaVersion}}</b-list-group-item>
+
+           <div v-if="post.ispublic.includes('Valor Editado:') === true">
+              <b-list-group-item style="background-color:blue;" href="#"> ispublic: {{post.ispublic}}</b-list-group-item>
+          </div>
+          <div v-else-if="post.ispublic.includes('Valor Agregado:') === true">
+             <b-list-group-item style="background-color:#405d27;" href="#"> ispublic: {{post.ispublic}}</b-list-group-item>
+          </div>
+          <div v-else-if="post.ispublic.includes('Valor Eliminado:') === true">
+             <b-list-group-item style="background-color:#034f84;" href="#"> ispublic: {{post.ispublic}}</b-list-group-item>
+          </div>
+          <div v-else>
+            <b-list-group-item href="#"> ispublic: {{post.ispublic}}</b-list-group-item>
+          </div>
+
+           <div v-if="post.protocol.includes('Valor Editado:') === true">
+              <b-list-group-item style="background-color:blue;" href="#"> protocol: {{post.protocol}}</b-list-group-item>
+          </div>
+          <div v-else-if="post.protocol.includes('Valor Agregado:') === true">
+             <b-list-group-item style="background-color:#405d27;" href="#"> protocol: {{post.protocol}}</b-list-group-item>
+          </div>
+          <div v-else-if="post.protocol.includes('Valor Eliminado:') === true">
+             <b-list-group-item style="background-color:#034f84;" href="#"> protocol: {{post.protocol}}</b-list-group-item>
+          </div>
+          <div v-else>
+            <b-list-group-item href="#"> protocol: {{post.protocol}}</b-list-group-item>
+          </div>
+
        <p class="card-text mt-2">
         Protocol:  {{post.protocol}}
       </p>
